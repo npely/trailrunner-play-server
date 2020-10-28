@@ -6,7 +6,14 @@
 # An example controller showing a sample home page
 GET    /                           controllers.TrailRunnerController.start()
 GET    /level                      controllers.TrailRunnerController.changeToLevelSelection()
-GET    /game                       controllers.TrailRunnerController.changeToGame()
+GET    /game/:levelId              controllers.TrailRunnerController.changeToGame(levelId: Long)
+GET    /move/up                    controllers.TrailRunnerController.moveUp()
+GET    /move/down                  controllers.TrailRunnerController.moveDown()
+GET    /move/left                  controllers.TrailRunnerController.moveLeft()
+GET    /move/right                 controllers.TrailRunnerController.moveRight()
+GET    /move/undo                 controllers.TrailRunnerController.undo()
+GET    /move/redo                 controllers.TrailRunnerController.redo()
+
 
 
 # Map static resources from the /public folder to the /assets URL path
