@@ -5,14 +5,15 @@
 
 # An example controller showing a sample home page
 GET    /                           controllers.TrailRunnerController.start()
+GET    /menu                       controllers.TrailRunnerController.menu()
 GET    /level                      controllers.TrailRunnerController.changeToLevelSelection()
-GET    /game/:levelId              controllers.TrailRunnerController.changeToGame(levelId: Long)
+GET    /level/:levelId             controllers.TrailRunnerController.changeToGame(levelId: Long)
 GET    /move/up                    controllers.TrailRunnerController.moveUp()
 GET    /move/down                  controllers.TrailRunnerController.moveDown()
 GET    /move/left                  controllers.TrailRunnerController.moveLeft()
 GET    /move/right                 controllers.TrailRunnerController.moveRight()
-GET    /move/undo                 controllers.TrailRunnerController.undo()
-GET    /move/redo                 controllers.TrailRunnerController.redo()
+GET    /move/undo                  controllers.TrailRunnerController.undo()
+GET    /move/redo                  controllers.TrailRunnerController.redo()
 
 
 
