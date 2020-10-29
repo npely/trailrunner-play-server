@@ -79,4 +79,9 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
   def start() = Action {
     Ok(tui.toString())
   }
+
+  def menu() = Action {
+    gameController.changeToMain()
+    Ok(tui.toString())
+  }
 }
