@@ -1,41 +1,49 @@
 @()
 
 @main("TrailRunner") {
+    <head>
+        <title>About</title>
+        <link href=“main.css” rel=“stylesheet” type=“text/css” />
+    </head>
+    <body>
+        <div id="TrailRunner-Header">
+            <h1>
+                <u>TrailRunner</u>
+            </h1>
+        </div>
 
-  <h1>
-    <u>TrailRunner</u>
-  </h1>
+        <p>
+            TrailRunner is a logic-based puzzle game.<br>
+            The objective is to escape the dungeon without dying.<br>
+            Each field in the dungeon has a number on it, which represents the times you are
+            allowed to step on the specific field. Every time you leave the field the number
+            decreases.<br> Once the field reaches 0, it breaks and you are not allowed to step back
+            onto it. If you do, you lose.<br> The door to the dungeon only opens once every field is
+            broken, so you need to think about every step, to not block your own way and still
+            make your way out!
+        </p>
 
-  <p>
-    TrailRunner is a logic-based puzzle game.<br>
-    The objective is to escape the dungeon without dying.<br>
-    Each field in the dungeon has a number on it, which represents the times you are
-    allowed to step on the specific field. Every time you leave the field the number
-    decreases.<br> Once the field reaches 0, it breaks and you are not allowed to step back
-    onto it. If you do, you lose.<br> The door to the dungeon only opens once every field is
-    broken, so you need to think about every step, to not block your own way and still
-    make your way out!
-  </p>
+        <h3>
+            There are many different routes you can use in the URL to play the game:
+        </h3>
+        <p>
+              /level        = leads you to the level selection<br>
+              /level/id     = adding an id to the level selection leads you to the specified level<br>
+              /move         = with the move route you can speciy all the different moves<br>
+              /move/up      = lets the player move one field up<br>
+              /move/down    = lets the player move one field down<br>
+              /move/left    = lets the player move one field left<br>
+              /move/right   = lets the player move one field right<br>
+              /move/undo    = undoes the last step the player took<br>
+              /move/redo    = redoes the last step the player undid<br>
+        </p>
 
-  <h3>
-    There are many different routes you can use in the URL to play the game:
-  </h3>
-  <p>
-      /level        = leads you to the level selection<br>
-      /level/id     = adding an id to the level selection leads you to the specified level<br>
-      /move         = with the move route you can speciy all the different moves<br>
-      /move/up      = lets the player move one field up<br>
-      /move/down    = lets the player move one field down<br>
-      /move/left    = lets the player move one field left<br>
-      /move/right   = lets the player move one field right<br>
-      /move/undo    = undoes the last step the player took<br>
-      /move/redo    = redoes the last step the player undid<br>
-  </p>
+        <p>
+            We developed this game and the idea behind it ourselves. We tried to come up with something original,
+            which was still able to fulfill all the tasks given to us in the course Software Engineering.
+        </p>
+    </body>
 
-  <p>
-    We developed this game and the idea behind it ourselves. We tried to come up with something original,
-    which was still able to fulfill all the tasks given to us in the course Software Engineering.
-  </p>
 
 
 }
