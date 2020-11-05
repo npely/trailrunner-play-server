@@ -5,18 +5,21 @@
         <title>Level Selection</title>
     </head>
     <body>
+        <img src="@routes.Assets.versioned("/images/TrailRunnerLogo.png")" height="150px" alt="Trail Runner logo">
         <h2>Select a level</h2>
-        <form method="get" action="game/1">
-            <input type="submit" value="Level 1">
-        </form>
-        <form method="get" action="game/2">
-            <input type="submit" value="Level 2">
-        </form>
-        <form method="get" action="game/3">
-            <input type="submit" value="Level 3">
-        </form>
-        <form method="get" action="game/4">
-            <input type="submit" value="Level 4">
-        </form>
+        <div id="level-selection-button-group">
+            <form method="get" action="game/1">
+                <input type="submit" value="Level 1">
+            </form>
+            <form method="get" action="game/2">
+                <input type="submit" value="Level 2">
+            </form>
+            <form method="get" action="game/3">
+                <input type="submit" value="Level 3">
+            </form>
+            <form method="get" action="game/4">
+                <input type="submit" value="Level 4">
+            </form>
+        </div>
     </body>
 </html>

@@ -5,15 +5,17 @@
         <title>Main Menu</title>
     </head>
     <body>
-        <img src="public/images/TrailRunnerStart.png" alt="Trail Runner logo">
-        <form method="get" action="level">
-            <input type="submit" value="New Game">
-        </form>
-        <form method="get" action="load">
-            <input type="submit" value="Load Game">
-        </form>
-        <form method="get" action="about">
-            <input type="submit" value="About the Game">
-        </form>
+        <img src="@routes.Assets.versioned("/images/TrailRunnerLogo.png")" height="150px" alt="Trail Runner logo">
+        <div id="main-menu-button-group">
+            <form method="get" action="level">
+                <input type="submit" value="New Game">
+            </form>
+            <form method="get" action="load">
+                <input type="submit" value="Load Game">
+            </form>
+            <form method="get" action="about">
+                <input type="submit" value="About the Game">
+            </form>
+        </div>
     </body>
 </html>
