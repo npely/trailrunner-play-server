@@ -17,9 +17,18 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
   val tui = new TUI(gameController)
   gameController.publish(new DungeonChanged)
 
+  def about() = Action {
+    Ok(views.html.about())
+  }
+
+  def load() = Action {
+    gameController.load
+    Ok(tui.toString())
+  }
+
   def changeToLevelSelection() = Action {
     gameController.changeToSelection()
-    Ok(tui.toString())
+    Ok(views.html.levelSelection())
   }
 
   def changeToGame(levelId: Long) = Action {
@@ -77,7 +86,7 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
   }
 
   def start() = Action {
-    Ok(tui.toString())
+    Ok(views.html.mainMenu())
   }
 
   def menu() = Action {
