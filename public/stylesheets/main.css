@@ -2,7 +2,7 @@
 @font-face {
     font-family: 'Creepster';
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
     src: url('../fonts/creepster-v9-latin-regular.eot'); /* IE9 Compat Modes */
     src: local('Creepster'), local('Creepster-Regular'),
     url('../fonts/creepster-v9-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
@@ -12,4 +12,20 @@
     url('../fonts/creepster-v9-latin-regular.svg#Creepster') format('svg'); /* Legacy iOS */
 }
 
-#TrailRunner-Header {font-family: 'Creepster'}
+#TrailRunner-Header {font-family: 'Creepster'; font-size: 4em; color: firebrick; text-align: center}
+
+#Game-Description {color: white; font-size: 1.5em;}
+
+#Route-Description {color: rgba(34,34,34,0); text-align: center}
+
+#Rules {background: rgba(34,34,34,0.75)}
+
+#main-menu-button-group {text-align: center}
+
+body   {
+    background-color: black ;
+    background-image: url("../images/darkest-dungeon.jpg");
+    background-repeat: no-repeat;
+    background-position: 90% top;
+    background-size: cover;
+}
