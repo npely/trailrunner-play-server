@@ -1,26 +1,29 @@
 /* creepster-regular - latin */
 @font-face {
-    font-family: 'Creepster';
+    /*font-family: 'Creepster';
     font-style: normal;
     font-weight: 600;
-    src: url('../fonts/creepster-v9-latin-regular.eot'); /* IE9 Compat Modes */
+    src: url('../fonts/creepster-v9-latin-regular.eot');
     src: local('Creepster'), local('Creepster-Regular'),
-    url('../fonts/creepster-v9-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-    url('../fonts/creepster-v9-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-    url('../fonts/creepster-v9-latin-regular.woff') format('woff'), /* Modern Browsers */
-    url('../fonts/creepster-v9-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
-    url('../fonts/creepster-v9-latin-regular.svg#Creepster') format('svg'); /* Legacy iOS */
+    url('../fonts/creepster-v9-latin-regular.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/creepster-v9-latin-regular.woff2') format('woff2'),
+    url('../fonts/creepster-v9-latin-regular.woff') format('woff'),
+    url('../fonts/creepster-v9-latin-regular.ttf') format('truetype')*/
+    font-family: "Press Start P2";
+    font-style: normal;
+    font-weight: 600;
+    src: url("../fonts/PressStart2P-Regular.ttf");
 }
 
-#TrailRunner-Header {font-family: 'Creepster'; font-size: 4em; color: firebrick; text-align: center}
-
-#Game-Description {color: white; font-size: 1.5em;}
+#Game-Description {color: white; font-family: "Press Start P2"; font-size: 1em;}
 
 #Route-Description {color: rgba(34,34,34,0); text-align: center}
 
 #Rules {background: rgba(34,34,34,0.75)}
 
-#main-menu-button-group {text-align: center}
+li {
+    margin: 0 0 15px 0;
+}
 
 body   {
     background-color: black ;
@@ -29,3 +32,106 @@ body   {
     background-position: 90% top;
     background-size: cover;
 }
+
+input[type=submit] {
+    border: none;
+    background: none;
+    display: block;
+    font-size: 50px;
+    font-family: 'Press Start P2';
+    color: firebrick;
+    transform: perspective(200px) rotateX(10deg);
+    letter-spacing: .1em;
+    user-select: none;
+    text-shadow:
+            0 -1px 0 #000,
+            0 1px 0 #8f130d,
+            0 2px 0 #82110c,
+            0 3px 0 #7d100b,
+            0 4px 0 #750f0b,
+            0 5px 0 #6e0e0a,
+            0 6px 0 #630d09,
+            0 7px 0 #5c0c08,
+            0 8px 0 #540b08,
+            0 9px 0 #4d0a07,
+            0 10px 0 #470906,
+            0 11px 0 #3b0805,
+            0 12px 0 #330704,
+            0 13px 0 #290603,
+            0 14px 0 #240502,
+            0 15px 0 #1c0402;
+
+    transition: text-shadow .3s ease .3s,
+    transform .3s ease .3s,
+    letter-spacing .3s ease .3s;
+}
+
+input[type=submit]:hover {
+     transition: text-shadow .33s ease,
+     transform .3s ease,
+     letter-spacing .3s ease;
+     text-shadow: 0 0 0 #5c0c08,
+     0 1px 0 #540b08,
+     0 2px 0 #4d0a07,
+     0 3px 3px rgba(0, 0, 0, 0.9);
+     transform: translate(0px, 15px)
+     perspective(200px)
+     rotateX(10deg);
+     letter-spacing: .125em;
+ }
+
+#TrailRunner-Header {
+    display: block;
+    width: auto;
+    height: auto;
+    padding: 0;
+    text-align: center;
+    font-size: 50px;
+    font-family: 'Press Start P2';
+    color: firebrick;
+    transform: perspective(200px) rotateX(10deg);
+    letter-spacing: .1em;
+    user-select: none;
+    text-shadow:
+            0 -1px 0 #000,
+            0 1px 0 #8f130d,
+            0 2px 0 #82110c,
+            0 3px 0 #7d100b,
+            0 4px 0 #750f0b,
+            0 5px 0 #6e0e0a,
+            0 6px 0 #630d09,
+            0 7px 0 #5c0c08,
+            0 8px 0 #540b08,
+            0 9px 0 #4d0a07,
+            0 10px 0 #470906,
+            0 11px 0 #3b0805,
+            0 12px 0 #330704,
+            0 13px 0 #290603,
+            0 14px 0 #240502,
+            0 15px 0 #1c0402,
+            0 22px 30px #450603,
+            0 22px 30px #450603,
+            0 22px 15px #450603,
+            0 11px 15px #450603,
+            0 15px 20px #450603,
+            0 15px 11px #450603,
+            0 16px 11px #450603;
+
+    transition: text-shadow .3s ease .3s,
+    transform .3s ease .3s,
+    letter-spacing .3s ease .3s;
+}
+
+/*#header-wrap:hover {
+     transition: text-shadow .33s ease,
+     transform .3s ease,
+     letter-spacing .3s ease;
+     text-shadow: 0 0 0 #5c0c08,
+     0 1px 0 #540b08,
+     0 2px 0 #4d0a07,
+     0 3px 3px rgba(0, 0, 0, 0.9);
+     transform: translate(0px, 15px)
+     perspective(200px)
+     rotateX(10deg);
+     letter-spacing: .125em;
+ }*/

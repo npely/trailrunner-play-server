@@ -1,27 +1,25 @@
 @()
 
-@main("TrailRunner") {
-    <head>
-        <meta charset="UTF-8">
-        <title>Main Menu</title>
-        <link href=“main.css” rel=“stylesheet” type=“text/css” />
-    </head>
-    <body>
-        <div id="TrailRunner-Header">
-            <h1>
-                TrailRunner
-            </h1>
-        </div>
-        <div id="main-menu-button-group">
+    @main("TrailRunner") {
+        <head>
+            <meta charset="UTF-8">
+            <title>Main Menu</title>
+            <link href=“main.css” rel=“stylesheet” type=“text/css” />
+        </head>
+        <body>
+            <div id="TrailRunner-Header">
+                <h1>
+                    TrailRunner
+                </h1>
+            </div>
             <form method="get" action="level">
-                <input type="submit" value="New Game">
+                <input style="margin: 20px 0 0 730px;" type="submit" value="New Game">
             </form>
             <form method="get" action="load">
-                <input type="submit" value="Load Game">
+                <input style="margin: 20px 0 0 680px;" type="submit" value="Load Game">
             </form>
             <form method="get" action="about">
-                <input type="submit" value="About the Game">
+                <input style="margin: 20px 0 0 800px;" type="submit" value="About">
             </form>
-        </div>
-    </body>
-}
+        </body>
+    }
