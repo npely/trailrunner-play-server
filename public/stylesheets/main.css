@@ -38,6 +38,8 @@ input[type=submit] {
     background: none;
     display: block;
     font-size: 50px;
+    margin-bottom: 20px;
+    text-align: center;
     font-family: 'Press Start P2';
     color: firebrick;
     transform: perspective(200px) rotateX(10deg);
