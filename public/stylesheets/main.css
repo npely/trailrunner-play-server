@@ -33,7 +33,13 @@ body {
     background-size: cover;
 }
 
-#mainMenu {
+#main-menu {
+    text-align: center;
+    margin: auto;
+    width: 60%;
+}
+
+#level-selection-button-group {
     text-align: center;
     margin: auto;
     width: 60%;
