@@ -48,31 +48,31 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
       BadRequest(tui.toString())
     }
     gameController.changeToGame()
-    Ok(tui.toString())
+    Ok(views.html.trailrunner(tui.toString()))
   }
 
   def moveUp() = Action {
     gameController.playerMoveUp()
     tui.evaluateMove()
-    Ok(tui.toString())
+    Ok(views.html.trailrunner(tui.toString()))
   }
 
   def moveDown() = Action {
     gameController.playerMoveDown()
     tui.evaluateMove()
-    Ok(tui.toString())
+    Ok(views.html.trailrunner(tui.toString()))
   }
 
   def moveLeft() = Action {
     gameController.playerMoveLeft()
     tui.evaluateMove()
-    Ok(tui.toString())
+    Ok(views.html.trailrunner(tui.toString()))
   }
 
   def moveRight() = Action {
     gameController.playerMoveRight()
     tui.evaluateMove()
-    Ok(tui.toString())
+    Ok(views.html.trailrunner(tui.toString()))
   }
 
   def undo() = Action {

@@ -1,24 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
+@(gameString: String)
+
+@main("TrailRunner") {
     <head>
         <meta charset="UTF-8">
-        <title>Trail Runner</title>
+        <title>Level Selection</title>
+        <link href=“main.css” rel=“stylesheet” type=“text/css” />
     </head>
     <body>
-        <img src="@routes.Assets.versioned("/images/TrailRunnerLogo.png")" height="150px" alt="Trail Runner logo">
-        <div id="move-button-group">
-            <form method="get" action="move/up">
-                <input type="submit" value="Up">
-            </form>
-            <form method="get" action="move/down">
-                <input type="submit" value="Down">
-            </form>
-            <form method="get" action="move/left">
-                <input type="submit" value="Left">
-            </form>
-            <form method="get" action="move/right">
-                <input type="submit" value="Right">
-            </form>
+        <div>
+            <div id="TrailRunner-Header">
+                <h1>
+                    TrailRunner
+                </h1>
+            </div>
+            <fieldset id="game-string">
+                @gameString
+            </fieldset>
+            <div id="level-selection-button-group">
+                <form method="get" action="@routes.TrailRunnerController.moveUp()">
+                    <input type="submit" value="Up">
+                </form>
+                <form method="get" action="@routes.TrailRunnerController.moveLeft()">
+                    <input type="submit" value="Left">
+                </form>
+                <form method="get" action="@routes.TrailRunnerController.moveRight()">
+                    <input type="submit" value="Right">
+                </form>
+                <form method="get" action="@routes.TrailRunnerController.moveDown()">
+                    <input type="submit" value="Down">
+                </form>
+            </div>
         </div>
     </body>
-</html>
+}
