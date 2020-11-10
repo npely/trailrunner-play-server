@@ -25,12 +25,18 @@ li {
     margin: 0 0 15px 0;
 }
 
-body   {
+body {
     background-color: black ;
     background-image: url("../images/darkest-dungeon.jpg");
     background-repeat: no-repeat;
     background-position: 90% top;
     background-size: cover;
+}
+
+#mainMenu {
+    text-align: center;
+    margin: auto;
+    width: 60%;
 }
 
 input[type=submit] {
