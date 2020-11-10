@@ -1,32 +1,30 @@
 @()
 
-@main("TrailRunner") {
-<head>
-        <meta charset="UTF-8">
-        <title>Level Selection</title>
-        <link href=“main.css” rel=“stylesheet” type=“text/css” />
-    </head>
-    <body>
-        <div id="TrailRunner-Header">
-            <h1>
-                TrailRunner
-            </h1>
-        </div>
-        <h2>Select a level</h2>
-        <div id="level-selection-button-group">
-            <form method="get" action="level/1">
-                <input type="submit" value="Level 1">
-            </form>
-            <form method="get" action="level/2">
-                <input type="submit" value="Level 2">
-            </form>
-            <form method="get" action="level/3">
-                <input type="submit" value="Level 3">
-            </form>
-            <form method="get" action="level/4">
-                <input type="submit" value="Level 4">
-            </form>
-        </div>
-    </body>
-</html>
+    @main("TrailRunner") {
+        <head>
+            <meta charset="UTF-8">
+            <title>Level Selection</title>
+            <link href=“main.css” rel=“stylesheet” type=“text/css” />
+        </head>
+        <body>
+            <div id="TrailRunner-Header">
+                <h1>
+                    TrailRunner
+                </h1>
+            </div>
+            <div id="level-selection-button-group">
+                <form method="get" action="level/1">
+                    <input type="submit" value="Level 1">
+                </form>
+                <form method="get" action="level/2">
+                    <input type="submit" value="Level 2">
+                </form>
+                <form method="get" action="level/3">
+                    <input type="submit" value="Level 3">
+                </form>
+                <form method="get" action="level/4">
+                    <input type="submit" value="Level 4">
+                </form>
+            </div>
+        </body>
 }
