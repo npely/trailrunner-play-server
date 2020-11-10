@@ -13,14 +13,14 @@
                 </h1>
             </div>
             <div id="main-menu">
-                <form method="get" action="level">
+                <form method="get" action=@routes.TrailRunnerController.changeToLevelSelection()>
                     <input type="submit" value="New Game">
                 </form>
-                <form method="get" action="load">
+                <form method="get" action=@routes.TrailRunnerController.load()>
                     <input type="submit" value="Load Save">
                 </form>
-                <form method="get" action="about">
-                    <input type="submit" value="About The Game">
+                <form method="get" action=@routes.TrailRunnerController.about()>
+                    <input type="submit" value="About Game">
                 </form>
             </div>
         </body>

@@ -53,36 +53,56 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
 
   def moveUp() = Action {
     gameController.playerMoveUp()
-    evaluateMove()
-    Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
+    if (isGameOver()) {
+      Ok(getHtml(views.html.mainMenu()))
+    } else {
+      Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
+    }
   }
 
   def moveDown() = Action {
     gameController.playerMoveDown()
-    evaluateMove()
-    Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
+    if (isGameOver()) {
+      Ok(getHtml(views.html.mainMenu()))
+    } else {
+      Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
+    }
   }
 
   def moveLeft() = Action {
     gameController.playerMoveLeft()
-    evaluateMove()
-    Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
+    if (isGameOver()) {
+      Ok(getHtml(views.html.mainMenu()))
+    } else {
+      Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
+    }
   }
 
   def moveRight() = Action {
     gameController.playerMoveRight()
-    evaluateMove()
-    Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
+    if (isGameOver()) {
+      Ok(getHtml(views.html.mainMenu()))
+    } else {
+      Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
+    }
   }
 
   def undo() = Action {
     gameController.undo
-    Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
+    if (isGameOver()) {
+      Ok(getHtml(views.html.mainMenu()))
+    } else {
+      Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
+    }
   }
 
   def redo() = Action {
     gameController.redo
-    Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
+    if (isGameOver()) {
+      Ok(getHtml(views.html.mainMenu()))
+    } else {
+      Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
+    }
   }
 
   def start() = Action {
@@ -98,14 +118,17 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
     views.html.main("TrailRunner")(htmlFormat)
   }
 
-  def evaluateMove(): Unit = {
+  def isGameOver(): Boolean = {
     if (!gameController.levelLose()) {
       if (gameController.levelWin()) {
         gameController.changeToMain()
+        return true
       }
+      false
     }
     else {
       gameController.changeToMain()
+      true
     }
   }
 }
