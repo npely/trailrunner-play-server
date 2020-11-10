@@ -2,13 +2,11 @@ package controllers
 
 import com.google.inject.Guice
 import javax.inject._
-import play.api._
 import play.api.mvc._
 import controller.controllerComponent.{ControllerInterface, DungeonChanged}
-import aview.{LoseState, RunningState, TUI, WinState}
+import aview.TUI
 import main.TrailRunnerModule
 import model.levelComponent.levelBaseImpl.{Level1, Level2, Level3, Level4}
-import org.w3c.dom.html.HTMLFormElement
 import play.twirl.api.HtmlFormat
 
 @Singleton
@@ -25,8 +23,7 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
 
   def load() = Action {
     gameController.load
-    Ok(getHtml(views.html.about()))
-    //Ok(tui.toString())
+    Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
   }
 
   def changeToLevelSelection() = Action {
@@ -51,41 +48,41 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
       BadRequest(tui.toString())
     }
     gameController.changeToGame()
-    Ok(getHtml(views.html.trailrunner()))
+    Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
   }
 
   def moveUp() = Action {
     gameController.playerMoveUp()
     evaluateMove()
-    Ok(getHtml(views.html.trailrunner()))
+    Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
   }
 
   def moveDown() = Action {
     gameController.playerMoveDown()
     evaluateMove()
-    Ok(getHtml(views.html.trailrunner()))
+    Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
   }
 
   def moveLeft() = Action {
     gameController.playerMoveLeft()
     evaluateMove()
-    Ok(getHtml(views.html.trailrunner()))
+    Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
   }
 
   def moveRight() = Action {
     gameController.playerMoveRight()
     evaluateMove()
-    Ok(getHtml(views.html.trailrunner()))
+    Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
   }
 
   def undo() = Action {
     gameController.undo
-    Ok(getHtml(views.html.trailrunner()))
+    Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
   }
 
   def redo() = Action {
     gameController.redo
-    Ok(getHtml(views.html.trailrunner()))
+    Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
   }
 
   def start() = Action {

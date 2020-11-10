@@ -25,24 +25,20 @@ li {
     margin: 0 0 15px 0;
 }
 
-body {
+body   {
     background-color: black ;
-    background-image: url("../images/darkest-dungeon.jpg");
+    background-image: url("../images/bx0rjey.png");
     background-repeat: no-repeat;
-    background-position: 90% top;
-    background-size: cover;
+    background-size: 150%;
+    overflow: hidden;
 }
 
-#main-menu {
-    text-align: center;
+#game-string {
     margin: auto;
-    width: 60%;
-}
-
-#level-selection-button-group {
     text-align: center;
-    margin: auto;
-    width: 60%;
+    width: 12%;
+    color: white;
+    background: rgba(34,34,34,0.75)
 }
 
 #move-button-group {
@@ -59,9 +55,10 @@ body {
 input[type=submit] {
     border: none;
     background: none;
-    display: block;
     font-size: 50px;
+    margin: auto;
     margin-bottom: 20px;
+    width: 100%;
     text-align: center;
     font-family: 'Press Start P2';
     color: firebrick;
@@ -103,7 +100,11 @@ input[type=submit]:hover {
      perspective(200px)
      rotateX(10deg);
      letter-spacing: .125em;
- }
+}
+
+input[type=submit]:focus {
+    outline: none;
+}
 
 #TrailRunner-Header {
     display: block;
