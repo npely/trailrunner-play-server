@@ -45,6 +45,17 @@ body {
     width: 60%;
 }
 
+#move-button-group {
+    text-align: center;
+    margin: auto;
+    width: 60%;
+}
+
+#Game-Border {
+    text-align: center;
+    color: white;
+}
+
 input[type=submit] {
     border: none;
     background: none;
@@ -134,6 +145,23 @@ input[type=submit]:hover {
     transition: text-shadow .3s ease .3s,
     transform .3s ease .3s,
     letter-spacing .3s ease .3s;
+}
+
+.footer {
+    background-color: #101010;
+    position: fixed;
+    height: 3em;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.footer-item {
+    color: grey;
 }
 
 /*#header-wrap:hover {

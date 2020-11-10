@@ -5,9 +5,11 @@ import javax.inject._
 import play.api._
 import play.api.mvc._
 import controller.controllerComponent.{ControllerInterface, DungeonChanged}
-import aview.TUI
+import aview.{LoseState, RunningState, TUI, WinState}
 import main.TrailRunnerModule
 import model.levelComponent.levelBaseImpl.{Level1, Level2, Level3, Level4}
+import org.w3c.dom.html.HTMLFormElement
+import play.twirl.api.HtmlFormat
 
 @Singleton
 class TrailRunnerController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
@@ -18,17 +20,18 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
   gameController.publish(new DungeonChanged)
 
   def about() = Action {
-    Ok(views.html.about())
+    Ok(getHtml(views.html.about()))
   }
 
   def load() = Action {
     gameController.load
-    Ok(tui.toString())
+    Ok(getHtml(views.html.about()))
+    //Ok(tui.toString())
   }
 
   def changeToLevelSelection() = Action {
     gameController.changeToSelection()
-    Ok(views.html.levelSelection())
+    Ok(getHtml(views.html.levelSelection()))
   }
 
   def changeToGame(levelId: Long) = Action {
@@ -48,49 +51,64 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
       BadRequest(tui.toString())
     }
     gameController.changeToGame()
-    Ok(tui.toString())
+    Ok(getHtml(views.html.trailrunner()))
   }
 
   def moveUp() = Action {
     gameController.playerMoveUp()
-    tui.evaluateMove()
-    Ok(tui.toString())
+    evaluateMove()
+    Ok(getHtml(views.html.trailrunner()))
   }
 
   def moveDown() = Action {
     gameController.playerMoveDown()
-    tui.evaluateMove()
-    Ok(tui.toString())
+    evaluateMove()
+    Ok(getHtml(views.html.trailrunner()))
   }
 
   def moveLeft() = Action {
     gameController.playerMoveLeft()
-    tui.evaluateMove()
-    Ok(tui.toString())
+    evaluateMove()
+    Ok(getHtml(views.html.trailrunner()))
   }
 
   def moveRight() = Action {
     gameController.playerMoveRight()
-    tui.evaluateMove()
-    Ok(tui.toString())
+    evaluateMove()
+    Ok(getHtml(views.html.trailrunner()))
   }
 
   def undo() = Action {
     gameController.undo
-    Ok(tui.toString())
+    Ok(getHtml(views.html.trailrunner()))
   }
 
   def redo() = Action {
     gameController.redo
-    Ok(tui.toString())
+    Ok(getHtml(views.html.trailrunner()))
   }
 
   def start() = Action {
-    Ok(views.html.mainMenu())
+    Ok(getHtml(views.html.mainMenu()))
   }
 
   def menu() = Action {
     gameController.changeToMain()
-    Ok(tui.toString())
+    Ok(getHtml(views.html.mainMenu()))
+  }
+
+  def getHtml(htmlFormat: HtmlFormat.Appendable): HtmlFormat.Appendable = {
+    views.html.main("TrailRunner")(htmlFormat)
+  }
+
+  def evaluateMove(): Unit = {
+    if (!gameController.levelLose()) {
+      if (gameController.levelWin()) {
+        gameController.changeToMain()
+      }
+    }
+    else {
+      gameController.changeToMain()
+    }
   }
 }

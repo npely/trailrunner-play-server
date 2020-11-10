@@ -1,24 +1,37 @@
-<!DOCTYPE html>
+@()
+
+@main("TrailRunner") {
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>Trail Runner</title>
+        <link href=“main.css” rel=“stylesheet” type=“text/css” />
     </head>
     <body>
-        <img src="@routes.Assets.versioned("/images/TrailRunnerLogo.png")" height="150px" alt="Trail Runner logo">
+        <div id="TrailRunner-Header">
+            <h1>
+                TrailRunner
+            </h1>
+        </div>
+        <div id="Game-Border">
+            <border>
+                The Game should be here.
+            </border>
+        </div>
         <div id="move-button-group">
-            <form method="get" action="move/up">
+            <form method="get" action="../move/up">
                 <input type="submit" value="Up">
             </form>
-            <form method="get" action="move/down">
+            <form method="get" action="../move/down">
                 <input type="submit" value="Down">
             </form>
-            <form method="get" action="move/left">
+            <form method="get" action="../move/left">
                 <input type="submit" value="Left">
             </form>
-            <form method="get" action="move/right">
+            <form method="get" action="../move/right">
                 <input type="submit" value="Right">
             </form>
         </div>
     </body>
 </html>
+}
