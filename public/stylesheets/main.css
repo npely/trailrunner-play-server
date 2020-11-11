@@ -76,7 +76,8 @@ body   {
 .category {
     display: block;
     float: left;
-    padding-left: 25%;
+    padding-left: 29%;
+    position: relative;
 }
 
 #move-button-group {
