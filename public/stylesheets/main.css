@@ -5,35 +5,58 @@
     src: url("../fonts/PressStart2P-Regular.ttf");
 }
 
-#Game-Description {color: white; font-family: "Press Start P2"; font-size: 1em;}
+#Game-Description {
+    color: white;
+    font-family: "Press Start P2";
+    font-size: 1em;
+}
 
-#Rules {background: rgba(34,34,34,0.75)}
+#Rules {
+    background: rgba(34, 34, 34, 0.75)
+}
 
 li {
     margin: 0 0 15px 0;
 }
 
-body   {
-    background-color: black ;
+body {
+    background-color: black;
     background-image: url("../images/background.png");
     background-repeat: no-repeat;
     background-size: 150%;
     overflow: hidden;
 }
 
-#game-string {
+#control-panel-game-group {
+    float: right;
+    margin-right: 550px;
+    margin-top: -150px;
+    margin-bottom: 20px;
+}
+
+#game-border {
     margin: auto;
     text-align: center;
     width: 12%;
     color: white;
-    background: rgba(34,34,34,0.75)
+    background: rgba(34, 34, 34, 0.75);
+}
+
+#game-string {
+    font-family: "Press Start P2";
+    color: firebrick;
+    font-size: 2em;
 }
 
 #up-button {
-    float:left;
+    float: left;
     color: white;
+    border: 3px solid white;
     text-shadow: none;
     font-size: 30px;
+    background: rgba(34, 34, 34, 0.75);
+    width: fit-content;
+    margin-bottom: 10px;
 }
 
 #up-button:hover {
@@ -41,10 +64,14 @@ body   {
 }
 
 #down-button {
-    float:left;
+    float: left;
     color: white;
+    border: 3px solid white;
     text-shadow: none;
     font-size: 30px;
+    background: rgba(34, 34, 34, 0.75);
+    text-align: center;
+    width: fit-content;
 }
 
 #down-button:hover {
@@ -54,8 +81,14 @@ body   {
 #left-button {
     float: left;
     color: white;
+    border: 3px solid white;
     text-shadow: none;
     font-size: 30px;
+    background: rgba(34, 34, 34, 0.75);
+    text-align: center;
+    width: fit-content;
+    padding-top: 0px;
+    margin-right: 10px;
 }
 
 #left-button:hover {
@@ -65,26 +98,86 @@ body   {
 #right-button {
     float: right;
     color: white;
+    border: 3px solid white;
     text-shadow: none;
     font-size: 30px;
+    background: rgba(34, 34, 34, 0.75);
+    text-align: center;
+    width: fit-content;
+    padding-top: 0px;
+    margin-left: 10px;
 }
 
 #right-button:hover {
     transform: translate(0px, 5px)
 }
 
-.category {
-    display: block;
+#save-button {
+    float: right;
+    color: white;
+    text-shadow: none;
+    font-size: 30px;
+    width: fit-content;
+    padding-top: 0px;
+    margin-left: 10px;
+}
+
+#save-button:hover {
+    transform: translate(0px, 5px)
+}
+
+#undo-button {
+    float: right;
+    color: white;
+    text-shadow: none;
+    font-size: 30px;
+    width: fit-content;
+    padding-top: 0px;
+    margin-left: 10px;
+}
+
+#undo-button:hover {
+    transform: translate(0px, 5px)
+}
+
+#redo-button {
+    float: right;
+    color: white;
+    text-shadow: none;
+    font-size: 30px;
+    width: fit-content;
+    padding-top: 0px;
+    margin-left: 10px;
+}
+
+#redo-button:hover {
+    transform: translate(0px, 5px)
+}
+
+.control-panel {
+    margin-top: 54px;
+    float: top;
+}
+
+.category1 {
+    margin-top: 54px;
     float: left;
-    padding-left: 29%;
-    position: relative;
+}
+
+.category2 {
+    float: left;
+}
+
+.category3 {
+    margin-top: 54px;
+    float: left;
 }
 
 #move-button-group {
     text-align: center;
-    margin: auto;
     padding-top: 20px;
-    width: 60%;
+    margin: auto;
+    width: 10%;
 }
 
 #Game-Border {
@@ -103,23 +196,22 @@ body   {
     transform: rotateX(4deg);
     letter-spacing: .1em;
     user-select: none;
-    text-shadow:
-            0 -1px 0 #cfa60c,
-            0 1px 0 #ffd230,
-            0 2px 0 #facc25,
-            0 3px 0 #f7c81b,
-            0 4px 0 #e8bb15,
-            0 5px 0 #d9af14,
-            0 6px 0 #d6ac0f,
-            0 7px 0 #cfa60c,
-            0 8px 0 #c7a00c,
-            0 9px 0 #bf990a,
-            0 10px 0 #b38f09,
-            0 11px 0 #a68408,
-            0 12px 0 #9e7e08,
-            0 13px 0 #9e7e08,
-            0 14px 0 #9e7e08,
-            0 15px 0 #9e7e08;
+    text-shadow: 0 -1px 0 #cfa60c,
+    0 1px 0 #ffd230,
+    0 2px 0 #facc25,
+    0 3px 0 #f7c81b,
+    0 4px 0 #e8bb15,
+    0 5px 0 #d9af14,
+    0 6px 0 #d6ac0f,
+    0 7px 0 #cfa60c,
+    0 8px 0 #c7a00c,
+    0 9px 0 #bf990a,
+    0 10px 0 #b38f09,
+    0 11px 0 #a68408,
+    0 12px 0 #9e7e08,
+    0 13px 0 #9e7e08,
+    0 14px 0 #9e7e08,
+    0 15px 0 #9e7e08;
 
     transition: text-shadow .3s ease .3s,
     transform .3s ease .3s,
@@ -138,30 +230,29 @@ body   {
     transform: rotateX(5deg);
     letter-spacing: .1em;
     user-select: none;
-    text-shadow:
-            0 -1px 0 #000,
-            0 1px 0 #8f130d,
-            0 2px 0 #82110c,
-            0 3px 0 #7d100b,
-            0 4px 0 #750f0b,
-            0 5px 0 #6e0e0a,
-            0 6px 0 #630d09,
-            0 7px 0 #5c0c08,
-            0 8px 0 #540b08,
-            0 9px 0 #4d0a07,
-            0 10px 0 #470906,
-            0 11px 0 #3b0805,
-            0 12px 0 #330704,
-            0 13px 0 #290603,
-            0 14px 0 #240502,
-            0 15px 0 #1c0402,
-            0 22px 30px #450603,
-            0 22px 30px #450603,
-            0 22px 15px #450603,
-            0 11px 15px #450603,
-            0 15px 20px #450603,
-            0 15px 11px #450603,
-            0 16px 11px #450603;
+    text-shadow: 0 -1px 0 #000,
+    0 1px 0 #8f130d,
+    0 2px 0 #82110c,
+    0 3px 0 #7d100b,
+    0 4px 0 #750f0b,
+    0 5px 0 #6e0e0a,
+    0 6px 0 #630d09,
+    0 7px 0 #5c0c08,
+    0 8px 0 #540b08,
+    0 9px 0 #4d0a07,
+    0 10px 0 #470906,
+    0 11px 0 #3b0805,
+    0 12px 0 #330704,
+    0 13px 0 #290603,
+    0 14px 0 #240502,
+    0 15px 0 #1c0402,
+    0 22px 30px #450603,
+    0 22px 30px #450603,
+    0 22px 15px #450603,
+    0 11px 15px #450603,
+    0 15px 20px #450603,
+    0 15px 11px #450603,
+    0 16px 11px #450603;
 
     transition: text-shadow .3s ease .3s,
     transform .3s ease .3s,
@@ -188,23 +279,22 @@ input[type=submit] {
     transform: perspective(200px) rotateX(10deg);
     letter-spacing: .1em;
     user-select: none;
-    text-shadow:
-            0 -1px 0 #000,
-            0 1px 0 #8f130d,
-            0 2px 0 #82110c,
-            0 3px 0 #7d100b,
-            0 4px 0 #750f0b,
-            0 5px 0 #6e0e0a,
-            0 6px 0 #630d09,
-            0 7px 0 #5c0c08,
-            0 8px 0 #540b08,
-            0 9px 0 #4d0a07,
-            0 10px 0 #470906,
-            0 11px 0 #3b0805,
-            0 12px 0 #330704,
-            0 13px 0 #290603,
-            0 14px 0 #240502,
-            0 15px 0 #1c0402;
+    text-shadow: 0 -1px 0 #000,
+    0 1px 0 #8f130d,
+    0 2px 0 #82110c,
+    0 3px 0 #7d100b,
+    0 4px 0 #750f0b,
+    0 5px 0 #6e0e0a,
+    0 6px 0 #630d09,
+    0 7px 0 #5c0c08,
+    0 8px 0 #540b08,
+    0 9px 0 #4d0a07,
+    0 10px 0 #470906,
+    0 11px 0 #3b0805,
+    0 12px 0 #330704,
+    0 13px 0 #290603,
+    0 14px 0 #240502,
+    0 15px 0 #1c0402;
 
     transition: text-shadow .2s ease .2s,
     transform .2s ease .2s,
@@ -212,17 +302,15 @@ input[type=submit] {
 }
 
 input[type=submit]:hover {
-     transition: text-shadow .3s ease,
-     transform .1s ease,
-     letter-spacing .1s ease;
-     text-shadow: 0 0 0 #5c0c08,
-     0 1px 0 #540b08,
-     0 2px 0 #4d0a07,
-     0 3px 3px rgba(0, 0, 0, 0.9);
-     transform: translate(0px, 15px)
-     perspective(200px)
-     rotateX(10deg);
-     letter-spacing: .125em;
+    transition: text-shadow .3s ease,
+    transform .1s ease,
+    letter-spacing .1s ease;
+    text-shadow: 0 0 0 #5c0c08,
+    0 1px 0 #540b08,
+    0 2px 0 #4d0a07,
+    0 3px 3px rgba(0, 0, 0, 0.9);
+    transform: translate(0px, 15px) perspective(200px) rotateX(10deg);
+    letter-spacing: .125em;
 }
 
 input[type=submit]:focus {
@@ -230,6 +318,7 @@ input[type=submit]:focus {
 }
 
 #TrailRunner-Header {
+    margin-bottom: 150px;
     display: block;
     width: auto;
     height: auto;
@@ -241,30 +330,29 @@ input[type=submit]:focus {
     transform: perspective(200px) rotateX(10deg);
     letter-spacing: .1em;
     user-select: none;
-    text-shadow:
-            0 -1px 0 #000,
-            0 1px 0 #8f130d,
-            0 2px 0 #82110c,
-            0 3px 0 #7d100b,
-            0 4px 0 #750f0b,
-            0 5px 0 #6e0e0a,
-            0 6px 0 #630d09,
-            0 7px 0 #5c0c08,
-            0 8px 0 #540b08,
-            0 9px 0 #4d0a07,
-            0 10px 0 #470906,
-            0 11px 0 #3b0805,
-            0 12px 0 #330704,
-            0 13px 0 #290603,
-            0 14px 0 #240502,
-            0 15px 0 #1c0402,
-            0 22px 30px #450603,
-            0 22px 30px #450603,
-            0 22px 15px #450603,
-            0 11px 15px #450603,
-            0 15px 20px #450603,
-            0 15px 11px #450603,
-            0 16px 11px #450603;
+    text-shadow: 0 -1px 0 #000,
+    0 1px 0 #8f130d,
+    0 2px 0 #82110c,
+    0 3px 0 #7d100b,
+    0 4px 0 #750f0b,
+    0 5px 0 #6e0e0a,
+    0 6px 0 #630d09,
+    0 7px 0 #5c0c08,
+    0 8px 0 #540b08,
+    0 9px 0 #4d0a07,
+    0 10px 0 #470906,
+    0 11px 0 #3b0805,
+    0 12px 0 #330704,
+    0 13px 0 #290603,
+    0 14px 0 #240502,
+    0 15px 0 #1c0402,
+    0 22px 30px #450603,
+    0 22px 30px #450603,
+    0 22px 15px #450603,
+    0 11px 15px #450603,
+    0 15px 20px #450603,
+    0 15px 11px #450603,
+    0 16px 11px #450603;
 
     transition: text-shadow .3s ease .3s,
     transform .3s ease .3s,

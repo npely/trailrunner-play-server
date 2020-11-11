@@ -21,6 +21,11 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
     Ok(getHtml(views.html.about()))
   }
 
+  def save() = Action {
+    gameController.save
+    Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
+  }
+
   def load() = Action {
     gameController.load
     Ok(getHtml(views.html.trailrunner(gameController.levelToString)))

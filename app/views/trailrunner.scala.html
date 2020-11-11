@@ -13,27 +13,42 @@
                     TrailRunner
                 </h1>
             </div>
-            <fieldset id="game-string">
-            @gameString
-            </fieldset>
+            <div id="control-panel-game-group">
+                <div class="control-panel">
+                    <form method="get" action="@routes.TrailRunnerController.save()">
+                            <input id="save-button" type="submit" value="&#x1F4BE">
+                    </form>
+                    <form method="get" action="@routes.TrailRunnerController.redo()">
+                            <input id="redo-button" type="submit" value="&#x21B7">
+                    </form>
+                    <form method="get" action="@routes.TrailRunnerController.undo()">
+                            <input id="undo-button" type="submit" value="&#x21B6">
+                    </form>
+                </div>
+                <fieldset id="game-border">
+                    <div id="game-string">
+                        <pre>@gameString</pre>
+                    </div>
+                </fieldset>
+            </div>
             <div id="move-button-group">
-                <form method="get" action="@routes.TrailRunnerController.moveUp()">
-                        <input id="up-button" type="submit" value="&#x2191">
+                <form method="get" action="@routes.TrailRunnerController.moveLeft()">
+                    <div class="category1">
+                        <input id="left-button" type="submit" value="&#x2190">
+                    </div>
                 </form>
-                <row>
-                    <form method="get" action="@routes.TrailRunnerController.moveLeft()">
-                        <div class="category">
-                            <input id="left-button" type="submit" value="&#x2190">
-                        </div>
+                <div class="category2">
+                    <form method="get" action="@routes.TrailRunnerController.moveUp()">
+                        <input id="up-button" type="submit" value="&#x2191">
                     </form>
-                    <form method="get" action="@routes.TrailRunnerController.moveRight()">
-                        <div class="category">
-                            <input id="right-button" type="submit" value="&#x2192">
-                        </div>
-                    </form>
-                </row>
-                <form method="get" action="@routes.TrailRunnerController.moveDown()">
+                    <form method="get" action="@routes.TrailRunnerController.moveDown()">
                         <input id="down-button" type="submit" value="&#x2193">
+                    </form>
+                </div>
+                <form method="get" action="@routes.TrailRunnerController.moveRight()">
+                    <div class="category3">
+                        <input id="right-button" type="submit" value="&#x2192">
+                    </div>
                 </form>
             </div>
         </div>
