@@ -1,14 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+@()
+
+@main("TrailRunner") {
     <head>
         <meta charset="UTF-8">
         <title>Level Selection</title>
+        <link href=“main.css” rel=“stylesheet” type=“text/css” />
     </head>
     <body>
-        <img src="@routes.Assets.versioned("/images/TrailRunnerLogo.png")" height="150px" alt="Trail Runner logo">
-        <h2>Select a level</h2>
+        <div id="TrailRunner-Header">
+            <h1>
+                TrailRunner
+            </h1>
+        </div>
         <div id="level-selection-button-group">
-            <form method="get" action="level/1">
+            <form method="get" action="/level/1">
                 <input type="submit" value="Level 1">
             </form>
             <form method="get" action="level/2">
@@ -23,3 +28,4 @@
         </div>
     </body>
 </html>
+}

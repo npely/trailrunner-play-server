@@ -14,6 +14,9 @@ GET    /move/left                  controllers.TrailRunnerController.moveLeft()
 GET    /move/right                 controllers.TrailRunnerController.moveRight()
 GET    /move/undo                  controllers.TrailRunnerController.undo()
 GET    /move/redo                  controllers.TrailRunnerController.redo()
+GET    /about                      controllers.TrailRunnerController.about()
+GET    /save                       controllers.TrailRunnerController.save()
+GET    /load                       controllers.TrailRunnerController.load()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

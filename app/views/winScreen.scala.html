@@ -1,0 +1,29 @@
+
+@main("TrailRunner") {
+    <head>
+        <meta charset="UTF-8">
+        <title>Level Selection</title>
+        <link href=“main.css” rel=“stylesheet” type=“text/css” />
+    </head>
+    <body>
+        <div>
+            <div id="TrailRunner-Header">
+                <h1>
+                    TrailRunner
+                </h1>
+            </div>
+            <div id="win-message">
+                <p>Congratulations!<br>
+                    <br>
+                    You've found your way
+                    <br>
+                    <br>
+                    out of the dungeon
+                </p>
+            </div>
+            <form method="get" action="@routes.TrailRunnerController.menu()">
+                <input id="back-to-main" type="submit" value="Back to Main Menu">
+            </form>
+        </div>
+    </body>
+}
