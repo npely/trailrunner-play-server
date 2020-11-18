@@ -5,6 +5,65 @@
     src: url("../fonts/PressStart2P-Regular.ttf");
 }
 
+/*
+    menu-region
+ */
+
+#menu-button {
+    border: none;
+    background: none;
+    font-size: 50px;
+    margin: auto;
+    padding-bottom: 20px;
+    width: 100%;
+    text-align: center;
+    font-family: 'Press Start P2';
+    color: firebrick;
+    transform: perspective(200px) rotateX(10deg);
+    letter-spacing: .1em;
+    user-select: none;
+    text-shadow: 0 -1px 0 #000,
+    0 1px 0 #8f130d,
+    0 2px 0 #82110c,
+    0 3px 0 #7d100b,
+    0 4px 0 #750f0b,
+    0 5px 0 #6e0e0a,
+    0 6px 0 #630d09,
+    0 7px 0 #5c0c08,
+    0 8px 0 #540b08,
+    0 9px 0 #4d0a07,
+    0 10px 0 #470906,
+    0 11px 0 #3b0805,
+    0 12px 0 #330704,
+    0 13px 0 #290603,
+    0 14px 0 #240502,
+    0 15px 0 #1c0402;
+
+    transition: text-shadow .2s ease .2s,
+    transform .2s ease .2s,
+    letter-spacing .3s ease .3s;
+}
+
+#menu-button:hover {
+    transition: text-shadow .3s ease,
+    transform .1s ease,
+    letter-spacing .1s ease;
+    text-shadow: 0 0 0 #5c0c08,
+    0 1px 0 #540b08,
+    0 2px 0 #4d0a07,
+    0 3px 3px rgba(0, 0, 0, 0.9);
+    transform: translate(0px, 15px) perspective(200px) rotateX(10deg);
+    letter-spacing: .125em;
+}
+
+#menu-button:focus {
+    outline: none;
+}
+
+/*
+    end of menu-region
+ */
+
 #Game-Description {
     color: white;
     font-family: "Press Start P2";
@@ -20,11 +79,14 @@ li {
 }
 
 body {
-    background-color: black;
     background-image: url("../images/background.png");
-    background-repeat: no-repeat;
-    background-size: 150%;
+    background-size: 100%;
+    background-repeat: repeat;
     overflow: hidden;
+}
+
+@media (max-width: 2px) {
+    
 }
 
 #control-panel-game-group {
@@ -280,68 +342,22 @@ body {
     font-size: 30px;
 }
 
-input[type=submit] {
-    border: none;
-    background: none;
-    font-size: 50px;
-    margin: auto;
-    padding-bottom: 20px;
+.trailRunner-header {
+    position: fixed;
+    height: 10%;
     width: 100%;
-    text-align: center;
-    font-family: 'Press Start P2';
-    color: firebrick;
-    transform: perspective(200px) rotateX(10deg);
-    letter-spacing: .1em;
-    user-select: none;
-    text-shadow: 0 -1px 0 #000,
-    0 1px 0 #8f130d,
-    0 2px 0 #82110c,
-    0 3px 0 #7d100b,
-    0 4px 0 #750f0b,
-    0 5px 0 #6e0e0a,
-    0 6px 0 #630d09,
-    0 7px 0 #5c0c08,
-    0 8px 0 #540b08,
-    0 9px 0 #4d0a07,
-    0 10px 0 #470906,
-    0 11px 0 #3b0805,
-    0 12px 0 #330704,
-    0 13px 0 #290603,
-    0 14px 0 #240502,
-    0 15px 0 #1c0402;
+    top: 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
 
-    transition: text-shadow .2s ease .2s,
-    transform .2s ease .2s,
-    letter-spacing .3s ease .3s;
-}
 
-input[type=submit]:hover {
-    transition: text-shadow .3s ease,
-    transform .1s ease,
-    letter-spacing .1s ease;
-    text-shadow: 0 0 0 #5c0c08,
-    0 1px 0 #540b08,
-    0 2px 0 #4d0a07,
-    0 3px 3px rgba(0, 0, 0, 0.9);
-    transform: translate(0px, 15px) perspective(200px) rotateX(10deg);
-    letter-spacing: .125em;
-}
-
-input[type=submit]:focus {
-    outline: none;
-}
-
-#TrailRunner-Header {
-    margin-bottom: 150px;
-    display: block;
-    width: auto;
-    height: auto;
     padding: 0;
     text-align: center;
-    font-size: 50px;
+    font-size: 2vw;
     font-family: 'Press Start P2';
     color: firebrick;
-    transform: perspective(200px) rotateX(10deg);
     letter-spacing: .1em;
     user-select: none;
     text-shadow: 0 -1px 0 #000,
@@ -368,15 +384,12 @@ input[type=submit]:focus {
     0 15px 11px #450603,
     0 16px 11px #450603;
 
-    transition: text-shadow .3s ease .3s,
-    transform .3s ease .3s,
-    letter-spacing .3s ease .3s;
 }
 
 .footer {
     background-color: #101010;
     position: fixed;
-    height: 3em;
+    height: 4%;
     width: 100%;
     left: 0;
     bottom: 0;
@@ -388,4 +401,5 @@ input[type=submit]:focus {
 
 .footer-item {
     color: grey;
+    font-size: 0.5vw;
 }
