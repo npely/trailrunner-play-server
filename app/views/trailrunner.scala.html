@@ -1,4 +1,8 @@
-@(gameString: String)
+@(controller: controllers.TrailRunnerController)
+
+@wall = @{
+    -99
+}
 
 @main("TrailRunner") {
     <head>
@@ -17,23 +21,31 @@
             <div id="control-panel-game-group">
                 <div class="control-panel">
                     <form method="get" action="@routes.TrailRunnerController.save()">
-                            <input id="save-button" type="submit" value="&#x1F4BE">
+                        <input id="save-button" type="submit" value="&#x1F4BE">
                     </form>
                     <form method="get" action="@routes.TrailRunnerController.redo()">
-                            <input id="redo-button" type="submit" value="&#x21B7">
+                        <input id="redo-button" type="submit" value="&#x21B7">
                     </form>
                     <form method="get" action="@routes.TrailRunnerController.undo()">
-                            <input id="undo-button" type="submit" value="&#x21B6">
+                        <input id="undo-button" type="submit" value="&#x21B6">
                     </form>
                     <form method="get" action="@routes.TrailRunnerController.start()">
                         <input id="back-button" type="submit" value="&#x1F6AA">
                     </form>
                 </div>
-                <fieldset id="game-border">
-                    <div id="game-string">
-                        <pre>@gameString</pre>
+                <div>
+                @for(i <- 0 until controller.gameController.level.rows) {
+                    <div class="row">
+                    @for(j <- 0 until controller.gameController.level.columns) {
+                        <div class="col">
+                        @if(controller.gameController.level.dungeon(i)(j).value == wall) {
+                            <div id="wall"></div>
+                            }
+                        </div>
+                    }
                     </div>
-                </fieldset>
+                }
+                </div>
             </div>
             <div id="move-button-group">
                 <form method="get" action="@routes.TrailRunnerController.moveLeft()">

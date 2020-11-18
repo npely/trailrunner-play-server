@@ -23,12 +23,12 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
 
   def save() = Action {
     gameController.save
-    Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
+    Ok(getHtml(views.html.trailrunner(this)))
   }
 
   def load() = Action {
     gameController.load
-    Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
+    Ok(getHtml(views.html.trailrunner(this)))
   }
 
   def changeToLevelSelection() = Action {
@@ -53,7 +53,7 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
       BadRequest(tui.toString())
     }
     gameController.changeToGame()
-    Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
+    Ok(getHtml(views.html.trailrunner(this)))
   }
 
   def moveUp() = Action {
@@ -63,7 +63,7 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
     } else if (isGameOver() == "lose") {
       Ok(getHtml(views.html.loseScreen()))
     } else {
-      Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
+      Ok(getHtml(views.html.trailrunner(this)))
     }
   }
 
@@ -74,7 +74,7 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
     } else if (isGameOver() == "lose") {
       Ok(getHtml(views.html.loseScreen()))
     } else {
-      Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
+      Ok(getHtml(views.html.trailrunner(this)))
     }
   }
 
@@ -85,7 +85,7 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
     } else if (isGameOver() == "lose") {
       Ok(getHtml(views.html.loseScreen()))
     } else {
-      Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
+      Ok(getHtml(views.html.trailrunner(this)))
     }
   }
 
@@ -96,7 +96,7 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
     } else if (isGameOver() == "lose") {
       Ok(getHtml(views.html.loseScreen()))
     } else {
-      Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
+      Ok(getHtml(views.html.trailrunner(this)))
     }
   }
 
@@ -107,7 +107,7 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
     } else if (isGameOver() == "lose") {
       Ok(getHtml(views.html.loseScreen()))
     } else {
-      Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
+      Ok(getHtml(views.html.trailrunner(this)))
     }
   }
 
@@ -118,7 +118,7 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
     } else if (isGameOver() == "lose") {
       Ok(getHtml(views.html.loseScreen()))
     } else {
-      Ok(getHtml(views.html.trailrunner(gameController.levelToString)))
+      Ok(getHtml(views.html.trailrunner(this)))
     }
   }
 
