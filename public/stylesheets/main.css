@@ -80,34 +80,10 @@ li {
 
 body {
     background-image: url("../images/background.png");
-    background-size: 100%;
-    background-repeat: repeat;
-    overflow: hidden;
-}
-
-@media (max-width: 2px) {
-    
-}
-
-#control-panel-game-group {
-    float: right;
-    margin-right: 550px;
-    margin-top: -150px;
-    margin-bottom: 20px;
-}
-
-#game-border {
-    margin: auto;
-    text-align: center;
-    width: 12%;
-    color: white;
-    background: rgba(34, 34, 34, 0.75);
-}
-
-#game-string {
-    font-family: "Press Start P2";
-    color: firebrick;
-    font-size: 2em;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 #up-button {
@@ -175,13 +151,8 @@ body {
 }
 
 #save-button {
-    float: right;
-    color: white;
-    text-shadow: none;
-    font-size: 30px;
-    width: fit-content;
-    padding-top: 0px;
-    margin-left: 10px;
+    background: none;
+    border: none;
 }
 
 #save-button:hover {
@@ -189,13 +160,9 @@ body {
 }
 
 #undo-button {
-    float: right;
+    background: none;
+    border: none;
     color: white;
-    text-shadow: none;
-    font-size: 30px;
-    width: fit-content;
-    padding-top: 0px;
-    margin-left: 10px;
 }
 
 #undo-button:hover {
@@ -203,23 +170,14 @@ body {
 }
 
 #redo-button {
-    float: right;
+    background: none;
+    border: none;
     color: white;
-    text-shadow: none;
-    font-size: 30px;
-    width: fit-content;
-    padding-top: 0px;
-    margin-left: 10px;
 }
 
 #back-button {
-    float: right;
-    color: white;
-    text-shadow: none;
-    font-size: 30px;
-    width: fit-content;
-    padding-top: 0px;
-    margin-left: 10px;
+    background: none;
+    border: none;
 }
 
 #back-button:hover {
@@ -233,20 +191,6 @@ body {
 .control-panel {
     margin-top: 54px;
     float: top;
-}
-
-.category1 {
-    margin-top: 54px;
-    float: left;
-}
-
-.category2 {
-    float: left;
-}
-
-.category3 {
-    margin-top: 54px;
-    float: left;
 }
 
 #move-button-group {
@@ -336,13 +280,34 @@ body {
 }
 
 #back-to-main {
-    padding-top: 100px;
     color: white;
     text-shadow: none;
     font-size: 30px;
+    background: none;
+    border: none;
+    font-family: "Press Start P2";
 }
 
-.trailRunner-header {
+#back-to-main:hover {
+    transform: translate(0px, 5px)
+}
+
+#no-padding {
+    padding: 0 !important;
+    margin: 0 !important;
+    flex-grow: 0;
+}
+
+.row {
+    justify-content: center;
+}
+
+.container {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#trailRunner-header {
     position: fixed;
     height: 10%;
     width: 100%;
@@ -351,8 +316,6 @@ body {
     justify-content: space-evenly;
     align-items: center;
     flex-wrap: wrap;
-
-
     padding: 0;
     text-align: center;
     font-size: 2vw;
