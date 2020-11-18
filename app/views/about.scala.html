@@ -1,37 +1,38 @@
 @()
 
-@main("TrailRunner") {
-    <head>
-        <meta charset="UTF-8">
-        <title>About</title>
-        <link href=“main.css” rel=“stylesheet” type=“text/css” />
-    </head>
-    <body>
-        <div id="TrailRunner-Header">
-            <h1>
-                TrailRunner
-            </h1>
-        </div>
-        <div id="Game-Description">
-            <fieldset id="Rules">
-                <legend>Rules</legend>
-                <ul>
-                    <li>TrailRunner is a logic-based puzzle game.</li>
-                    <li>The objective is to escape the dungeon without dying.</li>
-                    <li>Each field in the dungeon has a number on it, which represents the times you are
-                        allowed to step on the specific field.</li>
-                    <li>Every time you leave the field the number
-                        decreases.</li>
-                    <li>Once the field reaches 0, it breaks and you are not allowed to step back
-                        onto it. If you do, you lose.</li>
-                    <li>The door to the dungeon only opens once every field is
-                        broken, so you need to think about every step, to not block your own way and still
-                        make your way out!</li>
-                </ul>
-            </fieldset>
-        </div>
-        <form method="get" action="@routes.TrailRunnerController.menu()">
-            <input id="back-to-main" type="submit" value="Back to Main Menu">
-        </form>
-    </body>
-}
+    @main("TrailRunner") {
+        <head>
+            <meta charset="UTF-8">
+            <title>About</title>
+            <link href=“main.css” rel=“stylesheet” type=“text/css” />
+        </head>
+        <body>
+            <div class="container-fluid">
+                <div class="row">
+                    <div id="Game-Description">
+                        <fieldset id="Rules">
+                            <legend>Rules</legend>
+                            <ul>
+                                <li>TrailRunner is a logic-based puzzle game.</li>
+                                <li>The objective is to escape the dungeon without dying.</li>
+                                <li>Each field in the dungeon has a number on it, which represents the times you are
+                                    allowed to step on the specific field.</li>
+                                <li>Every time you leave the field the number
+                                    decreases.</li>
+                                <li>Once the field reaches 0, it breaks and you are not allowed to step back
+                                    onto it. If you do, you lose.</li>
+                                <li>The door to the dungeon only opens once every field is
+                                    broken, so you need to think about every step, to not block your own way and still
+                                    make your way out!</li>
+                            </ul>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="row">
+                    <form method="get" action="@routes.TrailRunnerController.menu()">
+                        <input id="back-to-main" type="submit" value="Back to Main Menu">
+                    </form>
+                </div>
+            </div>
+        </body>
+    }
