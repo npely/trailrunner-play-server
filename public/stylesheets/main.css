@@ -108,6 +108,7 @@ body {
 #save-button {
     background: none;
     border: none;
+    font-size: 25px;
 }
 
 #save-button:hover {
@@ -118,6 +119,7 @@ body {
     background: none;
     border: none;
     color: white;
+    font-size: 25px;
 }
 
 #undo-button:hover {
@@ -128,11 +130,13 @@ body {
     background: none;
     border: none;
     color: white;
+    font-size: 25px;
 }
 
 #back-button {
     background: none;
     border: none;
+    font-size: 25px;
 }
 
 #back-button:hover {
@@ -277,7 +281,6 @@ body {
 .navbar{
     width: 550px;
     margin-left: 25.2%;
-
 }
 
 #trailRunner-header {
