@@ -51,18 +51,25 @@
     </head>
     <body>
         <div class="container">
-            <div class="row">
+            <div class="navbar navbar-dark bg-dark">
+                <div>
+                    <img src="@routes.Assets.versioned("images/Logo.png")" width="30px" height="30px"/>
+                    <a class="navbar-brand" href="#">&nbsp;@controller.gameController.levelGetName()</a>
+                </div>
                 <form method="get" action="@routes.TrailRunnerController.save()">
                     <button id="save-button" data-toggle="tooltip" title="Save the game" type="submit">&#x1F4BE</button>
                 </form>
                 <form method="get" action="@routes.TrailRunnerController.redo()">
-                    <button id="redo-button" data-toggle="tooltip" title="Redo your undone step" type="submit">&#x21B7</button>
+                    <button id="redo-button" data-toggle="tooltip" title="Redo your undone step" type="submit">
+                        &#x21B7</button>
                 </form>
                 <form method="get" action="@routes.TrailRunnerController.undo()">
-                    <button id="undo-button" data-toggle="tooltip" title="Undo your last step" type="submit">&#x21B6</button>
+                    <button id="undo-button" data-toggle="tooltip" title="Undo your last step" type="submit">
+                        &#x21B6</button>
                 </form>
                 <form method="get" action="@routes.TrailRunnerController.start()">
-                    <button id="back-button" data-toggle="tooltip" title="Go back to main menu" type="submit">&#x1F6AA</button>
+                    <button id="back-button" data-toggle="tooltip" title="Go back to main menu" type="submit">
+                        &#x1F6AA</button>
                 </form>
             </div>
             @for(i <- 0 until controller.gameController.level.rows) {
@@ -155,20 +162,28 @@
             }
             <div id="move-button-group">
                 <div class="row">
-                    <form method="get" action="@routes.TrailRunnerController.moveUp()">
-                        <button id="up-button" type="submit">&#x2191</button>
-                    </form>
+                    <div class="col-4">
+                        <form method="get" action="@routes.TrailRunnerController.moveUp()">
+                            <button id="move-button" type="submit">&#x2191</button>
+                        </form>
+                    </div>
                 </div>
                 <div class="row">
-                    <form method="get" action="@routes.TrailRunnerController.moveLeft()">
-                        <button id="left-button" type="submit">&#x2190</button>
-                    </form>
-                    <form method="get" action="@routes.TrailRunnerController.moveDown()">
-                        <button id="down-button" type="submit">&#x2193</button>
-                    </form>
-                    <form method="get" action="@routes.TrailRunnerController.moveRight()">
-                        <button id="right-button" type="submit">&#x2192</button>
-                    </form>
+                    <div class="col-4">
+                        <form method="get" action="@routes.TrailRunnerController.moveLeft()">
+                            <button id="move-button" type="submit">&#x2190</button>
+                        </form>
+                    </div>
+                    <div class="col-4">
+                        <form method="get" action="@routes.TrailRunnerController.moveDown()">
+                            <button id="move-button" type="submit">&#x2193</button>
+                        </form>
+                    </div>
+                    <div class="col-4">
+                        <form method="get" action="@routes.TrailRunnerController.moveRight()">
+                            <button id="move-button" type="submit">&#x2192</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
