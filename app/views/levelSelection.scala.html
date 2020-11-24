@@ -1,27 +1,37 @@
 @()
 
-@main("TrailRunner") {
-    <head>
-        <meta charset="UTF-8">
-        <title>Level Selection</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("../../public/stylesheets/main.css")">
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
-    </head>
-    <body>
-        <div id="level-selection-button-group" class="message">
-            <form method="get" action="/level/1">
-                <button id="menu-button" type="submit">Level 1</button>
-            </form>
-            <form method="get" action="level/2">
-                <button id="menu-button" type="submit">Level 2</button>
-            </form>
-            <form method="get" action="level/3">
-                <button id="menu-button" type="submit">Level 3</button>
-            </form>
-            <form method="get" action="level/4">
-                <button id="menu-button" type="submit">Level 4</button>
-            </form>
-        </div>
-    </body>
-</html>
-}
+    @main("TrailRunner") {
+        <head>
+            <meta charset="UTF-8">
+            <title>Level Selection</title>
+            <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("../../public/stylesheets/main.css")">
+            <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+        </head>
+        <body>
+            <div id="level-selection-button-group" class="message">
+                <div class="row">
+                </div>
+                <div class="row">
+                    <form method="get" action="/level/1">
+                        <button id="menu-button" type="submit">Level 1</button>
+                    </form>
+                </div>
+                <div class="row">
+                    <form method="get" action="level/2">
+                        <button id="menu-button" type="submit">Level 2</button>
+                    </form>
+                </div>
+                <div class="row">
+                    <form method="get" action="level/3">
+                        <button id="menu-button" type="submit">Level 3</button>
+                    </form>
+                </div>
+                <div class="row">
+                    <form method="get" action="level/4">
+                        <button id="menu-button" type="submit">Level 4</button>
+                    </form>
+                </div>
+            </div>
+        </body>
+        </html>
+    }

@@ -48,6 +48,7 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
         <script src='@routes.Assets.versioned("javascripts/bootstrap.min.js")'></script>
+        <script src='@routes.Assets.versioned("javascripts/main.js")'></script>
     </head>
     <body>
         <div class="container">
@@ -72,107 +73,33 @@
                         &#x1F6AA</button>
                 </form>
             </div>
+            <script>
+                console.log("Hallo")
+            </script>
             @for(i <- 0 until controller.gameController.level.rows) {
                 <div class="row justify-content-center">
                 @for(j <- 0 until controller.gameController.level.columns) {
                     <div class="col" id="no-padding">
-                        @if(controller.gameController.level.dungeon(i)(j).value == wall) {
-                            <object data="../../public/images/fields/Wall.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Wall.png")" id="game-field"/>
-                            </object>
-                        } else if(controller.gameController.level.dungeon(i)(j).value == ground_0) {
-                        @if(controller.gameController.level.dungeon(i)(j).isPlayerOnField) {
-                            <object data="../../public/images/fields/Ground_0.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_0.png")" id="game-field"/>
-                            </object>
-                        }
-                        } else if(controller.gameController.level.dungeon(i)(j).value == ground_0_0) {
-                        @if(controller.gameController.level.dungeon(i)(j).isPlayerOnField) {
-                            <object data="../../public/images/fields/Ground_0_P.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_0_P.png")" id="game-field"/>
-                            </object>
-                        } else {
-                            <object data="../../public/images/fields/Ground_0.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_0.png")" id="game-field"/>
-                            </object>
-                        }
-                        } else if(controller.gameController.level.dungeon(i)(j).value == ground_1) {
-                        @if(controller.gameController.level.dungeon(i)(j).isPlayerOnField) {
-                            <object data="../../public/images/fields/Ground_1_P.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_1_P.png")" id="game-field"/>
-                            </object>
-                        } else {
-                            <object data="../../public/images/fields/Ground_1.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_1.png")" id="game-field"/>
-                            </object>
-                        }
-                        } else if(controller.gameController.level.dungeon(i)(j).value == ground_2) {
-                        @if(controller.gameController.level.dungeon(i)(j).isPlayerOnField) {
-                            <object data="../../public/images/fields/Ground_2_P.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_2_P.png")" id="game-field"/>
-                            </object>
-                        } else {
-                            <object data="../../public/images/fields/Ground_2.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_2.png")" id="game-field"/>
-                            </object>
-                        }
-                        } else if(controller.gameController.level.dungeon(i)(j).value == ground_3) {
-                        @if(controller.gameController.level.dungeon(i)(j).isPlayerOnField) {
-                            <object data="../../public/images/fields/Ground_3_P.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_3_P.png")" id="game-field"/>
-                            </object>
-                        } else {
-                            <object data="../../public/images/fields/Ground_3.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_3.png")" id="game-field"/>
-                            </object>
-                        }
-                        } else if(controller.gameController.level.dungeon(i)(j).value == ground_4) {
-                        @if(controller.gameController.level.dungeon(i)(j).isPlayerOnField) {
-                            <object data="../../public/images/fields/Ground_4_P.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_4_P.png")" id="game-field"/>
-                            </object>
-                        } else {
-                            <object data="../../public/images/fields/Ground_4.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_4.png")" id="game-field"/>
-                            </object>
-                        }
-                        } else if(controller.gameController.level.dungeon(i)(j).value == ground_5) {
-                        @if(controller.gameController.level.dungeon(i)(j).isPlayerOnField) {
-                            <object data="../../public/images/fields/Ground_5_P.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_5_P.png")" id="game-field"/>
-                            </object>
-                        } else {
-                            <object data="../../public/images/fields/Ground_5.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_5.png")" id="game-field"/>
-                            </object>
-                        }
-                        } else if(controller.gameController.level.dungeon(i)(j).value == door_1) {
-                    <object data="../../public/images/fields/Door1.png" type="image/png">
-                        <img src="@routes.Assets.versioned("images/fields/Door1.png")" id="game-field"/>
-                    </object>
-                        } else if(controller.gameController.level.dungeon(i)(j).value == door_2) {
-                    <object data="../../public/images/fields/Door21.png" type="image/png">
-                        <img src="@routes.Assets.versioned("images/fields/Door21.png")" id="game-field"/>
-                    </object>
-                        }
-
+                        <object onload="setFieldImage(controller.gameController.level.dungeon(i)(j).value, controller.gameController.level.dungeon(i)(j).isPlayerOnField)" data="../../public/images/fields/Wall.png" type="image/png">
+                            <img id="game-field"/>
+                        </object>
                     </div>
                 }
                 </div>
             }
             <div id="move-button-group">
                 <form method="get" action="@routes.TrailRunnerController.moveUp()">
-                    <button id="move-button" type="submit">&#x2191</button>
+                    <button id="move-button" onclick="moveUp()" type="submit">&#x2191</button>
                 </form>
                 <div class="btn-group" role="group">
                     <form method="get" action="@routes.TrailRunnerController.moveLeft()">
-                        <button id="move-button" type="submit">&#x2190</button>
+                        <button id="move-button" onclick="moveLeft()" type="submit">&#x2190</button>
                     </form>
                     <form method="get" action="@routes.TrailRunnerController.moveDown()">
-                        <button id="move-button" type="submit">&#x2193</button>
+                        <button id="move-button" onclick="moveDown()" type="submit">&#x2193</button>
                     </form>
                     <form method="get" action="@routes.TrailRunnerController.moveRight()">
-                        <button id="move-button" type="submit">&#x2192</button>
+                        <button id="move-button" onclick="moveRight()" type="submit">&#x2192</button>
                     </form>
                 </div>
             </div>
