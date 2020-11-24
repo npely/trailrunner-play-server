@@ -1,27 +1,32 @@
 @()
 
-    @main("TrailRunner") {
-        <head>
-            <meta charset="UTF-8">
-            <title>Main Menu</title>
-            <link href=“main.css” rel=“stylesheet” type=“text/css” />
-        </head>
-        <body>
-            <div id="TrailRunner-Header">
-                <h1>
-                    TrailRunner
-                </h1>
+@main("TrailRunner") {
+    <head>
+        <meta charset="UTF-8">
+        <title>Main Menu</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+        <script src='@routes.Assets.versioned("javascripts/bootstrap.min.js")'> </script>
+    </head>
+    <body>
+        <div id="mainMenu" class="message">
+            <div class="row">
             </div>
-            <div id="main-menu">
+            <div class="row">
                 <form method="get" action=@routes.TrailRunnerController.changeToLevelSelection()>
-                    <input type="submit" value="New Game">
-                </form>
-                <form method="get" action=@routes.TrailRunnerController.load()>
-                    <input type="submit" value="Load Game">
-                </form>
-                <form method="get" action=@routes.TrailRunnerController.about()>
-                    <input type="submit" value="About Game">
+                    <button id="menu-button" type="submit">New Game</button>
                 </form>
             </div>
-        </body>
-    }
+            <div class="row">
+                <form method="get" action=@routes.TrailRunnerController.load()>
+                    <button id="menu-button" type="submit">Load Game</button>
+                </form>
+            </div>
+            <div class="row">
+                <form method="get" action=@routes.TrailRunnerController.about()>
+                    <button id="menu-button" type="submit">About Game</button>
+                </form>
+            </div>
+        </div>
+    </body>
+}

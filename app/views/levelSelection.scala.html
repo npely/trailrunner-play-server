@@ -4,26 +4,22 @@
     <head>
         <meta charset="UTF-8">
         <title>Level Selection</title>
-        <link href=“main.css” rel=“stylesheet” type=“text/css” />
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("../../public/stylesheets/main.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
     </head>
     <body>
-        <div id="TrailRunner-Header">
-            <h1>
-                TrailRunner
-            </h1>
-        </div>
-        <div id="level-selection-button-group">
+        <div id="level-selection-button-group" class="message">
             <form method="get" action="/level/1">
-                <input type="submit" value="Level 1">
+                <button id="menu-button" type="submit">Level 1</button>
             </form>
             <form method="get" action="level/2">
-                <input type="submit" value="Level 2">
+                <button id="menu-button" type="submit">Level 2</button>
             </form>
             <form method="get" action="level/3">
-                <input type="submit" value="Level 3">
+                <button id="menu-button" type="submit">Level 3</button>
             </form>
             <form method="get" action="level/4">
-                <input type="submit" value="Level 4">
+                <button id="menu-button" type="submit">Level 4</button>
             </form>
         </div>
     </body>

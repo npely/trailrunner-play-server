@@ -1,4 +1,3 @@
-
 @main("TrailRunner") {
     <head>
         <meta charset="UTF-8">
@@ -6,24 +5,23 @@
         <link href=“main.css” rel=“stylesheet” type=“text/css” />
     </head>
     <body>
-        <div>
-            <div id="TrailRunner-Header">
-                <h1>
-                    TrailRunner
-                </h1>
+        <div class="container-fluid">
+            <div class="message">
+                <div id="win-message">
+                    <p>Congratulations!<br>
+                        <br>
+                        You've found your way
+                        <br>
+                        <br>
+                        out of the dungeon
+                    </p>
+                </div>
             </div>
-            <div id="win-message">
-                <p>Congratulations!<br>
-                    <br>
-                    You've found your way
-                    <br>
-                    <br>
-                    out of the dungeon
-                </p>
+            <div class="row">
+                <form method="get" action="@routes.TrailRunnerController.menu()">
+                    <button id="back-to-main" type="submit">Back to Main Menu</button>
+                </form>
             </div>
-            <form method="get" action="@routes.TrailRunnerController.menu()">
-                <input id="back-to-main" type="submit" value="Back to Main Menu">
-            </form>
         </div>
     </body>
 }

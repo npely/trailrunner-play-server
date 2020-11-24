@@ -5,6 +5,65 @@
     src: url("../fonts/PressStart2P-Regular.ttf");
 }
 
+/*
+    menu-region
+ */
+
+#menu-button {
+    border: none;
+    background: none;
+    font-size: 50px;
+    margin: auto;
+    padding-bottom: 20px;
+    width: 100%;
+    text-align: center;
+    font-family: 'Press Start P2';
+    color: firebrick;
+    transform: perspective(200px) rotateX(10deg);
+    letter-spacing: .1em;
+    user-select: none;
+    text-shadow: 0 -1px 0 #000,
+    0 1px 0 #8f130d,
+    0 2px 0 #82110c,
+    0 3px 0 #7d100b,
+    0 4px 0 #750f0b,
+    0 5px 0 #6e0e0a,
+    0 6px 0 #630d09,
+    0 7px 0 #5c0c08,
+    0 8px 0 #540b08,
+    0 9px 0 #4d0a07,
+    0 10px 0 #470906,
+    0 11px 0 #3b0805,
+    0 12px 0 #330704,
+    0 13px 0 #290603,
+    0 14px 0 #240502,
+    0 15px 0 #1c0402;
+
+    transition: text-shadow .2s ease .2s,
+    transform .2s ease .2s,
+    letter-spacing .3s ease .3s;
+}
+
+#menu-button:hover {
+    transition: text-shadow .3s ease,
+    transform .1s ease,
+    letter-spacing .1s ease;
+    text-shadow: 0 0 0 #5c0c08,
+    0 1px 0 #540b08,
+    0 2px 0 #4d0a07,
+    0 3px 3px rgba(0, 0, 0, 0.9);
+    transform: translate(0px, 15px) perspective(200px) rotateX(10deg);
+    letter-spacing: .125em;
+}
+
+#menu-button:focus {
+    outline: none;
+}
+
+/*
+    end of menu-region
+ */
+
 #Game-Description {
     color: white;
     font-family: "Press Start P2";
@@ -20,51 +79,14 @@ li {
 }
 
 body {
-    background-color: black;
     background-image: url("../images/background.png");
+    background-size: 100% 100%;
     background-repeat: no-repeat;
-    background-size: 150%;
-    overflow: hidden;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
-#control-panel-game-group {
-    float: right;
-    margin-right: 550px;
-    margin-top: -150px;
-    margin-bottom: 20px;
-}
-
-#game-border {
-    margin: auto;
-    text-align: center;
-    width: 12%;
-    color: white;
-    background: rgba(34, 34, 34, 0.75);
-}
-
-#game-string {
-    font-family: "Press Start P2";
-    color: firebrick;
-    font-size: 2em;
-}
-
-#up-button {
-    float: left;
-    color: white;
-    border: 3px solid white;
-    text-shadow: none;
-    font-size: 30px;
-    background: rgba(34, 34, 34, 0.75);
-    width: fit-content;
-    margin-bottom: 10px;
-}
-
-#up-button:hover {
-    transform: translate(0px, 5px)
-}
-
-#down-button {
-    float: left;
+#move-button {
     color: white;
     border: 3px solid white;
     text-shadow: none;
@@ -72,100 +94,57 @@ body {
     background: rgba(34, 34, 34, 0.75);
     text-align: center;
     width: fit-content;
+    text-shadow: 0 -1px 0 #000,
+    0 1px 0 #999999,
+    0 2px 0 #888888,
+    0 3px 0 #777777,
+    0 4px 0 #666666;
 }
 
-#down-button:hover {
-    transform: translate(0px, 5px)
-}
-
-#left-button {
-    float: left;
-    color: white;
-    border: 3px solid white;
-    text-shadow: none;
-    font-size: 30px;
-    background: rgba(34, 34, 34, 0.75);
-    text-align: center;
-    width: fit-content;
-    padding-top: 0px;
-    margin-right: 10px;
-}
-
-#left-button:hover {
-    transform: translate(0px, 5px)
-}
-
-#right-button {
-    float: right;
-    color: white;
-    border: 3px solid white;
-    text-shadow: none;
-    font-size: 30px;
-    background: rgba(34, 34, 34, 0.75);
-    text-align: center;
-    width: fit-content;
-    padding-top: 0px;
-    margin-left: 10px;
-}
-
-#right-button:hover {
+#move-button:hover {
     transform: translate(0px, 5px)
 }
 
 #save-button {
-    float: right;
-    color: white;
-    text-shadow: none;
-    font-size: 30px;
-    width: fit-content;
-    padding-top: 0px;
-    margin-left: 10px;
+    background: none;
+    border: none;
+    font-size: 25px;
 }
 
 #save-button:hover {
-    transform: translate(0px, 5px)
+    transform: translate(0px, 1px)
 }
 
 #undo-button {
-    float: right;
+    background: none;
+    border: none;
     color: white;
-    text-shadow: none;
-    font-size: 30px;
-    width: fit-content;
-    padding-top: 0px;
-    margin-left: 10px;
+    font-size: 25px;
 }
 
 #undo-button:hover {
-    transform: translate(0px, 5px)
+    transform: translate(0px, 1px)
 }
 
 #redo-button {
-    float: right;
+    background: none;
+    border: none;
     color: white;
-    text-shadow: none;
-    font-size: 30px;
-    width: fit-content;
-    padding-top: 0px;
-    margin-left: 10px;
+    font-size: 25px;
 }
 
 #back-button {
-    float: right;
-    color: white;
-    text-shadow: none;
-    font-size: 30px;
-    width: fit-content;
-    padding-top: 0px;
-    margin-left: 10px;
+    background: none;
+    border: none;
+    font-size: 25px;
 }
 
 #back-button:hover {
-    transform: translate(0px, 5px)
+    transform: translate(0px, 1px)
 }
 
 #redo-button:hover {
-    transform: translate(0px, 5px)
+    transform: translate(0px, 1px)
 }
 
 .control-panel {
@@ -173,25 +152,13 @@ body {
     float: top;
 }
 
-.category1 {
-    margin-top: 54px;
-    float: left;
-}
-
-.category2 {
-    float: left;
-}
-
-.category3 {
-    margin-top: 54px;
-    float: left;
-}
-
 #move-button-group {
     text-align: center;
+    font-family: "Press Start P2", serif;
     padding-top: 20px;
     margin: auto;
     width: 10%;
+    height: 10%;
 }
 
 #Game-Border {
@@ -274,74 +241,55 @@ body {
 }
 
 #back-to-main {
-    padding-top: 100px;
     color: white;
     text-shadow: none;
     font-size: 30px;
-}
-
-input[type=submit] {
-    border: none;
     background: none;
-    font-size: 50px;
-    margin: auto;
-    padding-bottom: 20px;
-    width: 100%;
-    text-align: center;
-    font-family: 'Press Start P2';
-    color: firebrick;
-    transform: perspective(200px) rotateX(10deg);
-    letter-spacing: .1em;
-    user-select: none;
+    border: none;
+    margin-top: 30px;
+    font-family: "Press Start P2";
     text-shadow: 0 -1px 0 #000,
-    0 1px 0 #8f130d,
-    0 2px 0 #82110c,
-    0 3px 0 #7d100b,
-    0 4px 0 #750f0b,
-    0 5px 0 #6e0e0a,
-    0 6px 0 #630d09,
-    0 7px 0 #5c0c08,
-    0 8px 0 #540b08,
-    0 9px 0 #4d0a07,
-    0 10px 0 #470906,
-    0 11px 0 #3b0805,
-    0 12px 0 #330704,
-    0 13px 0 #290603,
-    0 14px 0 #240502,
-    0 15px 0 #1c0402;
-
-    transition: text-shadow .2s ease .2s,
-    transform .2s ease .2s,
-    letter-spacing .3s ease .3s;
+    0 1px 0 #999999,
+    0 2px 0 #777777,
+    0 3px 0 #555555,
+    0 4px 0 #333333;
 }
 
-input[type=submit]:hover {
-    transition: text-shadow .3s ease,
-    transform .1s ease,
-    letter-spacing .1s ease;
-    text-shadow: 0 0 0 #5c0c08,
-    0 1px 0 #540b08,
-    0 2px 0 #4d0a07,
-    0 3px 3px rgba(0, 0, 0, 0.9);
-    transform: translate(0px, 15px) perspective(200px) rotateX(10deg);
-    letter-spacing: .125em;
+#back-to-main:hover {
+    transform: translate(0px, 5px)
+
 }
 
-input[type=submit]:focus {
-    outline: none;
+#no-padding {
+    padding: 0 !important;
+    margin: 0 !important;
+    flex-grow: 0;
 }
 
-#TrailRunner-Header {
-    margin-bottom: 150px;
-    display: block;
-    width: auto;
-    height: auto;
-    padding: 0;
+.row {
+    justify-content: center;
+}
+
+.container {
+    margin-top: 10%;
+}
+
+.message{
+    margin-top: 15%;
+}
+
+.navbar{
+    width: 550px;
+    margin-left: 25.2%;
+}
+
+#trailRunner-header {
     text-align: center;
-    font-size: 50px;
+    font-size: 100px;
+    font-max-size: medium;
+    font-min-size: medium;
     font-family: 'Press Start P2';
     color: firebrick;
-    transform: perspective(200px) rotateX(10deg);
     letter-spacing: .1em;
     user-select: none;
     text-shadow: 0 -1px 0 #000,
@@ -368,15 +316,12 @@ input[type=submit]:focus {
     0 15px 11px #450603,
     0 16px 11px #450603;
 
-    transition: text-shadow .3s ease .3s,
-    transform .3s ease .3s,
-    letter-spacing .3s ease .3s;
 }
 
 .footer {
     background-color: #101010;
     position: fixed;
-    height: 3em;
+    height: 4%;
     width: 100%;
     left: 0;
     bottom: 0;
@@ -388,4 +333,5 @@ input[type=submit]:focus {
 
 .footer-item {
     color: grey;
+    font-size: 0.5vw;
 }

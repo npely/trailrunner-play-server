@@ -14,12 +14,14 @@
         <meta name="description" content="TrailRunner online game">
         <meta name="keywords" content="TrailRunner, Game, Dungeon, Puzzle, HTWG, Scala">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/Logo.png")">
         <link rel="icon" href="@routes.Assets.versioned("images/Logo.png")">
     </head>
     <body>
+        @header()
         @content
         @footer()
-      <script src="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript"></script>
+      <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
     </body>
 </html>

@@ -13,7 +13,7 @@ import play.api.test.Helpers._
  */
 class HomeControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecting {
 
-  "HomeController GET" should {
+ /* "HomeController GET" should {
 
     "render the about page from a new instance of controller" in {
       val controller = new HomeController(stubControllerComponents())
@@ -41,5 +41,5 @@ class HomeControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecting
       contentType(home) mustBe Some("text/html")
       contentAsString(home) must include ("Welcome to Play")
     }
-  }
+  }*/
 }
