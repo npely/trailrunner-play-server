@@ -41,7 +41,7 @@
 }
 
 
-@main("TrailRunner") {
+@main {
     <head>
         <meta charset="UTF-8">
         <title>Level Selection</title>
@@ -51,7 +51,7 @@
         <script src='@routes.Assets.versioned("javascripts/main.js")'></script>
     </head>
     <body>
-        <div class="container">
+        <div class="container" id="game-container">
             <div class="navbar justify-content-center">
                 <div>
                     <img src="@routes.Assets.versioned("images/Logo.png")" id="level-logo"/>
@@ -73,20 +73,11 @@
                         &#x1F6AA</button>
                 </form>
             </div>
-            <script>
-                buildLevel(controller.gameController.level.dungeon)
-            </script>
-            @for(i <- 0 until controller.gameController.level.rows) {
-                <div class="row justify-content-center">
-                @for(j <- 0 until controller.gameController.level.columns) {
-                    <div onload="setFieldImage(controller.gameController.level.dungeon(i)(j).value, controller.gameController.level.dungeon(i)(j).isPlayerOnField)" class="col" id="no-padding">
-                        <object onload="setFieldImage(controller.gameController.level.dungeon(i)(j).value, controller.gameController.level.dungeon(i)(j).isPlayerOnField)" type="image/png">
-                            <img onload="setFieldImage(controller.gameController.level.dungeon(i)(j).value, controller.gameController.level.dungeon(i)(j).isPlayerOnField)" id="game-field"/>
-                        </object>
-                    </div>
-                }
-                </div>
-            }
+            <div id="level-map">
+                <script>
+                        buildLevel()
+                </script>
+            </div>
             <div id="move-button-group">
                 <form method="get" action="@routes.TrailRunnerController.moveUp()">
                     <button id="move-button" onclick="moveUp()" type="submit">&#x2191</button>

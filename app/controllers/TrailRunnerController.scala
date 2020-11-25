@@ -5,9 +5,9 @@ import javax.inject._
 import play.api.mvc._
 import controller.controllerComponent.{ControllerInterface, DungeonChanged}
 import aview.TUI
-import main.TrailRunnerModule
 import model.levelComponent.levelBaseImpl.{Level1, Level2, Level3, Level4}
 import play.twirl.api.HtmlFormat
+import src.main.TrailRunnerModule.TrailRunnerModule
 
 @Singleton
 class TrailRunnerController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
@@ -37,16 +37,16 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
   }
 
   def changeToGame(levelId: Long) = Action {
-    if(levelId == 1) {
+    if (levelId == 1) {
       gameController.initializeGame(new Level1, false)
     }
-    else if(levelId == 2) {
+    else if (levelId == 2) {
       gameController.initializeGame(new Level2, false)
     }
-    else if(levelId == 3) {
+    else if (levelId == 3) {
       gameController.initializeGame(new Level3, false)
     }
-    else if(levelId == 4) {
+    else if (levelId == 4) {
       gameController.initializeGame(new Level4, false)
     }
     else {
@@ -132,18 +132,18 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
   }
 
   def getLevelMap() = Action {
-    Ok(gameController.getLevelAsJson())
+    Ok(gameController.getLevelAsJson)
   }
 
   def getHtml(htmlFormat: HtmlFormat.Appendable): HtmlFormat.Appendable = {
-    views.html.main("TrailRunner")(htmlFormat)
+    views.html.main(htmlFormat)
   }
 
   def isGameOver(): String = {
-    if(gameController.levelWin()) {
+    if (gameController.levelWin()) {
       "win"
     }
-    else if(gameController.levelLose()) {
+    else if (gameController.levelLose()) {
       "lose"
     }
     else {
