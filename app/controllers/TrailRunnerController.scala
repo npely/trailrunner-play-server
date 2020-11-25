@@ -131,6 +131,10 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
     Ok(getHtml(views.html.mainMenu()))
   }
 
+  def getLevelMap() = Action {
+    Ok(gameController.getLevelAsJson())
+  }
+
   def getHtml(htmlFormat: HtmlFormat.Appendable): HtmlFormat.Appendable = {
     views.html.main("TrailRunner")(htmlFormat)
   }
@@ -146,4 +150,4 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
       "continue"
     }
   }
-  }
+}

@@ -74,14 +74,14 @@
                 </form>
             </div>
             <script>
-                console.log("Hallo")
+                buildLevel(controller.gameController.level.dungeon)
             </script>
             @for(i <- 0 until controller.gameController.level.rows) {
                 <div class="row justify-content-center">
                 @for(j <- 0 until controller.gameController.level.columns) {
-                    <div class="col" id="no-padding">
-                        <object onload="setFieldImage(controller.gameController.level.dungeon(i)(j).value, controller.gameController.level.dungeon(i)(j).isPlayerOnField)" data="../../public/images/fields/Wall.png" type="image/png">
-                            <img id="game-field"/>
+                    <div onload="setFieldImage(controller.gameController.level.dungeon(i)(j).value, controller.gameController.level.dungeon(i)(j).isPlayerOnField)" class="col" id="no-padding">
+                        <object onload="setFieldImage(controller.gameController.level.dungeon(i)(j).value, controller.gameController.level.dungeon(i)(j).isPlayerOnField)" type="image/png">
+                            <img onload="setFieldImage(controller.gameController.level.dungeon(i)(j).value, controller.gameController.level.dungeon(i)(j).isPlayerOnField)" id="game-field"/>
                         </object>
                     </div>
                 }

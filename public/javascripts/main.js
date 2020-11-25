@@ -1,7 +1,9 @@
 function initLevel(levelNumber) {
+
 }
 
-function moveUp() {
+function moveUp(x) {
+    console.log("\nHallo, ich werde aufgerufen :)\n" + x.toString())
 }
 
 function moveDown() {
@@ -11,6 +13,11 @@ function moveLeft() {
 }
 
 function moveRight() {
+}
+
+function buildLevel(dungeon) {
+    console.log("Hallo")
+    console.log("Hallo" + dungeon(0)(0).value)
 }
 
 function setFieldImage(fieldValue, isPlayerOnField) {
