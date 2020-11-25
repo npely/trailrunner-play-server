@@ -1,46 +1,5 @@
 @(controller: controllers.TrailRunnerController)
 
-@wall = @{
-    -99
-}
-
-@ground_0 = @{
-    -1
-}
-
-@ground_0_0 = @{
-    0
-}
-
-@ground_1 = @{
-    1
-}
-
-@ground_2 = @{
-    2
-}
-
-@ground_3 = @{
-    3
-}
-
-@ground_4 = @{
-    4
-}
-
-@ground_5 = @{
-    5
-}
-
-@door_1 = @{
-    -10
-}
-
-@door_2 = @{
-    -20
-}
-
-
 @main {
     <head>
         <meta charset="UTF-8">
@@ -79,19 +38,13 @@
                 </script>
             </div>
             <div id="move-button-group">
-                <form method="get" action="@routes.TrailRunnerController.moveUp()">
+                <div class="row">
                     <button id="move-button" onclick="moveUp()" type="submit">&#x2191</button>
-                </form>
+                </div>
                 <div class="btn-group" role="group">
-                    <form method="get" action="@routes.TrailRunnerController.moveLeft()">
-                        <button id="move-button" onclick="moveLeft()" type="submit">&#x2190</button>
-                    </form>
-                    <form method="get" action="@routes.TrailRunnerController.moveDown()">
-                        <button id="move-button" onclick="moveDown()" type="submit">&#x2193</button>
-                    </form>
-                    <form method="get" action="@routes.TrailRunnerController.moveRight()">
-                        <button id="move-button" onclick="moveRight()" type="submit">&#x2192</button>
-                    </form>
+                    <button id="move-button" onclick="moveLeft()" type="submit">&#x2190</button>
+                    <button id="move-button" onclick="moveDown()" type="submit">&#x2193</button>
+                    <button id="move-button" onclick="moveRight()" type="submit">&#x2192</button>
                 </div>
             </div>
         </div>
