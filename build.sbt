@@ -7,7 +7,7 @@ lazy val root = (project in file("."))
     guice,
     "com.h2database" % "h2" % "1.4.199",
     "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test,
-    "de.htwg.se" %% "trailrunner" % "0.1"
+    "de.htwg.se" %% "trailrunner" % "0.4"
   ),
   scalacOptions ++= Seq(
     "-feature",
