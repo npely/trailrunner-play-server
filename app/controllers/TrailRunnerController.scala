@@ -6,6 +6,7 @@ import play.api.mvc._
 import controller.controllerComponent.{ControllerInterface, DungeonChanged}
 import aview.TUI
 import model.levelComponent.levelBaseImpl.{Level1, Level2, Level3, Level4}
+import play.api.libs.json.{JsObject, Json}
 import play.twirl.api.HtmlFormat
 import src.main.TrailRunnerModule.TrailRunnerModule
 
@@ -58,68 +59,32 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
 
   def moveUp() = Action {
     gameController.playerMoveUp()
-    if (isGameOver() == "win") {
-      Ok(getHtml(views.html.winScreen()))
-    } else if (isGameOver() == "lose") {
-      Ok(getHtml(views.html.loseScreen()))
-    } else {
-      Ok(getHtml(views.html.trailrunner(this)))
-    }
+    Ok(getHtml(views.html.trailrunner(this)))
   }
 
   def moveDown() = Action {
     gameController.playerMoveDown()
-    if (isGameOver() == "win") {
-      Ok(getHtml(views.html.winScreen()))
-    } else if (isGameOver() == "lose") {
-      Ok(getHtml(views.html.loseScreen()))
-    } else {
-      Ok(getHtml(views.html.trailrunner(this)))
-    }
+    Ok(getHtml(views.html.trailrunner(this)))
   }
 
   def moveLeft() = Action {
     gameController.playerMoveLeft()
-    if (isGameOver() == "win") {
-      Ok(getHtml(views.html.winScreen()))
-    } else if (isGameOver() == "lose") {
-      Ok(getHtml(views.html.loseScreen()))
-    } else {
-      Ok(getHtml(views.html.trailrunner(this)))
-    }
+    Ok(getHtml(views.html.trailrunner(this)))
   }
 
   def moveRight() = Action {
     gameController.playerMoveRight()
-    if (isGameOver() == "win") {
-      Ok(getHtml(views.html.winScreen()))
-    } else if (isGameOver() == "lose") {
-      Ok(getHtml(views.html.loseScreen()))
-    } else {
-      Ok(getHtml(views.html.trailrunner(this)))
-    }
+    Ok(getHtml(views.html.trailrunner(this)))
   }
 
   def undo() = Action {
     gameController.undo
-    if (isGameOver() == "win") {
-      Ok(getHtml(views.html.winScreen()))
-    } else if (isGameOver() == "lose") {
-      Ok(getHtml(views.html.loseScreen()))
-    } else {
-      Ok(getHtml(views.html.trailrunner(this)))
-    }
+    Ok(getHtml(views.html.trailrunner(this)))
   }
 
   def redo() = Action {
     gameController.redo
-    if (isGameOver() == "win") {
-      Ok(getHtml(views.html.winScreen()))
-    } else if (isGameOver() == "lose") {
-      Ok(getHtml(views.html.loseScreen()))
-    } else {
-      Ok(getHtml(views.html.trailrunner(this)))
-    }
+    Ok(getHtml(views.html.trailrunner(this)))
   }
 
   def start() = Action {
@@ -129,6 +94,72 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
   def menu() = Action {
     gameController.changeToMain()
     Ok(getHtml(views.html.mainMenu()))
+  }
+
+  def win() = Action {
+    Ok(getHtml(views.html.winScreen()))
+  }
+
+  def lose() = Action {
+    Ok(getHtml(views.html.loseScreen()))
+  }
+
+  def getChangedFields(move: String) = Action {
+    var returnObject: JsObject = null;
+    if (move == "up") {
+      returnObject = Json.obj(
+        "lose" -> gameController.levelLose(),
+        "levelFieldSum" -> (gameController.level.sum() - 1),
+        "doorX" -> gameController.level.doorX,
+        "doorY" -> gameController.level.doorY,
+        "doorValue" -> gameController.level.dungeon(gameController.level.doorY)(gameController.level.doorX).value,
+        "playerY" -> gameController.player.yPos,
+        "playerX" -> gameController.player.xPos,
+        "playerFieldValue" -> gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos).value,
+        "newPlayerY" -> (gameController.player.yPos - 1),
+        "newPlayerX" -> gameController.player.xPos,
+        "newPlayerFieldValue" -> (gameController.level.dungeon(gameController.player.yPos - 1)(gameController.player.xPos).value - 1))
+    }
+    else if (move == "down") {
+      returnObject = Json.obj(
+        "levelFieldSum" -> (gameController.level.sum() - 1),
+        "doorX" -> gameController.level.doorX,
+        "doorY" -> gameController.level.doorY,
+        "doorValue" -> gameController.level.dungeon(gameController.level.doorY)(gameController.level.doorX).value,
+        "playerY" -> gameController.player.yPos,
+        "playerX" -> gameController.player.xPos,
+        "playerFieldValue" -> gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos).value,
+        "newPlayerY" -> (gameController.player.yPos + 1),
+        "newPlayerX" -> gameController.player.xPos,
+        "newPlayerFieldValue" -> (gameController.level.dungeon(gameController.player.yPos + 1)(gameController.player.xPos).value - 1))
+    }
+    else if (move == "left") {
+      returnObject = Json.obj(
+        "levelFieldSum" -> (gameController.level.sum() - 1),
+        "doorX" -> gameController.level.doorX,
+        "doorY" -> gameController.level.doorY,
+        "doorValue" -> gameController.level.dungeon(gameController.level.doorY)(gameController.level.doorX).value,
+        "playerY" -> gameController.player.yPos,
+        "playerX" -> gameController.player.xPos,
+        "playerFieldValue" -> gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos).value,
+        "newPlayerY" -> gameController.player.yPos,
+        "newPlayerX" -> (gameController.player.xPos - 1),
+        "newPlayerFieldValue" -> (gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos - 1).value - 1))
+    }
+    else {
+      returnObject = Json.obj(
+        "levelFieldSum" -> (gameController.level.sum() - 1),
+        "doorX" -> gameController.level.doorX,
+        "doorY" -> gameController.level.doorY,
+        "doorValue" -> gameController.level.dungeon(gameController.level.doorY)(gameController.level.doorX).value,
+        "playerY" -> gameController.player.yPos,
+        "playerX" -> gameController.player.xPos,
+        "playerFieldValue" -> gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos).value,
+        "newPlayerY" -> gameController.player.yPos,
+        "newPlayerX" -> (gameController.player.xPos + 1),
+        "newPlayerFieldValue" -> (gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos + 1).value - 1))
+    }
+    Ok(returnObject)
   }
 
   def getLevelMap() = Action {
