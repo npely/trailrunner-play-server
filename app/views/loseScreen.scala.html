@@ -3,6 +3,7 @@
         <meta charset="UTF-8">
         <title>Level Selection</title>
         <link href=“main.css” rel=“stylesheet” type=“text/css” />
+        <script src='@routes.Assets.versioned("javascripts/main.js")'></script>
     </head>
     <body>
         <div class="container-fluid">
@@ -15,9 +16,7 @@
                 </div>
             </div>
             <div class="row">
-                <form method="get" action="@routes.TrailRunnerController.menu()">
-                    <button id="back-to-main" type="submit">Back to Main Menu</button>
-                </form>
+                <button onclick="backToMain()" id="back-to-main" type="submit">Back to Main Menu</button>
             </div>
         </div>
     </body>

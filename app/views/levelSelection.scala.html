@@ -6,30 +6,23 @@
             <title>Level Selection</title>
             <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("../../public/stylesheets/main.css")">
             <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+            <script src='@routes.Assets.versioned("javascripts/main.js")'></script>
         </head>
         <body>
             <div id="level-selection-button-group" class="message">
                 <div class="row">
                 </div>
                 <div class="row">
-                    <form method="get" action="/level/1">
-                        <button id="menu-button" type="submit">Level 1</button>
-                    </form>
+                    <button onclick="initLevel(1)" id="menu-button" type="submit">Level 1</button>
                 </div>
                 <div class="row">
-                    <form method="get" action="level/2">
-                        <button id="menu-button" type="submit">Level 2</button>
-                    </form>
+                    <button onclick="initLevel(2)" id="menu-button" type="submit">Level 2</button>
                 </div>
                 <div class="row">
-                    <form method="get" action="level/3">
-                        <button id="menu-button" type="submit">Level 3</button>
-                    </form>
+                    <button onclick="initLevel(3)" id="menu-button" type="submit">Level 3</button>
                 </div>
                 <div class="row">
-                    <form method="get" action="level/4">
-                        <button id="menu-button" type="submit">Level 4</button>
-                    </form>
+                    <button onclick="initLevel(4)" id="menu-button" type="submit">Level 4</button>
                 </div>
             </div>
         </body>

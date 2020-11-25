@@ -5,6 +5,7 @@
             <meta charset="UTF-8">
             <title>About</title>
             <link href=“main.css” rel=“stylesheet” type=“text/css” />
+            <script src='@routes.Assets.versioned("javascripts/main.js")'></script>
         </head>
         <body>
             <div class="container-fluid">
@@ -29,9 +30,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <form method="get" action="@routes.TrailRunnerController.menu()">
-                        <input id="back-to-main" type="submit" value="Back to Main Menu">
-                    </form>
+                    <button onclick="backToMain()" id="back-to-main" type="submit">Back to Main Menu</button>>
                 </div>
             </div>
         </body>
