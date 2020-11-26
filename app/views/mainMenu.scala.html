@@ -1,26 +1,28 @@
 @()
 
-@main {
-    <head>
-        <meta charset="UTF-8">
-        <title>Main Menu</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
-        <script src='@routes.Assets.versioned("javascripts/main.js")'></script>
-    </head>
-    <body>
-        <div id="mainMenu" class="message">
-            <div class="row">
+    @main {
+        <head>
+            <meta charset="UTF-8">
+            <title>Main Menu</title>
+            <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+            <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+            <script src='@routes.Assets.versioned("javascripts/main.js")'></script>
+        </head>
+        <body>
+            <div class="container">
+                <div id="mainMenu" class="message">
+                    <div class="row">
+                    </div>
+                    <div class="row">
+                        <button onclick="changeToLevelSelection()" id="menu-button" type="submit">New Game</button>
+                    </div>
+                    <div class="row">
+                        <button onclick="loadLevel()" id="menu-button" type="submit">Load Game</button>
+                    </div>
+                    <div class="row">
+                        <button onclick="aboutGame()" id="menu-button" type="submit">About Game</button>
+                    </div>
+                </div>
             </div>
-            <div class="row">
-                <button onclick="changeToLevelSelection()" id="menu-button" type="submit">New Game</button>
-            </div>
-            <div class="row">
-                <button onclick="loadLevel()" id="menu-button" type="submit">Load Game</button>
-            </div>
-            <div class="row">
-                <button onclick="aboutGame()" id="menu-button" type="submit">About Game</button>
-            </div>
-        </div>
-    </body>
-}
+        </body>
+    }

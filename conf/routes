@@ -23,7 +23,7 @@ GET    /about                      controllers.TrailRunnerController.about()
 GET    /save                       controllers.TrailRunnerController.save()
 GET    /load                       controllers.TrailRunnerController.load()
 
-GET    /changedFields/:move           controllers.TrailRunnerController.getChangedFields(move: String)
+GET    /changedFields/:move        controllers.TrailRunnerController.getChangedFields(move: String)
 
 GET    /levelMap                   controllers.TrailRunnerController.getLevelMap()
 

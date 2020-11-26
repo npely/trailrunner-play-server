@@ -20,148 +20,56 @@ function aboutGame() {
     window.location.href = "http://localhost:9000/about";
 }
 
-function moveUp() {
-    let moveHttpRequest = new XMLHttpRequest();
+function moveUpdate(direction) {
+    let isSliding = false;
     let changeHttpRequest = new XMLHttpRequest();
-
-    changeHttpRequest.open('GET', '/changedFields/up', false);
+    changeHttpRequest.open('GET', ('/changedFields/' + direction.toString()), false);
     changeHttpRequest.onreadystatechange = function () {
-        if(this.readyState === 4 && this.status === 200) {
+        if (this.readyState === 4 && this.status === 200) {
             const changedFields = JSON.parse(changeHttpRequest.responseText)
+            isSliding = (changedFields.newPlayerField.fieldtype === "Ice");
             console.log(changedFields);
             let newPlayerFieldCol = document.getElementById("col-" + changedFields.newPlayerY + "," + changedFields.newPlayerX);
-            if (changedFields.newPlayerFieldValue === -1) {
-                window.location.href = "http://localhost:9000/lose";
-            } else if (changedFields.newPlayerFieldValue === 9 || changedFields.newPlayerFieldValue === 19) {
-                window.location.href = "http://localhost:9000/win";
-            } else if (changedFields.newPlayerFieldValue === -100) {
-              return null;
-            } else {
-                updateField(newPlayerFieldCol, changedFields.newPlayerFieldValue, changedFields.newPlayerY, changedFields.newPlayerX, true);
-            }
-
             let oldPlayerFieldCol = document.getElementById("col-" + changedFields.PlayerY + "," + changedFields.PlayerX);
-            updateField(oldPlayerFieldCol, changedFields.playerFieldValue, changedFields.playerY, changedFields.playerX, false);
-
             let doorFieldCol = document.getElementById("col-" + changedFields.doorY + "," + changedFields.doorX);
-            if (changedFields.levelFieldSum === 0) {
-                updateField(doorFieldCol, changedFields.doorValue * -1, changedFields.doorY, changedFields.doorX, false);
-            } else {
-                updateField(doorFieldCol, changedFields.doorValue, changedFields.doorY, changedFields.doorX, false);
-            }
-        }
-        moveHttpRequest.open('GET', '/move/up', false);
-        moveHttpRequest.send()
-    }
-    changeHttpRequest.send()
-}
-
-function moveDown() {
-    let moveHttpRequest = new XMLHttpRequest();
-    let changeHttpRequest = new XMLHttpRequest();
-
-    changeHttpRequest.open('GET', '/changedFields/down', false);
-    changeHttpRequest.onreadystatechange = function () {
-        if(this.readyState === 4 && this.status === 200) {
-            const changedFields = JSON.parse(changeHttpRequest.responseText)
-            console.log(changedFields);
-            let newPlayerFieldCol = document.getElementById("col-" + changedFields.newPlayerY + "," + changedFields.newPlayerX);
-            if (changedFields.newPlayerFieldValue === -1) {
-                window.location.href = "http://localhost:9000/lose";
-            } else if (changedFields.newPlayerFieldValue === 9 || changedFields.newPlayerFieldValue === 19) {
-                window.location.href = "http://localhost:9000/win";
-            } else if (changedFields.newPlayerFieldValue === -100) {
+            if (changedFields.newPlayerField.fieldvalue === -1) {
+                updateField(oldPlayerFieldCol, changedFields.playerField.fieldvalue, changedFields.playerField.fieldtype, changedFields.playerY.toString() + changedFields.playerX.toString(), false);
+                updateField(newPlayerFieldCol, changedFields.newPlayerField.fieldvalue, changedFields.newPlayerField.fieldtype, changedFields.newPlayerY.toString() + changedFields.newPlayerX.toString(), true);
+                setTimeout(function () {
+                    window.location.href = "http://localhost:9000/lose";
+                }, 400);
+                return null;
+            } else if (changedFields.newPlayerField.fieldvalue === 9 || changedFields.newPlayerField.fieldvalue === 19) {
+                updateField(oldPlayerFieldCol, changedFields.playerField.fieldvalue, changedFields.playerField.fieldtype, changedFields.playerY.toString() + changedFields.playerX.toString(), false);
+                updateField(doorFieldCol, changedFields.newPlayerField.fieldvalue, "Door", changedFields.doorY.toString() + changedFields.doorX.toString(), true);
+                setTimeout(function () {
+                    window.location.href = "http://localhost:9000/win";
+                }, 400);
+                return null;
+            } else if (changedFields.newPlayerField.fieldvalue === -100) {
                 return null;
             } else {
-                updateField(newPlayerFieldCol, changedFields.newPlayerFieldValue, changedFields.newPlayerY, changedFields.newPlayerX, true);
+
+                updateField(newPlayerFieldCol, changedFields.newPlayerField.fieldvalue, changedFields.newPlayerField.fieldtype, changedFields.newPlayerY.toString() + changedFields.newPlayerX.toString(), true);
             }
 
-            let oldPlayerFieldCol = document.getElementById("col-" + changedFields.PlayerY + "," + changedFields.PlayerX);
-            updateField(oldPlayerFieldCol, changedFields.playerFieldValue, changedFields.playerY, changedFields.playerX, false);
-
-            let doorFieldCol = document.getElementById("col-" + changedFields.doorY + "," + changedFields.doorX);
+            updateField(oldPlayerFieldCol, changedFields.playerField.fieldvalue, changedFields.playerField.fieldtype, changedFields.playerY.toString() + changedFields.playerX.toString(), false);
             if (changedFields.levelFieldSum === 0) {
-                updateField(doorFieldCol, changedFields.doorValue * -1, changedFields.doorY, changedFields.doorX, false);
+                updateField(doorFieldCol, changedFields.doorField.fieldvalue * (-1), changedFields.doorField.fieldtype, changedFields.doorY.toString() + changedFields.doorX.toString(), false);
             } else {
-                updateField(doorFieldCol, changedFields.doorValue, changedFields.doorY, changedFields.doorX, false);
+                updateField(doorFieldCol, changedFields.doorField.fieldvalue, changedFields.doorField.fieldtype, changedFields.doorY.toString() + changedFields.doorX.toString(), false);
             }
+            let moveHttpRequest = new XMLHttpRequest();
+            moveHttpRequest.open('GET', ('/move/' + direction.toString()), false);
+            moveHttpRequest.send();
         }
-        moveHttpRequest.open('GET', '/move/down', false);
-        moveHttpRequest.send()
     }
-    changeHttpRequest.send()
-}
-
-function moveLeft() {
-    let moveHttpRequest = new XMLHttpRequest();
-    let changeHttpRequest = new XMLHttpRequest();
-
-    changeHttpRequest.open('GET', '/changedFields/left', false);
-    changeHttpRequest.onreadystatechange = function () {
-        if(this.readyState === 4 && this.status === 200) {
-            const changedFields = JSON.parse(changeHttpRequest.responseText)
-            console.log(changedFields);
-            let newPlayerFieldCol = document.getElementById("col-" + changedFields.newPlayerY + "," + changedFields.newPlayerX);
-            if (changedFields.newPlayerFieldValue === -1) {
-                window.location.href = "http://localhost:9000/lose";
-            } else if (changedFields.newPlayerFieldValue === 9 || changedFields.newPlayerFieldValue === 19) {
-                window.location.href = "http://localhost:9000/win";
-            } else if (changedFields.newPlayerFieldValue === -100) {
-                return null;
-            } else {
-                updateField(newPlayerFieldCol, changedFields.newPlayerFieldValue, changedFields.newPlayerY, changedFields.newPlayerX, true);
-            }
-
-            let oldPlayerFieldCol = document.getElementById("col-" + changedFields.PlayerY + "," + changedFields.PlayerX);
-            updateField(oldPlayerFieldCol, changedFields.playerFieldValue, changedFields.playerY, changedFields.playerX, false);
-
-            let doorFieldCol = document.getElementById("col-" + changedFields.doorY + "," + changedFields.doorX);
-            if (changedFields.levelFieldSum === 0) {
-                updateField(doorFieldCol, changedFields.doorValue * -1, changedFields.doorY, changedFields.doorX, false);
-            } else {
-                updateField(doorFieldCol, changedFields.doorValue, changedFields.doorY, changedFields.doorX, false);
-            }
-        }
-        moveHttpRequest.open('GET', '/move/left', false);
-        moveHttpRequest.send()
+    changeHttpRequest.send();
+    if (isSliding) {
+        setTimeout(function () {
+            moveUpdate(direction);
+        }, 50);
     }
-    changeHttpRequest.send()
-}
-
-function moveRight() {
-    let moveHttpRequest = new XMLHttpRequest();
-    let changeHttpRequest = new XMLHttpRequest();
-
-    changeHttpRequest.open('GET', '/changedFields/right', false);
-    changeHttpRequest.onreadystatechange = function () {
-        if(this.readyState === 4 && this.status === 200) {
-            const changedFields = JSON.parse(changeHttpRequest.responseText)
-            console.log(changedFields);
-            let newPlayerFieldCol = document.getElementById("col-" + changedFields.newPlayerY + "," + changedFields.newPlayerX);
-            if (changedFields.newPlayerFieldValue === -1) {
-                window.location.href = "http://localhost:9000/lose";
-            } else if (changedFields.newPlayerFieldValue === 9 || changedFields.newPlayerFieldValue === 19) {
-                window.location.href = "http://localhost:9000/win";
-            } else if (changedFields.newPlayerFieldValue === -100) {
-                return null;
-            } else {
-                updateField(newPlayerFieldCol, changedFields.newPlayerFieldValue, changedFields.newPlayerY, changedFields.newPlayerX, true);
-            }
-
-            let oldPlayerFieldCol = document.getElementById("col-" + changedFields.PlayerY + "," + changedFields.PlayerX);
-            updateField(oldPlayerFieldCol, changedFields.playerFieldValue, changedFields.playerY, changedFields.playerX, false);
-
-            let doorFieldCol = document.getElementById("col-" + changedFields.doorY + "," + changedFields.doorX);
-            if (changedFields.levelFieldSum === 0) {
-                updateField(doorFieldCol, changedFields.doorValue * -1, changedFields.doorY, changedFields.doorX, false);
-            } else {
-                updateField(doorFieldCol, changedFields.doorValue, changedFields.doorY, changedFields.doorX, false);
-            }
-        }
-        moveHttpRequest.open('GET', '/move/right', false);
-        moveHttpRequest.send()
-    }
-    changeHttpRequest.send()
 }
 
 function buildLevel() {
@@ -183,13 +91,9 @@ function buildLevel() {
                     col.classList.add('no-padding');
                     col.id = "col-" + x + "," + y;
                     row.append(col);
-                    if (mapData.level.xPos === y && mapData.level.yPos === x) {
-                        //create image
-                        buildField(col, mapData.fieldvalues[x * 10 + y].fieldvalue, x, y, true);
-                    } else {
-                        //create image
-                        buildField(col, mapData.fieldvalues[x * 10 + y].fieldvalue, x, y, false);
-                    }
+                    let field = mapData.fieldvalues[x * 10 + y];
+                    let xy = x.toString() + y.toString()
+                    buildField(col, field.fieldvalue, field.fieldtype, xy, (mapData.level.xPos === y && mapData.level.yPos === x));
                 }
             }
         }
@@ -197,94 +101,31 @@ function buildLevel() {
     httpRequest.send();
 }
 
-function updateField(parent, fieldValue, x, y, isPlayerOnField) {
-    let image = document.getElementById("img-" + x + y);
-    image.src = 'http://localhost:9000/assets/' + setFieldImage(parent, fieldValue, isPlayerOnField);
+function updateField(parent, fieldValue, fieldType, xy, isPlayerOnField) {
+    let image = document.getElementById("img-" + xy);
+    //temporal work-around
+    image.src = 'http://localhost:9000/assets/' + setFieldImage(parent, fieldValue, fieldType, isPlayerOnField);
 }
 
-function buildField(parent, fieldValue, x, y, isPlayerOnField) {
+function buildField(parent, fieldValue, fieldType, xy, isPlayerOnField) {
     let image = document.createElement('img');
     //temporal work-around
-    image.src = 'http://localhost:9000/assets/' + setFieldImage(parent, fieldValue, isPlayerOnField);
+    image.src = 'http://localhost:9000/assets/' + setFieldImage(parent, fieldValue, fieldType, isPlayerOnField);
     image.classList.add("game-field");
-    image.id = "img-" + x + y;
+    image.id = "img-" + xy;
     parent.append(image);
 }
 
-function setFieldImage(parent, fieldValue, isPlayerOnField) {
-    const path = "images/fields/";
-    let myPicture = path;
-    switch (fieldValue) {
-        case -99:
-            myPicture += "Wall.png";
-            break;
-        case -1:
-            if (isPlayerOnField) {
-                myPicture += "Ground_0.png";
-                break;
-            }
-        case 0:
-            if (isPlayerOnField) {
-                myPicture += "Ground_0_P.png";
-                break;
-            } else {
-                myPicture += "Ground_0.png";
-                break;
-            }
-        case 1:
-            if (isPlayerOnField) {
-                myPicture += "Ground_1_P.png";
-                break;
-            } else {
-                myPicture += "Ground_1.png";
-                break;
-            }
-        case 2:
-            if (isPlayerOnField) {
-                myPicture += "Ground_2_P.png";
-                break;
-            } else {
-                myPicture += "Ground_2.png";
-                break;
-            }
-        case 3:
-            if (isPlayerOnField) {
-                myPicture += "Ground_3_P.png";
-                break;
-            } else {
-                myPicture += "Ground_3.png";
-                break;
-            }
-        case 4:
-            if (isPlayerOnField) {
-                myPicture += "Ground_4_P.png";
-                break;
-            } else {
-                myPicture += "Ground_4.png";
-                break;
-            }
-        case 5:
-            if (isPlayerOnField) {
-                myPicture += "Ground_5_P.png";
-                break;
-            } else {
-                myPicture += "Ground_5.png";
-                break;
-            }
-        case 10:
-            myPicture += "Door4.png";
-            break;
-        case 20:
-            myPicture += "Door24.png";
-            break;
-        case -10:
-            myPicture += "Door1.png";
-            break;
-        case -20:
-            myPicture += "Door21.png";
-            break;
-        default:
-            myPicture += "Wall.png";
+function setFieldImage(parent, fieldValue, fieldType, isPlayerOnField) {
+    let myPicture = "images/fields/";
+    if (fieldValue >= -20 && fieldValue <= 20) {
+        if (fieldType === "Door" || !isPlayerOnField) {
+            myPicture += fieldType + "_" + fieldValue + ".png";
+        } else {
+            myPicture += fieldType + "_" + fieldValue + "_P.png";
+        }
+    } else {
+        myPicture += "Wall.png";
     }
     return myPicture;
 }

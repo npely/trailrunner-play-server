@@ -1,52 +1,84 @@
 @(controller: controllers.TrailRunnerController)
 
-@main {
-    <head>
-        <meta charset="UTF-8">
-        <title>Level Selection</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
-        <script src='@routes.Assets.versioned("javascripts/bootstrap.min.js")'></script>
-        <script src='@routes.Assets.versioned("javascripts/main.js")'></script>
-    </head>
-    <body>
-        <div class="container" id="game-container">
-            <div class="navbar justify-content-center">
-                <div>
-                    <img src="@routes.Assets.versioned("images/Logo.png")" id="level-logo"/>
-                    <a class="navbar-brand" id="level-name">&nbsp;@controller.gameController.levelGetName()</a>
+    @main {
+        <head>
+            <meta charset="UTF-8">
+            <title>Level Selection</title>
+            <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+            <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+            <script src='@routes.Assets.versioned("javascripts/bootstrap.min.js")'></script>
+            <script src='@routes.Assets.versioned("javascripts/main.js")'></script>
+        </head>
+        <body>
+            <div class="container" id="game-container">
+                <div class="navbar justify-content-center">
+                    <div>
+                        <img src="@routes.Assets.versioned("images/Logo.png")" id="level-logo"/>
+                        <a class="navbar-brand" id="level-name">&nbsp;@controller.gameController.levelGetName()</a>
+                    </div>
+                    <form method="get" action="@routes.TrailRunnerController.save()">
+                        <button id="save-button" data-toggle="tooltip" title="Save the game" type="submit">&#x1F4BE</button>
+                    </form>
+                    <form method="get" action="@routes.TrailRunnerController.redo()">
+                        <button id="redo-button" data-toggle="tooltip" title="Redo your undone step" type="submit">
+                            &#x21B7</button>
+                    </form>
+                    <form method="get" action="@routes.TrailRunnerController.undo()">
+                        <button id="undo-button" data-toggle="tooltip" title="Undo your last step" type="submit">
+                            &#x21B6</button>
+                    </form>
+                    <form method="get" action="@routes.TrailRunnerController.start()">
+                        <button id="back-button" data-toggle="tooltip" title="Go back to main menu" type="submit">
+                            &#x1F6AA</button>
+                    </form>
                 </div>
-                <form method="get" action="@routes.TrailRunnerController.save()">
-                    <button id="save-button" data-toggle="tooltip" title="Save the game" type="submit">&#x1F4BE</button>
-                </form>
-                <form method="get" action="@routes.TrailRunnerController.redo()">
-                    <button id="redo-button" data-toggle="tooltip" title="Redo your undone step" type="submit">
-                        &#x21B7</button>
-                </form>
-                <form method="get" action="@routes.TrailRunnerController.undo()">
-                    <button id="undo-button" data-toggle="tooltip" title="Undo your last step" type="submit">
-                        &#x21B6</button>
-                </form>
-                <form method="get" action="@routes.TrailRunnerController.start()">
-                    <button id="back-button" data-toggle="tooltip" title="Go back to main menu" type="submit">
-                        &#x1F6AA</button>
-                </form>
-            </div>
-            <div id="level-map">
-                <script>
-                        buildLevel()
-                </script>
-            </div>
-            <div id="move-button-group">
-                <div class="row">
-                    <button id="move-button" onclick="moveUp()" type="submit">&#x2191</button>
+                <div id="level-map">
+                    <script>
+                            buildLevel()
+                    </script>
                 </div>
-                <div class="btn-group" role="group">
-                    <button id="move-button" onclick="moveLeft()" type="submit">&#x2190</button>
-                    <button id="move-button" onclick="moveDown()" type="submit">&#x2193</button>
-                    <button id="move-button" onclick="moveRight()" type="submit">&#x2192</button>
+                <div id="move-button-group">
+                    <div class="row">
+                        <button id="move-button" onclick="moveUpdate('up')" type="submit">&#x2191</button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button id="move-button" onclick="moveUpdate('left')" type="submit">&#x2190</button>
+                        <button id="move-button" onclick="moveUpdate('down')" type="submit">&#x2193</button>
+                        <button id="move-button" onclick="moveUpdate('right')" type="submit">&#x2192</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </body>
-}
+            <script>
+                    document.addEventListener('keydown', press)
+                    function press(e){
+                        if (e.keyCode === 38 /* up */ || e.keyCode === 87 /* w */){
+                            moveUpdate('up');
+                        }
+                        if (e.keyCode === 39 /* right */ || e.keyCode === 68 /* d */){
+                            moveUpdate('right');
+                        }
+                        if (e.keyCode === 40 /* down */ || e.keyCode === 83 /* s */){
+                            moveUpdate('down');
+                        }
+                        if (e.keyCode === 37 /* left */ || e.keyCode === 65 /* a */){
+                            moveUpdate('left');
+                        }
+                        if (e.keyCode === 81 /* q */){
+                            //undo call
+                            window.location.href = "http://localhost:9000/move/undo";
+                        }
+                        if (e.keyCode === 69 /* e */){
+                            //redo call
+                            window.location.href = "http://localhost:9000/move/redo";
+                        }
+                        if (e.keyCode === 72 /* h (like home) */){
+                            //home call
+                            window.location.href = "http://localhost:9000/menu";
+                        }
+                        if (e.ctrlKey && e.keyCode === 77 /* m (like memory) */){
+                            //save call
+                        }
+                    };
+            </script>
+        </body>
+    }

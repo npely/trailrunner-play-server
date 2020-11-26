@@ -5,7 +5,7 @@ import javax.inject._
 import play.api.mvc._
 import controller.controllerComponent.{ControllerInterface, DungeonChanged}
 import aview.TUI
-import model.levelComponent.levelBaseImpl.{Level1, Level2, Level3, Level4}
+import model.levelComponent.levelBaseImpl.{Level1, Level2, Level3, Level4, Level5}
 import play.api.libs.json.{JsObject, Json}
 import play.twirl.api.HtmlFormat
 import src.main.TrailRunnerModule.TrailRunnerModule
@@ -49,6 +49,9 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
     }
     else if (levelId == 4) {
       gameController.initializeGame(new Level4, false)
+    }
+    else if (levelId == 5) {
+      gameController.initializeGame(new Level5, false)
     }
     else {
       BadRequest(tui.toString())
@@ -104,60 +107,43 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
     Ok(getHtml(views.html.loseScreen()))
   }
 
+  def getMoveJson(yModifyer: Int, xModifyer: Int): JsObject = {
+    Json.obj(
+      "lose" -> gameController.levelLose(),
+      "levelFieldSum" -> (gameController.level.sum() - 1),
+      "doorX" -> gameController.level.doorX,
+      "doorY" -> gameController.level.doorY,
+      "doorField" -> Json.obj(
+        "fieldvalue" -> gameController.level.dungeon(gameController.level.doorY)(gameController.level.doorX).value,
+        "fieldtype" -> "Door"
+      ),
+      "playerY" -> gameController.player.yPos,
+      "playerX" -> gameController.player.xPos,
+      "playerField" -> Json.obj(
+        "fieldvalue" -> gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos).value,
+        "fieldtype" -> gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos).fieldType
+      ),
+      "newPlayerY" -> (gameController.player.yPos + yModifyer),
+      "newPlayerX" -> (gameController.player.xPos + xModifyer),
+      "newPlayerField" -> Json.obj(
+        "fieldvalue" -> (gameController.level.dungeon(gameController.player.yPos + yModifyer)(gameController.player.xPos + xModifyer).value - 1),
+        "fieldtype" -> gameController.level.dungeon(gameController.player.yPos + yModifyer)(gameController.player.xPos + xModifyer).fieldType
+      ))
+  }
+
   def getChangedFields(move: String) = Action {
     var returnObject: JsObject = null;
     if (move == "up") {
-      returnObject = Json.obj(
-        "lose" -> gameController.levelLose(),
-        "levelFieldSum" -> (gameController.level.sum() - 1),
-        "doorX" -> gameController.level.doorX,
-        "doorY" -> gameController.level.doorY,
-        "doorValue" -> gameController.level.dungeon(gameController.level.doorY)(gameController.level.doorX).value,
-        "playerY" -> gameController.player.yPos,
-        "playerX" -> gameController.player.xPos,
-        "playerFieldValue" -> gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos).value,
-        "newPlayerY" -> (gameController.player.yPos - 1),
-        "newPlayerX" -> gameController.player.xPos,
-        "newPlayerFieldValue" -> (gameController.level.dungeon(gameController.player.yPos - 1)(gameController.player.xPos).value - 1))
+      returnObject = getMoveJson(-1 , 0)
     }
     else if (move == "down") {
-      returnObject = Json.obj(
-        "levelFieldSum" -> (gameController.level.sum() - 1),
-        "doorX" -> gameController.level.doorX,
-        "doorY" -> gameController.level.doorY,
-        "doorValue" -> gameController.level.dungeon(gameController.level.doorY)(gameController.level.doorX).value,
-        "playerY" -> gameController.player.yPos,
-        "playerX" -> gameController.player.xPos,
-        "playerFieldValue" -> gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos).value,
-        "newPlayerY" -> (gameController.player.yPos + 1),
-        "newPlayerX" -> gameController.player.xPos,
-        "newPlayerFieldValue" -> (gameController.level.dungeon(gameController.player.yPos + 1)(gameController.player.xPos).value - 1))
+      returnObject = getMoveJson(1 , 0)
     }
     else if (move == "left") {
-      returnObject = Json.obj(
-        "levelFieldSum" -> (gameController.level.sum() - 1),
-        "doorX" -> gameController.level.doorX,
-        "doorY" -> gameController.level.doorY,
-        "doorValue" -> gameController.level.dungeon(gameController.level.doorY)(gameController.level.doorX).value,
-        "playerY" -> gameController.player.yPos,
-        "playerX" -> gameController.player.xPos,
-        "playerFieldValue" -> gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos).value,
-        "newPlayerY" -> gameController.player.yPos,
-        "newPlayerX" -> (gameController.player.xPos - 1),
-        "newPlayerFieldValue" -> (gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos - 1).value - 1))
+      returnObject = getMoveJson(0 , -1)
     }
     else {
-      returnObject = Json.obj(
-        "levelFieldSum" -> (gameController.level.sum() - 1),
-        "doorX" -> gameController.level.doorX,
-        "doorY" -> gameController.level.doorY,
-        "doorValue" -> gameController.level.dungeon(gameController.level.doorY)(gameController.level.doorX).value,
-        "playerY" -> gameController.player.yPos,
-        "playerX" -> gameController.player.xPos,
-        "playerFieldValue" -> gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos).value,
-        "newPlayerY" -> gameController.player.yPos,
-        "newPlayerX" -> (gameController.player.xPos + 1),
-        "newPlayerFieldValue" -> (gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos + 1).value - 1))
+      returnObject = getMoveJson(0 , 1)
     }
     Ok(returnObject)
   }
@@ -181,4 +167,5 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
       "continue"
     }
   }
+
 }
