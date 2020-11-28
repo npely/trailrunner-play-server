@@ -225,6 +225,19 @@ body {
     height: 55px;
 }
 
+#field-selector {
+    width: 550px;
+    height: 550px;
+    color: white;
+    font-family: "Press Start P2";
+    font-size: 0.5em;
+    background: rgba(34, 34, 34, 0.75)
+}
+
+.selector-row {
+    margin-bottom: 25px;
+}
+
 #win-message {
     display: block;
     width: auto;
@@ -340,6 +353,13 @@ body {
     background: transparent;
 }
 
+.sandbox-nav {
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    background: black;
+}
+
 #trailRunner-header {
     text-align: center;
     font-size: 100px;
@@ -437,6 +457,11 @@ body {
         width: 45px;
         height: 45px;
     }
+
+    #field-selector {
+        width: 450px;
+        height: 450px;
+    }
 }
 
 @media (max-width: 800px) {
@@ -463,6 +488,11 @@ body {
     .game-field {
         width: 30px;
         height: 30px;
+    }
+
+    #field-selector {
+        width: 300px;
+        height: 300px;
     }
 
     #move-button {

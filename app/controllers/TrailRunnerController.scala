@@ -22,6 +22,10 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
     Ok(getHtml(views.html.about()))
   }
 
+  def sandbox() = Action {
+    Ok(getHtml(views.html.sandbox(this)))
+  }
+
   def save() = Action {
     gameController.save
     Ok(getHtml(views.html.trailrunner(this)))

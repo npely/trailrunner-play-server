@@ -1,0 +1,104 @@
+@(controller: controllers.TrailRunnerController)
+
+@main {
+    <head>
+        <meta charset="UTF-8">
+        <title>Level Selection</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+        <script src='@routes.Assets.versioned("javascripts/bootstrap.min.js")'></script>
+        <script src='@routes.Assets.versioned("javascripts/main.js")'></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse sandbox-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <div>
+                        <img src="@routes.Assets.versioned("images/Logo.png")" id="level-logo"/>
+                        <a class="navbar-brand" id="level-name">&nbsp;Sandbox</a>
+                    </div>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <button id="save-button" data-toggle="tooltip" title="Save your level">&#x1F4BE</button>
+                </ul>
+            </div>
+        </nav>
+        <div class="row">
+            <div class="col-6" >
+                <div class="container" align="right">
+                    <div id="field-selector">
+                        <legend align="left">Selector</legend>
+                        <div class="row selector-row">
+                            <div class="col">
+                                <img class="game-field" src="@routes.Assets.versioned("images/fields/Ground_1.png")" draggable="true" ondragstart="drag(event)">
+                            </div>
+                            <div class="col">
+                                <img class="game-field" src="@routes.Assets.versioned("images/fields/Ground_2.png")" draggable="true" ondragstart="drag(event)">
+                            </div>
+                            <div class="col">
+                                <img class="game-field" src="@routes.Assets.versioned("images/fields/Ground_3.png")" draggable="true" ondragstart="drag(event)">
+                            </div>
+                            <div class="col">
+                                <img class="game-field" src="@routes.Assets.versioned("images/fields/Ground_4.png")" draggable="true" ondragstart="drag(event)">
+                            </div>
+                            <div class="col">
+                                <img class="game-field" src="@routes.Assets.versioned("images/fields/Ground_5.png")" draggable="true" ondragstart="drag(event)">
+                            </div>
+                        </div>
+                        <div class="row selector-row">
+                            <div class="col">
+                                <img class="game-field" src="@routes.Assets.versioned("images/fields/Ice_1.png")" draggable="true" ondragstart="drag(event)">
+                            </div>
+                            <div class="col">
+                                <img class="game-field" src="@routes.Assets.versioned("images/fields/Ice_2.png")" draggable="true" ondragstart="drag(event)">
+                            </div>
+                            <div class="col">
+                                <img class="game-field" src="@routes.Assets.versioned("images/fields/Ice_3.png")" draggable="true" ondragstart="drag(event)">
+                            </div>
+                            <div class="col">
+                                <img class="game-field" src="@routes.Assets.versioned("images/fields/Ice_4.png")" draggable="true" ondragstart="drag(event)">
+                            </div>
+                            <div class="col">
+                                <img class="game-field" src="@routes.Assets.versioned("images/fields/Ice_5.png")" draggable="true" ondragstart="drag(event)">
+                            </div>
+                        </div>
+                        <div class="row selector-row">
+                            <div class="col">
+                                <img class="game-field" src="@routes.Assets.versioned("images/fields/Snow_1.png")" draggable="true" ondragstart="drag(event)">
+                            </div>
+                            <div class="col">
+                                <img class="game-field" src="@routes.Assets.versioned("images/fields/Snow_2.png")" draggable="true" ondragstart="drag(event)">
+                            </div>
+                            <div class="col">
+                                <img class="game-field" src="@routes.Assets.versioned("images/fields/Snow_3.png")" draggable="true" ondragstart="drag(event)">
+                            </div>
+                            <div class="col">
+                                <img class="game-field" src="@routes.Assets.versioned("images/fields/Ice_0.png")" draggable="true" ondragstart="drag(event)">
+                            </div>
+                            <div class="col">
+                                <img class="game-field" src="@routes.Assets.versioned("images/fields/Ground_0.png")" draggable="true" ondragstart="drag(event)">
+                            </div>
+                        </div>
+                        <div class="row selector-row">
+                            <div class="col">
+                                <img class="game-field" src="@routes.Assets.versioned("images/fields/Wall.png")" draggable="true" ondragstart="drag(event)">
+                            </div>
+                            <div class="col">
+                                <img class="game-field" src="@routes.Assets.versioned("images/fields/Door_-10.png")" draggable="true" ondragstart="drag(event)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="container">
+                    <div id="sandbox-map">
+                        <script>
+                                buildSandboxMap()
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+}

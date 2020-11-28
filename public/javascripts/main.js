@@ -1,4 +1,5 @@
 function initLevel(levelNumber) {
+    new Audio("http://localhost:9000/assets/audio/click.wav").play();
     window.location.href = `http://localhost:9000/level/${levelNumber}`;
     buildLevel();
 }
@@ -18,6 +19,10 @@ function loadLevel() {
 
 function aboutGame() {
     window.location.href = "http://localhost:9000/about";
+}
+
+function load_sandbox() {
+    window.location.href = "http://localhost:9000/sandbox";
 }
 
 function moveUpdate(direction) {
@@ -128,4 +133,54 @@ function setFieldImage(parent, fieldValue, fieldType, isPlayerOnField) {
         myPicture += "Wall.png";
     }
     return myPicture;
+}
+
+function buildSandboxSelector() {
+
+}
+
+function buildSandboxMap() {
+    let parent = document.getElementById("sandbox-map");
+    for (let x = 0; x < 10; x++) {
+        let row = document.createElement('div');
+        row.classList.add('row');
+        row.classList.add('justify-content-center');
+        row.id = "row-" + x.toString();
+        parent.append(row);
+        for (let y = 0; y < 10; y++) {
+            let col = document.createElement('div');
+            col.classList.add('col');
+            col.classList.add('no-padding');
+            col.id = "col-" + x + "," + y;
+            row.append(col);
+            let xy = x.toString() + y.toString()
+            let image = document.createElement('img');
+            //temporal work-around
+            image.src = 'http://localhost:9000/assets/images/fields/Wall.png';
+            image.classList.add("game-field");
+            image.id = "img-" + xy;
+            image.addEventListener("drop", drop)
+            image.addEventListener("dragover", allowDrop)
+            parent.append(image);
+        }
+    }
+}
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    var el = ev.target;
+    if (!el.classList.contains('dropzone')) {
+        el = ev.target.parentNode;
+        ev.target.remove();
+    }
+    el.appendChild(document.getElementById(data).cloneNode(true));
 }
