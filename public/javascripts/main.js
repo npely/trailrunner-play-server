@@ -1,7 +1,6 @@
 function initLevel(levelNumber) {
     new Audio("http://localhost:9000/assets/audio/click.wav").play();
     window.location.href = `http://localhost:9000/level/${levelNumber}`;
-    buildLevel();
 }
 
 function backToMain() {
@@ -27,26 +26,48 @@ function load_sandbox() {
 
 function moveUpdate(direction) {
     let isSliding = false;
-    let changeHttpRequest = new XMLHttpRequest();
-    changeHttpRequest.open('GET', ('/changedFields/' + direction.toString()), false);
-    changeHttpRequest.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            const changedFields = JSON.parse(changeHttpRequest.responseText)
+    $.ajax({
+        method: 'GET',
+        url: '/changedFields/' + direction.toString(),
+        dataType: 'json',
+        async: false,
+
+        success: function(changedFields) {
             isSliding = (changedFields.newPlayerField.fieldtype === "Ice");
             console.log(changedFields);
-            let newPlayerFieldCol = document.getElementById("col-" + changedFields.newPlayerY + "," + changedFields.newPlayerX);
-            let oldPlayerFieldCol = document.getElementById("col-" + changedFields.PlayerY + "," + changedFields.PlayerX);
-            let doorFieldCol = document.getElementById("col-" + changedFields.doorY + "," + changedFields.doorX);
+            let newPlayerFieldCol = $(`#col-${changedFields.newPlayerY},${changedFields.newPlayerX}`);
+            let oldPlayerFieldCol = $(`#col-${changedFields.PlayerY},${changedFields.PlayerX}`);
+            let doorFieldCol = $(`#col-${changedFields.doorY},${changedFields.doorX}`);
             if (changedFields.newPlayerField.fieldvalue === -1) {
-                updateField(oldPlayerFieldCol, changedFields.playerField.fieldvalue, changedFields.playerField.fieldtype, changedFields.playerY.toString() + changedFields.playerX.toString(), false);
-                updateField(newPlayerFieldCol, changedFields.newPlayerField.fieldvalue, changedFields.newPlayerField.fieldtype, changedFields.newPlayerY.toString() + changedFields.newPlayerX.toString(), true);
+                updateField(
+                    oldPlayerFieldCol,
+                    changedFields.playerField.fieldvalue,
+                    changedFields.playerField.fieldtype,
+                    changedFields.playerY.toString() + changedFields.playerX.toString(),
+                    false);
+                updateField(
+                    newPlayerFieldCol,
+                    changedFields.newPlayerField.fieldvalue,
+                    changedFields.newPlayerField.fieldtype,
+                    changedFields.newPlayerY.toString() + changedFields.newPlayerX.toString(),
+                    true);
                 setTimeout(function () {
                     window.location.href = "http://localhost:9000/lose";
                 }, 400);
                 return null;
             } else if (changedFields.newPlayerField.fieldvalue === 9 || changedFields.newPlayerField.fieldvalue === 19) {
-                updateField(oldPlayerFieldCol, changedFields.playerField.fieldvalue, changedFields.playerField.fieldtype, changedFields.playerY.toString() + changedFields.playerX.toString(), false);
-                updateField(doorFieldCol, changedFields.newPlayerField.fieldvalue, "Door", changedFields.doorY.toString() + changedFields.doorX.toString(), true);
+                updateField(
+                    oldPlayerFieldCol,
+                    changedFields.playerField.fieldvalue,
+                    changedFields.playerField.fieldtype,
+                    changedFields.playerY.toString() + changedFields.playerX.toString(),
+                    false);
+                updateField(
+                    doorFieldCol,
+                    changedFields.newPlayerField.fieldvalue,
+                    "Door",
+                    changedFields.doorY.toString() + changedFields.doorX.toString(),
+                    true);
                 setTimeout(function () {
                     window.location.href = "http://localhost:9000/win";
                 }, 400);
@@ -54,22 +75,42 @@ function moveUpdate(direction) {
             } else if (changedFields.newPlayerField.fieldvalue === -100) {
                 return null;
             } else {
-
-                updateField(newPlayerFieldCol, changedFields.newPlayerField.fieldvalue, changedFields.newPlayerField.fieldtype, changedFields.newPlayerY.toString() + changedFields.newPlayerX.toString(), true);
+                updateField(newPlayerFieldCol,
+                    changedFields.newPlayerField.fieldvalue,
+                    changedFields.newPlayerField.fieldtype,
+                    changedFields.newPlayerY.toString() + changedFields.newPlayerX.toString(),
+                    true);
             }
 
-            updateField(oldPlayerFieldCol, changedFields.playerField.fieldvalue, changedFields.playerField.fieldtype, changedFields.playerY.toString() + changedFields.playerX.toString(), false);
+            updateField(
+                oldPlayerFieldCol,
+                changedFields.playerField.fieldvalue,
+                changedFields.playerField.fieldtype,
+                changedFields.playerY.toString() + changedFields.playerX.toString(),
+                false);
             if (changedFields.levelFieldSum === 0) {
-                updateField(doorFieldCol, changedFields.doorField.fieldvalue * (-1), changedFields.doorField.fieldtype, changedFields.doorY.toString() + changedFields.doorX.toString(), false);
+                updateField(
+                    doorFieldCol,
+                    changedFields.doorField.fieldvalue * (-1),
+                    changedFields.doorField.fieldtype,
+                    changedFields.doorY.toString() + changedFields.doorX.toString(),
+                    false);
             } else {
-                updateField(doorFieldCol, changedFields.doorField.fieldvalue, changedFields.doorField.fieldtype, changedFields.doorY.toString() + changedFields.doorX.toString(), false);
+                updateField(
+                    doorFieldCol,
+                    changedFields.doorField.fieldvalue,
+                    changedFields.doorField.fieldtype,
+                    changedFields.doorY.toString() + changedFields.doorX.toString(),
+                    false);
             }
-            let moveHttpRequest = new XMLHttpRequest();
-            moveHttpRequest.open('GET', ('/move/' + direction.toString()), false);
-            moveHttpRequest.send();
+            $.ajax({
+                method: 'GET',
+                url: '/move/' + direction.toString(),
+                dataType: 'json',
+                async: false
+            });
         }
-    }
-    changeHttpRequest.send();
+    });
     if (isSliding) {
         setTimeout(function () {
             moveUpdate(direction);
@@ -78,46 +119,39 @@ function moveUpdate(direction) {
 }
 
 function buildLevel() {
-    let httpRequest = new XMLHttpRequest();
-    httpRequest.open('GET', "/levelMap", true);
-    httpRequest.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            const mapData = JSON.parse(httpRequest.responseText)
-            let parent = document.getElementById("level-map");
+    $.ajax({
+        method: 'GET',
+        url: '/levelMap',
+        dataType: 'json',
+
+        success: function (mapData) {
+            let parent = $("#level-map");
             for (let x = 0; x < 10; x++) {
-                let row = document.createElement('div');
-                row.classList.add('row');
-                row.classList.add('justify-content-center');
-                row.id = "row-" + x.toString();
+                let row = $(`<div class="row justify-content-center" id="row-${x.toString()}"></div>`);
                 parent.append(row);
                 for (let y = 0; y < 10; y++) {
-                    let col = document.createElement('div');
-                    col.classList.add('col');
-                    col.classList.add('no-padding');
-                    col.id = "col-" + x + "," + y;
+                    let col = $(`<div class="col no-padding" id="col-${x},${y}"></div>`);
                     row.append(col);
+                    parent.html()
                     let field = mapData.fieldvalues[x * 10 + y];
                     let xy = x.toString() + y.toString()
                     buildField(col, field.fieldvalue, field.fieldtype, xy, (mapData.level.xPos === y && mapData.level.yPos === x));
                 }
             }
         }
-    };
-    httpRequest.send();
+    })
 }
 
 function updateField(parent, fieldValue, fieldType, xy, isPlayerOnField) {
-    let image = document.getElementById("img-" + xy);
+    let image = $(`#img-${xy}`);
     //temporal work-around
-    image.src = 'http://localhost:9000/assets/' + setFieldImage(parent, fieldValue, fieldType, isPlayerOnField);
+    image.attr('src', 'http://localhost:9000/assets/' + setFieldImage(parent, fieldValue, fieldType, isPlayerOnField));
 }
 
 function buildField(parent, fieldValue, fieldType, xy, isPlayerOnField) {
-    let image = document.createElement('img');
     //temporal work-around
-    image.src = 'http://localhost:9000/assets/' + setFieldImage(parent, fieldValue, fieldType, isPlayerOnField);
-    image.classList.add("game-field");
-    image.id = "img-" + xy;
+    let src = 'http://localhost:9000/assets/' + setFieldImage(parent, fieldValue, fieldType, isPlayerOnField);
+    let image = $(`<img class="game-field" id="img-${xy}" src=${src}>`);
     parent.append(image);
 }
 
@@ -140,27 +174,18 @@ function buildSandboxSelector() {
 }
 
 function buildSandboxMap() {
-    let parent = document.getElementById("sandbox-map");
+    let parent = $("#sandbox-map");
     for (let x = 0; x < 10; x++) {
-        let row = document.createElement('div');
-        row.classList.add('row');
-        row.classList.add('justify-content-center');
-        row.id = "row-" + x.toString();
+        let row = $(`<div class="row justify-content-center" id="row-${x.toString()}"></div>`);
         parent.append(row);
         for (let y = 0; y < 10; y++) {
-            let col = document.createElement('div');
-            col.classList.add('col');
-            col.classList.add('no-padding');
-            col.id = "col-" + x + "," + y;
+            let col = $(`<div class="col no-padding" id="col-${x},${y}"></div>`);
             row.append(col);
             let xy = x.toString() + y.toString()
-            let image = document.createElement('img');
             //temporal work-around
-            image.src = 'http://localhost:9000/assets/images/fields/Wall.png';
-            image.classList.add("game-field");
-            image.id = "img-" + xy;
-            image.addEventListener("drop", drop)
-            image.addEventListener("dragover", allowDrop)
+            let image = $(`<img class="game-field" id="img-${xy}" src="http://localhost:9000/assets/images/fields/Wall.png">`);
+            image.on("drop", drop)
+            image.on("dragover", allowDrop)
             parent.append(image);
         }
     }
@@ -171,16 +196,17 @@ function allowDrop(ev) {
 }
 
 function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
+    ev.originalEvent.dataTransfer.setData("text", ev.target.id);
 }
 
 function drop(ev) {
     ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    var el = ev.target;
+    console.log(ev);
+    let data = ev.originalEvent.dataTransfer.getData("text");
+    let el = ev.target;
     if (!el.classList.contains('dropzone')) {
         el = ev.target.parentNode;
         ev.target.remove();
     }
-    el.appendChild(document.getElementById(data).cloneNode(true));
+    el.appendChild($(data).cloneNode(true));
 }
