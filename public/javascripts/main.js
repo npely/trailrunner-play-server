@@ -180,19 +180,31 @@ function buildSandboxSelector() {
 }
 
 function buildSandboxMap() {
-    let parent = $("#sandbox-map");
+    let parent = document.getElementById("sandbox-map");
     for (let x = 0; x < 10; x++) {
-        let row = $(`<div class="row justify-content-center" id="row-${x.toString()}"></div>`);
+        let row = document.createElement('div');
+        row.classList.add('row');
+        row.classList.add('justify-content-center');
+        row.id = "row-" + x.toString();
         parent.append(row);
         for (let y = 0; y < 10; y++) {
-            let col = $(`<div class="col no-padding" id="col-${x},${y}"></div>`);
+            let col = document.createElement('div');
+            col.classList.add('col');
+            col.classList.add('no-padding');
+            col.id = "col-" + x + "," + y;
             row.append(col);
             let xy = x.toString() + y.toString()
+            let imageHolder = document.createElement("div");
+            imageHolder.id = "imgHolder-" + xy;
+            let image = document.createElement('img');
             //temporal work-around
-            let image = $(`<img class="game-field" id="img-${xy}" src="http://localhost:9000/assets/images/fields/Wall.png">`);
-            image.on("drop", drop)
-            image.on("dragover", allowDrop)
-            parent.append(image);
+            image.src = 'http://localhost:9000/assets/images/fields/Wall.png';
+            image.classList.add("game-field");
+            image.id = "img-" + xy;
+            image.addEventListener("drop", drop)
+            image.addEventListener("dragover", allowDrop)
+            imageHolder.append(image);
+            parent.append(imageHolder);
         }
     }
 }
@@ -202,17 +214,22 @@ function allowDrop(ev) {
 }
 
 function drag(ev) {
-    ev.originalEvent.dataTransfer.setData("text", ev.target.id);
+    ev.dataTransfer.setData("text", ev.target.id);
 }
 
 function drop(ev) {
     ev.preventDefault();
     console.log(ev);
-    let data = ev.originalEvent.dataTransfer.getData("text");
-    let el = ev.target;
-    if (!el.classList.contains('dropzone')) {
-        el = ev.target.parentNode;
-        ev.target.remove();
-    }
-    el.appendChild($(data).cloneNode(true));
+    let data = ev.dataTransfer.getData("text");
+    console.log(data)
+    let target = ev.target;
+    let parent = ev.target.parentNode;
+    parent.removeChild(target)
+    let image = document.createElement('img');
+    //temporal work-around
+    image.src = data;
+    image.classList.add("game-field");
+    image.addEventListener("drop", drop)
+    image.addEventListener("dragover", allowDrop)
+    parent.appendChild(image);
 }
