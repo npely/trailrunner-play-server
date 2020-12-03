@@ -28,94 +28,100 @@ function moveUpdate(direction) {
     let isSliding = false;
     $.ajax({
         method: 'GET',
-        url: '/changedFields/' + direction.toString(),
+        url: '/move/' + direction.toString(),
         dataType: 'json',
         async: false,
 
-        success: function(changedFields) {
-            isSliding = (changedFields.newPlayerField.fieldtype === "Ice");
-            console.log(changedFields);
-            let newPlayerFieldCol = $(`#col-${changedFields.newPlayerY},${changedFields.newPlayerX}`);
-            let oldPlayerFieldCol = $(`#col-${changedFields.PlayerY},${changedFields.PlayerX}`);
-            let doorFieldCol = $(`#col-${changedFields.doorY},${changedFields.doorX}`);
-            if (changedFields.newPlayerField.fieldvalue === -1) {
-                updateField(
-                    oldPlayerFieldCol,
-                    changedFields.playerField.fieldvalue,
-                    changedFields.playerField.fieldtype,
-                    changedFields.playerY.toString() + changedFields.playerX.toString(),
-                    false);
-                updateField(
-                    newPlayerFieldCol,
-                    changedFields.newPlayerField.fieldvalue,
-                    changedFields.newPlayerField.fieldtype,
-                    changedFields.newPlayerY.toString() + changedFields.newPlayerX.toString(),
-                    true);
-                setTimeout(function () {
-                    window.location.href = "http://localhost:9000/lose";
-                }, 400);
-                return null;
-            } else if (changedFields.newPlayerField.fieldvalue === 9 || changedFields.newPlayerField.fieldvalue === 19) {
-                updateField(
-                    oldPlayerFieldCol,
-                    changedFields.playerField.fieldvalue,
-                    changedFields.playerField.fieldtype,
-                    changedFields.playerY.toString() + changedFields.playerX.toString(),
-                    false);
-                updateField(
-                    doorFieldCol,
-                    changedFields.newPlayerField.fieldvalue,
-                    "Door",
-                    changedFields.doorY.toString() + changedFields.doorX.toString(),
-                    true);
-                setTimeout(function () {
-                    window.location.href = "http://localhost:9000/win";
-                }, 400);
-                return null;
-            } else if (changedFields.newPlayerField.fieldvalue === -100) {
-                return null;
-            } else {
-                updateField(newPlayerFieldCol,
-                    changedFields.newPlayerField.fieldvalue,
-                    changedFields.newPlayerField.fieldtype,
-                    changedFields.newPlayerY.toString() + changedFields.newPlayerX.toString(),
-                    true);
-            }
+        success: function(value) {
+            if (value.madeMove) {
+                $.ajax({
+                    method: 'GET',
+                    url: '/changedFields/' + direction.toString(),
+                    dataType: 'json',
+                    async: false,
 
-            updateField(
-                oldPlayerFieldCol,
-                changedFields.playerField.fieldvalue,
-                changedFields.playerField.fieldtype,
-                changedFields.playerY.toString() + changedFields.playerX.toString(),
-                false);
-            if (changedFields.levelFieldSum === 0) {
-                updateField(
-                    doorFieldCol,
-                    changedFields.doorField.fieldvalue * (-1),
-                    changedFields.doorField.fieldtype,
-                    changedFields.doorY.toString() + changedFields.doorX.toString(),
-                    false);
-            } else {
-                updateField(
-                    doorFieldCol,
-                    changedFields.doorField.fieldvalue,
-                    changedFields.doorField.fieldtype,
-                    changedFields.doorY.toString() + changedFields.doorX.toString(),
-                    false);
+                    success: function(changedFields) {
+                        isSliding = (changedFields.newPlayerField.fieldtype === "Ice");
+                        console.log(changedFields);
+                        let newPlayerFieldCol = $(`#col-${changedFields.newPlayerY},${changedFields.newPlayerX}`);
+                        let oldPlayerFieldCol = $(`#col-${changedFields.PlayerY},${changedFields.PlayerX}`);
+                        let doorFieldCol = $(`#col-${changedFields.doorY},${changedFields.doorX}`);
+                        if (changedFields.newPlayerField.fieldvalue === -1) {
+                            updateField(
+                                oldPlayerFieldCol,
+                                changedFields.playerField.fieldvalue,
+                                changedFields.playerField.fieldtype,
+                                changedFields.playerY.toString() + changedFields.playerX.toString(),
+                                false);
+                            updateField(
+                                newPlayerFieldCol,
+                                changedFields.newPlayerField.fieldvalue,
+                                changedFields.newPlayerField.fieldtype,
+                                changedFields.newPlayerY.toString() + changedFields.newPlayerX.toString(),
+                                true);
+                            setTimeout(function () {
+                                window.location.href = "http://localhost:9000/lose";
+                            }, 400);
+                            return null;
+                        } else if (changedFields.newPlayerField.fieldvalue === 9 || changedFields.newPlayerField.fieldvalue === 19) {
+                            updateField(
+                                oldPlayerFieldCol,
+                                changedFields.playerField.fieldvalue,
+                                changedFields.playerField.fieldtype,
+                                changedFields.playerY.toString() + changedFields.playerX.toString(),
+                                false);
+                            updateField(
+                                doorFieldCol,
+                                changedFields.newPlayerField.fieldvalue,
+                                "Door",
+                                changedFields.doorY.toString() + changedFields.doorX.toString(),
+                                true);
+                            setTimeout(function () {
+                                window.location.href = "http://localhost:9000/win";
+                            }, 400);
+                            return null;
+                        } else if (changedFields.newPlayerField.fieldvalue === -100) {
+                            return null;
+                        } else {
+                            updateField(newPlayerFieldCol,
+                                changedFields.newPlayerField.fieldvalue,
+                                changedFields.newPlayerField.fieldtype,
+                                changedFields.newPlayerY.toString() + changedFields.newPlayerX.toString(),
+                                true);
+                        }
+
+                        updateField(
+                            oldPlayerFieldCol,
+                            changedFields.playerField.fieldvalue,
+                            changedFields.playerField.fieldtype,
+                            changedFields.playerY.toString() + changedFields.playerX.toString(),
+                            false);
+                        if (changedFields.levelFieldSum === 0) {
+                            updateField(
+                                doorFieldCol,
+                                changedFields.doorField.fieldvalue * (-1),
+                                changedFields.doorField.fieldtype,
+                                changedFields.doorY.toString() + changedFields.doorX.toString(),
+                                false);
+                        } else {
+                            updateField(
+                                doorFieldCol,
+                                changedFields.doorField.fieldvalue,
+                                changedFields.doorField.fieldtype,
+                                changedFields.doorY.toString() + changedFields.doorX.toString(),
+                                false);
+                        }
+                    }
+                });
+                if (isSliding) {
+                    setTimeout(function () {
+                        moveUpdate(direction);
+                    }, 50);
+                }
             }
-            $.ajax({
-                method: 'GET',
-                url: '/move/' + direction.toString(),
-                dataType: 'json',
-                async: false
-            });
         }
     });
-    if (isSliding) {
-        setTimeout(function () {
-            moveUpdate(direction);
-        }, 50);
-    }
+
 }
 
 function buildLevel() {
