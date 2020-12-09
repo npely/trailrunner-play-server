@@ -32,6 +32,7 @@
                         <button id="back-button" data-toggle="tooltip" title="Go back to main menu" type="submit">
                             &#x1F6AA</button>
                     </form>
+                    <button id="hardcore-button" onclick="switchHardcoreMode()" type="submit">&#x1f47c</button>
                 </div>
                 <div id="level-map">
                     <script>
@@ -40,12 +41,12 @@
                 </div>
                 <div id="move-button-group">
                     <div class="row">
-                        <button id="move-button" onclick="moveUpdate('up')" type="submit">&#x2191</button>
+                        <button id="move-button" onclick="moveUp()" type="submit">&#x2191</button>
                     </div>
                     <div class="btn-group" role="group">
-                        <button id="move-button" onclick="moveUpdate('left')" type="submit">&#x2190</button>
-                        <button id="move-button" onclick="moveUpdate('down')" type="submit">&#x2193</button>
-                        <button id="move-button" onclick="moveUpdate('right')" type="submit">&#x2192</button>
+                        <button id="move-button" onclick="moveLeft()" type="submit">&#x2190</button>
+                        <button id="move-button" onclick="moveDown()" type="submit">&#x2193</button>
+                        <button id="move-button" onclick="moveRight()" type="submit">&#x2192</button>
                     </div>
                 </div>
             </div>

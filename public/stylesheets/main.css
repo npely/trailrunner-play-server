@@ -204,6 +204,21 @@ body {
     transform: translate(0px, 1px)
 }
 
+#hardcore-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 25px;
+}
+
+#hardcore-button:hover {
+    transform: translate(0px, 1px)
+}
+
+#hardcore-button:focus {
+    outline: none;
+}
+
 #redo-button:hover {
     transform: translate(0px, 1px)
 }
@@ -444,6 +459,10 @@ body {
         font-size: 15px;
     }
 
+    #hardcore-button {
+        font-size: 15px;
+    }
+
     #level-logo {
         width: 20px;
         height: 20px;
@@ -521,6 +540,10 @@ body {
     }
 
     #back-button {
+        font-size: 10px;
+    }
+
+    #hardcore-button {
         font-size: 10px;
     }
 

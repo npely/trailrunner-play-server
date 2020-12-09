@@ -1,10 +1,51 @@
+let webSocket;
+connectWebSocket()
+
+function connectWebSocket() {
+    webSocket = new WebSocket("ws://localhost:9000/websocket")
+    console.info("Connecting to WebSocket")
+
+    webSocket.onopen = function() {
+        console.info("Connected to server: " + webSocket.url)
+        webSocket.send("connect")
+    }
+
+    webSocket.onmessage = function(message) {
+        webSocketOnMessage(message)
+    }
+
+    webSocket.onerror = function(event) {
+        console.error(event)
+    }
+
+    webSocket.onclose = function() {
+        console.info("Connection with Websocket closed")
+    }
+}
+
+function webSocketOnMessage(message) {
+    console.log("Im here")
+    const { event, value } = JSON.parse(message.data)
+    switch (event) {
+        case "earthquake":
+            console.log("EARTHQUAKE")
+            console.log(value)
+            levelAfterEarthquake(value)
+            break;
+        case "dungeon-changed":
+            console.log("dungeon changed")
+            console.log(value)
+            break;
+    }
+}
+
 function initLevel(levelNumber) {
     new Audio("http://localhost:9000/assets/audio/click.wav").play();
     window.location.href = `http://localhost:9000/level/${levelNumber}`;
+    console.log("Test")
 }
 
 function backToMain() {
-    console.log("Hallo")
     window.location.href = "http://localhost:9000/menu";
 }
 
@@ -22,6 +63,56 @@ function aboutGame() {
 
 function load_sandbox() {
     window.location.href = "http://localhost:9000/sandbox";
+}
+
+function switchHardcoreMode() {
+    $.ajax({
+        method: 'GET',
+        url: '/switchHardcoreMode',
+        async: true,
+
+        success: function(value) {
+            let hardcoreButton = $("#hardcore-button")
+            if (value.hardcoreMode) {
+                hardcoreButton.text(String.fromCodePoint(parseInt("128128")))
+            }
+            else {
+                hardcoreButton.text(String.fromCodePoint(parseInt("128124")))
+            }
+        }
+    })
+}
+
+function levelAfterEarthquake(value) {
+    let parent = $("#level-map");
+    for (let x = 0; x < 10; x++) {
+        let row = $(`<div class="row justify-content-center" id="row-${x.toString()}"></div>`);
+        parent.append(row);
+        for (let y = 0; y < 10; y++) {
+            let col = $(`<div class="col no-padding" id="col-${x},${y}"></div>`);
+            row.append(col);
+            parent.html()
+            let field = value.fields[x * 10 + y];
+            let xy = x.toString() + y.toString()
+            updateField(col, field.fieldvalue, field.fieldtype, xy, (value.level.PxPos === y && value.level.PyPos === x));
+        }
+    }
+}
+
+function moveUp() {
+    moveUpdate('up')
+}
+
+function moveDown() {
+    moveUpdate('down')
+}
+
+function moveLeft() {
+    moveUpdate('left')
+}
+
+function moveRight() {
+    moveUpdate('right')
 }
 
 function moveUpdate(direction) {
@@ -139,9 +230,9 @@ function buildLevel() {
                     let col = $(`<div class="col no-padding" id="col-${x},${y}"></div>`);
                     row.append(col);
                     parent.html()
-                    let field = mapData.fieldvalues[x * 10 + y];
+                    let field = mapData.fields[x * 10 + y];
                     let xy = x.toString() + y.toString()
-                    buildField(col, field.fieldvalue, field.fieldtype, xy, (mapData.level.xPos === y && mapData.level.yPos === x));
+                    buildField(col, field.fieldvalue, field.fieldtype, xy, (mapData.level.PxPos === y && mapData.level.PyPos === x));
                 }
             }
         }

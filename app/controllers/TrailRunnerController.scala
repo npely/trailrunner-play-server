@@ -3,15 +3,20 @@ package controllers
 import com.google.inject.Guice
 import javax.inject._
 import play.api.mvc._
-import controller.controllerComponent.{ControllerInterface, DungeonChanged}
+import controller.controllerComponent.{ControllerInterface, DungeonChanged, Earthquake, Win}
 import aview.TUI
 import model.levelComponent.levelBaseImpl.{Level1, Level2, Level3, Level4, Level5}
-import play.api.libs.json.{JsObject, Json}
+import play.api.libs.json.{JsObject, JsValue, Json}
 import play.twirl.api.HtmlFormat
-import src.main.TrailRunnerModule.TrailRunnerModule
+import play.api.libs.streams.ActorFlow
+import main.TrailRunnerModule
+import akka.actor._
+import akka.stream.Materializer
+
+import scala.swing.Reactor
 
 @Singleton
-class TrailRunnerController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
+class TrailRunnerController @Inject()(val controllerComponents: ControllerComponents)(implicit system: ActorSystem, mat: Materializer) extends BaseController {
   val injector = Guice.createInjector(new TrailRunnerModule)
 
   val gameController = injector.getInstance(classOf[ControllerInterface])
@@ -32,7 +37,7 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
   }
 
   def load() = Action {
-    gameController.load
+    //gameController.load()
     Ok(getHtml(views.html.trailrunner(this)))
   }
 
@@ -111,6 +116,11 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
     Ok(getHtml(views.html.mainMenu()))
   }
 
+  def switchHardcoreMode() = Action {
+    gameController.hardcoreMode = !gameController.hardcoreMode
+    Ok(Json.obj("hardcoreMode" -> gameController.hardcoreMode))
+  }
+
   def win() = Action {
     Ok(getHtml(views.html.winScreen()))
   }
@@ -177,6 +187,35 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
     }
     else {
       "continue"
+    }
+  }
+
+  def socket = WebSocket.accept[String, String] { _ =>
+    ActorFlow.actorRef {
+      actorRef => Props(new TrailRunnerWebSocketActor(actorRef))
+    }
+  }
+
+  class TrailRunnerWebSocketActor(out: ActorRef) extends Actor with Reactor {
+    listenTo(gameController)
+
+    reactions += {
+      case event: Earthquake =>
+        gameController.earthquake()
+        out ! buildJsObject("earthquake", gameController.getLevelAsJson)
+      case event: DungeonChanged =>
+        out ! buildJsObject("dungeon-changed", gameController.getLevelAsJson)
+    }
+
+    def buildJsObject(event: String, value: JsValue): String = {
+      Json.obj("event" -> event, "value" -> value).toString()
+    }
+
+    def receive = {
+      case "level" =>
+        val test = "test"
+        out ! buildJsObject("test", Json.parse(test))
+        changeToLevelSelection()
     }
   }
 
