@@ -40,7 +40,7 @@ function webSocketOnMessage(message) {
 }
 
 function initLevel(levelNumber) {
-    new Audio("http://localhost:9000/assets/audio/click.wav").play();
+    //new Audio("http://localhost:9000/assets/audio/click.wav").play();
     window.location.href = `http://localhost:9000/level/${levelNumber}`;
     console.log("Test")
 }

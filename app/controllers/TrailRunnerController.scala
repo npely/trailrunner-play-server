@@ -3,7 +3,7 @@ package controllers
 import com.google.inject.Guice
 import javax.inject._
 import play.api.mvc._
-import controller.controllerComponent.{ControllerInterface, DungeonChanged, Earthquake, Win}
+import controller.controllerComponent.{ControllerInterface, DungeonChanged, Earthquake}
 import aview.TUI
 import model.levelComponent.levelBaseImpl.{Level1, Level2, Level3, Level4, Level5}
 import play.api.libs.json.{JsObject, JsValue, Json}
@@ -66,6 +66,8 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
       BadRequest(tui.toString())
     }
     gameController.changeToGame()
+    gameController.hardcoreMode = false
+    gameController.resetMoveCounter
     Ok(getHtml(views.html.trailrunner(this)))
   }
 
@@ -118,6 +120,7 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
 
   def switchHardcoreMode() = Action {
     gameController.hardcoreMode = !gameController.hardcoreMode
+    println(gameController.hardcoreMode)
     Ok(Json.obj("hardcoreMode" -> gameController.hardcoreMode))
   }
 
