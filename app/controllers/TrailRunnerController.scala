@@ -37,7 +37,7 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
   }
 
   def load() = Action {
-    //gameController.load()
+    gameController.load(gameController.getLevelAsJson.toString(), true)
     Ok(getHtml(views.html.trailrunner(this)))
   }
 
@@ -62,11 +62,7 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
     else if (levelId == 5) {
       gameController.initializeGame(new Level5, false)
     }
-    else {
-      BadRequest(tui.toString())
-    }
     gameController.changeToGame()
-    gameController.setHardcoreMode(false) //kann beim nächsten publishLocal gelöscht werden
     Ok(getHtml(views.html.trailrunner(this)))
   }
 
@@ -175,6 +171,11 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
     Ok(gameController.getLevelAsJson)
   }
 
+
+  def loadCustomGame(json: String): Unit = {
+    gameController.load(json, false)
+  }
+
   def getHtml(htmlFormat: HtmlFormat.Appendable): HtmlFormat.Appendable = {
     views.html.main(htmlFormat)
   }
@@ -213,11 +214,12 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
     }
 
     def receive = {
-      case "level" =>
-        val test = "test"
-        out ! buildJsObject("test", Json.parse(test))
-        changeToLevelSelection()
+      case "ping" =>
+        println("ping received")
+        out ! "pong"
+      case level: String =>
+        println(level)
+        //loadCustomGame(level)
     }
   }
-
 }

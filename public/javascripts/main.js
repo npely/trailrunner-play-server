@@ -1,4 +1,5 @@
-let webSocket;
+var webSocket;
+var interval;
 connectWebSocket()
 
 function connectWebSocket() {
@@ -7,10 +8,13 @@ function connectWebSocket() {
 
     webSocket.onopen = function () {
         console.info("Connected to server: " + webSocket.url)
-        webSocket.send("connect")
+        interval = setInterval(function() {
+            webSocket.send('ping')
+        }, 10000)
     }
 
     webSocket.onmessage = function (message) {
+        console.log(message)
         webSocketOnMessage(message)
     }
 
@@ -20,6 +24,7 @@ function connectWebSocket() {
 
     webSocket.onclose = function () {
         console.info("Connection to websocket closed")
+        clearInterval(interval)
     }
 }
 
@@ -81,6 +86,7 @@ function switchHardcoreMode() {
 }
 
 function levelAfterEarthquake(value) {
+    console.log("Hallo ich werde aufgerufen um zu beben")
     let parent = $("#level-map");
     vibrate(document.getElementById('game-container'))
     setTimeout(function () {
@@ -278,10 +284,6 @@ function setFieldImage(parent, fieldValue, fieldType, isPlayerOnField) {
     return myPicture;
 }
 
-function buildSandboxSelector() {
-
-}
-
 function buildSandboxMap() {
     let parent = document.getElementById("sandbox-map");
     for (let x = 0; x < 10; x++) {
@@ -307,9 +309,81 @@ function buildSandboxMap() {
             image.addEventListener("drop", drop)
             image.addEventListener("dragover", allowDrop)
             imageHolder.append(image);
-            parent.append(imageHolder);
+            col.append(imageHolder);
         }
     }
+}
+
+function loadCustomlevel() {
+
+    let type = "Wall"
+    let value = -99
+    let pXPos = 0
+    let pYPos = 0
+    let dXPos = 0
+    let dYPos = 0
+
+    let fields = []
+
+    for (let x = 0; x < 10; x++) {
+        for (let y = 0; y < 10; y++) {
+            let kids = $(`#imgHolder-${x}${y}`).children(); //document.getElementById('imgHolder-${x}${y}');
+            let image = kids[0]
+            let uri = image.src.toString().split("/")
+            let source = uri[uri.length - 1]
+            let name = source.split(".")
+            let params = name[0].split("_")
+            if (params.length > 1) {
+                type = params[0]
+                console.log(type)
+                value = params[1]
+                console.log(value)
+                if (type === "Door") {
+                    dXPos = x
+                    dYPos = y
+                }
+            } else {
+                type = "Wall"
+                value = -99
+            }
+            fields.push({
+                fieldvalue: value,
+                fieldtype: type
+            })
+            if (params.length > 2) {
+                pXPos = x
+                pYPos = y
+            }
+        }
+    }
+
+    let levelObj = {
+        name: "customLevel",
+        size: 10,
+        PxPos: pXPos,
+        PyPos: pYPos,
+        DxPos: dXPos,
+        DyPos: dYPos,
+        WxPos: dXPos,
+        WyPos: dYPos + 1
+    }
+
+
+    let level = {
+        level: levelObj,
+        fields: fields
+    }
+
+    console.log(level)
+    //connectWebSocket(level.toString())
+    $.ajax({
+        method: 'GET',
+        url: '/levelMap',
+        dataType: 'json',
+
+        success: function (mapData) {
+            console.log(mapData)
+        }})
 }
 
 function allowDrop(ev) {

@@ -20,7 +20,11 @@
                     </div>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <button id="save-button" data-toggle="tooltip" title="Save your level">&#x1F4BE</button>
+                    <div class="row">
+                        <button id="save-button" data-toggle="tooltip" title="Save your level">&#x1F4BE</button>
+                        <button id="save-button" data-toggle="tooltip" onclick="loadCustomlevel()" title="Play your level">&#x25B6</button>
+                    </div>
+
                 </ul>
             </div>
         </nav>
@@ -86,6 +90,15 @@
                             </div>
                             <div class="col">
                                 <img class="game-field" src="@routes.Assets.versioned("images/fields/Door_-10.png")" draggable="true" ondragstart="drag(event)">
+                            </div>
+                            <div class="col">
+                                <img class="game-field" src="@routes.Assets.versioned("images/fields/Ground_1_P.png")" draggable="true" ondragstart="drag(event)">
+                            </div>
+                            <div class="col">
+                                <img class="game-field" src="@routes.Assets.versioned("images/fields/Ice_1_P.png")" draggable="true" ondragstart="drag(event)">
+                            </div>
+                            <div class="col">
+                                <img class="game-field" src="@routes.Assets.versioned("images/fields/Snow_1_P.png")" draggable="true" ondragstart="drag(event)">
                             </div>
                         </div>
                     </div>
