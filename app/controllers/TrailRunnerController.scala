@@ -9,9 +9,9 @@ import model.levelComponent.levelBaseImpl.{Level1, Level2, Level3, Level4, Level
 import play.api.libs.json.{JsObject, JsValue, Json}
 import play.twirl.api.HtmlFormat
 import play.api.libs.streams.ActorFlow
-import main.TrailRunnerModule
 import akka.actor._
 import akka.stream.Materializer
+import main.TrailRunnerModule
 
 import scala.swing.Reactor
 
@@ -66,8 +66,7 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
       BadRequest(tui.toString())
     }
     gameController.changeToGame()
-    gameController.hardcoreMode = false
-    gameController.resetMoveCounter
+    gameController.setHardcoreMode(false) //kann beim nächsten publishLocal gelöscht werden
     Ok(getHtml(views.html.trailrunner(this)))
   }
 
@@ -119,9 +118,8 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
   }
 
   def switchHardcoreMode() = Action {
-    gameController.hardcoreMode = !gameController.hardcoreMode
-    println(gameController.hardcoreMode)
-    Ok(Json.obj("hardcoreMode" -> gameController.hardcoreMode))
+    gameController.setHardcoreMode(!gameController.getHardcoreMode())
+    Ok(Json.obj("hardcoreMode" -> gameController.getHardcoreMode()))
   }
 
   def win() = Action {
@@ -135,7 +133,7 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
   def getMoveJson(yModifier: Int, xModifier: Int): JsObject = {
     Json.obj(
       "lose" -> gameController.levelLose(),
-      "levelFieldSum" -> (gameController.level.sum() - 1),
+      "levelFieldSum" -> gameController.level.sum(),
       "doorX" -> gameController.level.doorX,
       "doorY" -> gameController.level.doorY,
       "doorField" -> Json.obj(

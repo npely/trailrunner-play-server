@@ -3,29 +3,28 @@ connectWebSocket()
 
 function connectWebSocket() {
     webSocket = new WebSocket("ws://localhost:9000/websocket")
-    console.info("Connecting to WebSocket")
+    console.info("Connecting to websocket")
 
-    webSocket.onopen = function() {
+    webSocket.onopen = function () {
         console.info("Connected to server: " + webSocket.url)
         webSocket.send("connect")
     }
 
-    webSocket.onmessage = function(message) {
+    webSocket.onmessage = function (message) {
         webSocketOnMessage(message)
     }
 
-    webSocket.onerror = function(event) {
+    webSocket.onerror = function (event) {
         console.error(event)
     }
 
-    webSocket.onclose = function() {
-        console.info("Connection with Websocket closed")
+    webSocket.onclose = function () {
+        console.info("Connection to websocket closed")
     }
 }
 
 function webSocketOnMessage(message) {
-    console.log("Im here")
-    const { event, value } = JSON.parse(message.data)
+    const {event, value} = JSON.parse(message.data)
     switch (event) {
         case "earthquake":
             console.log("EARTHQUAKE")
@@ -42,7 +41,6 @@ function webSocketOnMessage(message) {
 function initLevel(levelNumber) {
     //new Audio("http://localhost:9000/assets/audio/click.wav").play();
     window.location.href = `http://localhost:9000/level/${levelNumber}`;
-    console.log("Test")
 }
 
 function backToMain() {
@@ -71,12 +69,11 @@ function switchHardcoreMode() {
         url: '/switchHardcoreMode',
         async: true,
 
-        success: function(value) {
+        success: function (value) {
             let hardcoreButton = $("#hardcore-button")
             if (value.hardcoreMode) {
                 hardcoreButton.text(String.fromCodePoint(parseInt("128128")))
-            }
-            else {
+            } else {
                 hardcoreButton.text(String.fromCodePoint(parseInt("128124")))
             }
         }
@@ -85,17 +82,35 @@ function switchHardcoreMode() {
 
 function levelAfterEarthquake(value) {
     let parent = $("#level-map");
-    for (let x = 0; x < 10; x++) {
-        let row = $(`<div class="row justify-content-center" id="row-${x.toString()}"></div>`);
-        parent.append(row);
-        for (let y = 0; y < 10; y++) {
-            let col = $(`<div class="col no-padding" id="col-${x},${y}"></div>`);
-            row.append(col);
-            parent.html()
-            let field = value.fields[x * 10 + y];
-            let xy = x.toString() + y.toString()
-            updateField(col, field.fieldvalue, field.fieldtype, xy, (value.level.PxPos === y && value.level.PyPos === x));
+    vibrate(document.getElementById('game-container'))
+    setTimeout(function () {
+        for (let x = 0; x < 10; x++) {
+            let row = $(`<div class="row justify-content-center" id="row-${x.toString()}"></div>`);
+            parent.append(row);
+            for (let y = 0; y < 10; y++) {
+                let col = $(`<div class="col no-padding" id="col-${x},${y}"></div>`);
+                row.append(col);
+                parent.html()
+                let field = value.fields[x * 10 + y];
+                let xy = x.toString() + y.toString()
+                updateField(col, field.fieldvalue, field.fieldtype, xy, (value.level.PxPos === y && value.level.PyPos === x));
+            }
         }
+    }, 300);
+}
+
+function vibrate(element) {
+    element.style.marginTop = '5%'
+    setTimeout(function () {
+        element.style.marginTop = '10%'
+    }, 50);
+    for (let x = 0; x < 5; x++) {
+        setTimeout(function () {
+            element.style.marginTop = '5%'
+            setTimeout(function () {
+                element.style.marginTop = '10%'
+            }, 50);
+        }, 100);
     }
 }
 
@@ -123,7 +138,7 @@ function moveUpdate(direction) {
         dataType: 'json',
         async: false,
 
-        success: function(value) {
+        success: function (value) {
             if (value.madeMove) {
                 $.ajax({
                     method: 'GET',
@@ -131,21 +146,21 @@ function moveUpdate(direction) {
                     dataType: 'json',
                     async: false,
 
-                    success: function(changedFields) {
-                        isSliding = (changedFields.newPlayerField.fieldtype === "Ice");
+                    success: function (changedFields) {
+                        isSliding = ((changedFields.newPlayerField.fieldtype === "Ice") && (changedFields.newPlayerField.fieldvalue >= 0));
                         console.log(changedFields);
-                        let newPlayerFieldCol = $(`#col-${changedFields.newPlayerY},${changedFields.newPlayerX}`);
-                        let oldPlayerFieldCol = $(`#col-${changedFields.PlayerY},${changedFields.PlayerX}`);
+                        let newPlayerField = $(`#col-${changedFields.newPlayerY},${changedFields.newPlayerX}`);
+                        let oldPlayerField = $(`#col-${changedFields.PlayerY},${changedFields.PlayerX}`);
                         let doorFieldCol = $(`#col-${changedFields.doorY},${changedFields.doorX}`);
                         if (changedFields.newPlayerField.fieldvalue === -1) {
                             updateField(
-                                oldPlayerFieldCol,
+                                oldPlayerField,
                                 changedFields.playerField.fieldvalue,
                                 changedFields.playerField.fieldtype,
                                 changedFields.playerY.toString() + changedFields.playerX.toString(),
                                 false);
                             updateField(
-                                newPlayerFieldCol,
+                                newPlayerField,
                                 changedFields.newPlayerField.fieldvalue,
                                 changedFields.newPlayerField.fieldtype,
                                 changedFields.newPlayerY.toString() + changedFields.newPlayerX.toString(),
@@ -156,7 +171,7 @@ function moveUpdate(direction) {
                             return null;
                         } else if (changedFields.newPlayerField.fieldvalue === 9 || changedFields.newPlayerField.fieldvalue === 19) {
                             updateField(
-                                oldPlayerFieldCol,
+                                oldPlayerField,
                                 changedFields.playerField.fieldvalue,
                                 changedFields.playerField.fieldtype,
                                 changedFields.playerY.toString() + changedFields.playerX.toString(),
@@ -171,10 +186,8 @@ function moveUpdate(direction) {
                                 window.location.href = "http://localhost:9000/win";
                             }, 400);
                             return null;
-                        } else if (changedFields.newPlayerField.fieldvalue === -100) {
-                            return null;
                         } else {
-                            updateField(newPlayerFieldCol,
+                            updateField(newPlayerField,
                                 changedFields.newPlayerField.fieldvalue,
                                 changedFields.newPlayerField.fieldtype,
                                 changedFields.newPlayerY.toString() + changedFields.newPlayerX.toString(),
@@ -182,7 +195,7 @@ function moveUpdate(direction) {
                         }
 
                         updateField(
-                            oldPlayerFieldCol,
+                            oldPlayerField,
                             changedFields.playerField.fieldvalue,
                             changedFields.playerField.fieldtype,
                             changedFields.playerY.toString() + changedFields.playerX.toString(),
@@ -190,7 +203,7 @@ function moveUpdate(direction) {
                         if (changedFields.levelFieldSum === 0) {
                             updateField(
                                 doorFieldCol,
-                                changedFields.doorField.fieldvalue * (-1),
+                                changedFields.doorField.fieldvalue,
                                 changedFields.doorField.fieldtype,
                                 changedFields.doorY.toString() + changedFields.doorX.toString(),
                                 false);
@@ -212,7 +225,6 @@ function moveUpdate(direction) {
             }
         }
     });
-
 }
 
 function buildLevel() {
