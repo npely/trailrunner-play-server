@@ -192,7 +192,7 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
     }
   }
 
-  def socket = WebSocket.accept[String, String] { _ =>
+  def socket = WebSocket.accept[JsValue, JsValue] { _ =>
     ActorFlow.actorRef {
       actorRef => Props(new TrailRunnerWebSocketActor(actorRef))
     }
@@ -214,12 +214,7 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
     }
 
     def receive = {
-      case "ping" =>
-        println("ping received")
-        out ! "pong"
-      case level: String =>
-        println(level)
-        //loadCustomGame(level)
+      case "ping" => out ! Json.obj("alive" -> "pong")
     }
   }
 }

@@ -9,7 +9,7 @@ function connectWebSocket() {
     webSocket.onopen = function () {
         console.info("Connected to server: " + webSocket.url)
         interval = setInterval(function() {
-            webSocket.send('ping')
+            webSocket.send(JSON.stringify('ping'))
         }, 10000)
     }
 
@@ -32,19 +32,12 @@ function webSocketOnMessage(message) {
     const {event, value} = JSON.parse(message.data)
     switch (event) {
         case "earthquake":
-            console.log("EARTHQUAKE")
-            console.log(value)
             levelAfterEarthquake(value)
-            break;
-        case "dungeon-changed":
-            console.log("dungeon changed")
-            console.log(value)
             break;
     }
 }
 
 function initLevel(levelNumber) {
-    //new Audio("http://localhost:9000/assets/audio/click.wav").play();
     window.location.href = `http://localhost:9000/level/${levelNumber}`;
 }
 
