@@ -127,6 +127,10 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
   }
 
   def getMoveJson(yModifier: Int, xModifier: Int): JsObject = {
+    var isSliding = gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos).fieldType == "Ice" &&
+      gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos).value >= 0 &&
+      gameController.level.dungeon(gameController.player.yPos - yModifier)(gameController.player.xPos - xModifier).fieldType != "Wall"
+
     Json.obj(
       "lose" -> gameController.levelLose(),
       "levelFieldSum" -> gameController.level.sum(),
@@ -147,7 +151,8 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
       "newPlayerField" -> Json.obj(
         "fieldvalue" -> (gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos).value),
         "fieldtype" -> gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos).fieldType
-      ))
+      ),
+      "isSliding" -> isSliding)
   }
 
   def getChangedFields(move: String) = Action {
