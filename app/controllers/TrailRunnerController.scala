@@ -37,15 +37,13 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
   }
 
   def load() = Action {
-    gameController.load(gameController.getLevelAsJson.toString(), true)
+    gameController.load(gameController.getLevelAsJson, true)
     Ok(getHtml(views.html.trailrunner(this)))
   }
 
   def loadCustomGame = Action { request =>
     val json = request.body.asJson.get
-    val level = json.as[String]
-    print(level)
-    gameController.load(level, false)
+    gameController.load(json, false)
     Ok
   }
 
@@ -69,8 +67,6 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
     }
     else if (levelId == 5) {
       gameController.initializeGame(new Level5, false)
-    } else {
-      gameController.initializeGame(new Level, false)
     }
     gameController.changeToGame()
     Ok(getHtml(views.html.trailrunner(this)))
