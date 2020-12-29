@@ -24,6 +24,7 @@ GET    /move/redo                  controllers.TrailRunnerController.redo()
 GET    /about                      controllers.TrailRunnerController.about()
 GET    /save                       controllers.TrailRunnerController.save()
 GET    /load                       controllers.TrailRunnerController.load()
+POST   /loadCustomGame            controllers.TrailRunnerController.loadCustomGame()
 GET    /switchHardcoreMode         controllers.TrailRunnerController.switchHardcoreMode()
 
 GET    /changedFields/:move        controllers.TrailRunnerController.getChangedFields(move: String)
