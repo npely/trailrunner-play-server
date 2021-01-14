@@ -60,6 +60,57 @@
     outline: none;
 }
 
+#menu-button-white {
+    border: none;
+    background: none;
+    font-size: 50px;
+    margin: auto;
+    padding-bottom: 20px;
+    width: fit-content;
+    text-align: center;
+    font-family: 'Press Start P2';
+    color: #ffffff;
+    transform: perspective(200px) rotateX(10deg);
+    letter-spacing: .1em;
+    user-select: none;
+    text-shadow: 0 -1px 0 #000,
+    0 1px 0 #ffffff,
+    0 2px 0 #eaeaea,
+    0 3px 0 #d7d7d7,
+    0 4px 0 #c8c8c8,
+    0 5px 0 #b3b3b3,
+    0 6px 0 #a7a7a7,
+    0 7px 0 #989898,
+    0 8px 0 #8d8d8d,
+    0 9px 0 #808080,
+    0 10px 0 #6b6b6b,
+    0 11px 0 #6b6b6b,
+    0 12px 0 #626262,
+    0 13px 0 #535353,
+    0 14px 0 #454545,
+    0 15px 0 #3c3c3c;
+
+    transition: text-shadow .2s ease .2s,
+    transform .2s ease .2s,
+    letter-spacing .3s ease .3s;
+}
+
+#menu-button-white:hover {
+    transition: text-shadow .3s ease,
+    transform .1s ease,
+    letter-spacing .1s ease;
+    text-shadow: 0 0 0 #989898,
+    0 1px 0 #808080,
+    0 2px 0 #6b6b6b,
+    0 3px 3px rgba(0, 0, 0, 0.9);
+    transform: translate(0px, 15px) perspective(200px) rotateX(10deg);
+    letter-spacing: .125em;
+}
+
+#menu-button-white:focus {
+    outline: none;
+}
+
 #menu-button-blue {
     border: none;
     background: none;

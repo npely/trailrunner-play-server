@@ -8,7 +8,7 @@ function connectWebSocket() {
 
     webSocket.onopen = function () {
         console.info("Connected to server: " + webSocket.url)
-        interval = setInterval(function() {
+        interval = setInterval(function () {
             webSocket.send(JSON.stringify('ping'))
         }, 10000)
     }
@@ -157,13 +157,13 @@ function moveUpdate(direction) {
                                 changedFields.playerField.fieldvalue,
                                 changedFields.playerField.fieldtype,
                                 changedFields.playerY.toString() + changedFields.playerX.toString(),
-                                false);
+                                false, changedFields.playerField.fog);
                             updateField(
                                 newPlayerField,
                                 changedFields.newPlayerField.fieldvalue,
                                 changedFields.newPlayerField.fieldtype,
                                 changedFields.newPlayerY.toString() + changedFields.newPlayerX.toString(),
-                                true);
+                                true, changedFields.newPlayerField.fog);
                             setTimeout(function () {
                                 window.location.href = "http://localhost:9000/lose";
                             }, 400);
@@ -174,13 +174,13 @@ function moveUpdate(direction) {
                                 changedFields.playerField.fieldvalue,
                                 changedFields.playerField.fieldtype,
                                 changedFields.playerY.toString() + changedFields.playerX.toString(),
-                                false);
+                                false, changedFields.playerField.fog);
                             updateField(
                                 doorFieldCol,
                                 changedFields.newPlayerField.fieldvalue,
                                 "Door",
                                 changedFields.doorY.toString() + changedFields.doorX.toString(),
-                                true);
+                                true, changedFields.newPlayerField.fog);
                             setTimeout(function () {
                                 window.location.href = "http://localhost:9000/win";
                             }, 400);
@@ -190,7 +190,7 @@ function moveUpdate(direction) {
                                 changedFields.newPlayerField.fieldvalue,
                                 changedFields.newPlayerField.fieldtype,
                                 changedFields.newPlayerY.toString() + changedFields.newPlayerX.toString(),
-                                true);
+                                true, changedFields.newPlayerField.fog);
                         }
 
                         updateField(
@@ -198,21 +198,21 @@ function moveUpdate(direction) {
                             changedFields.playerField.fieldvalue,
                             changedFields.playerField.fieldtype,
                             changedFields.playerY.toString() + changedFields.playerX.toString(),
-                            false);
+                            false, changedFields.playerField.fog);
                         if (changedFields.levelFieldSum === 0) {
                             updateField(
                                 doorFieldCol,
                                 changedFields.doorField.fieldvalue,
                                 changedFields.doorField.fieldtype,
                                 changedFields.doorY.toString() + changedFields.doorX.toString(),
-                                false);
+                                false, false);
                         } else {
                             updateField(
                                 doorFieldCol,
                                 changedFields.doorField.fieldvalue,
                                 changedFields.doorField.fieldtype,
                                 changedFields.doorY.toString() + changedFields.doorX.toString(),
-                                false);
+                                false, false);
                         }
                     }
                 });
@@ -243,31 +243,35 @@ function buildLevel() {
                     parent.html()
                     let field = mapData.fields[x * 10 + y];
                     let xy = x.toString() + y.toString()
-                    buildField(col, field.fieldvalue, field.fieldtype, xy, (mapData.level.PxPos === y && mapData.level.PyPos === x));
+                    buildField(col, field.fieldvalue, field.fieldtype, xy, (mapData.level.PxPos === y && mapData.level.PyPos === x), field.fog);
                 }
             }
         }
     })
 }
 
-function updateField(parent, fieldValue, fieldType, xy, isPlayerOnField) {
+function updateField(parent, fieldValue, fieldType, xy, isPlayerOnField, fog) {
     let image = $(`#img-${xy}`);
     //temporal work-around
-    image.attr('src', 'http://localhost:9000/assets/' + setFieldImage(parent, fieldValue, fieldType, isPlayerOnField));
+    image.attr('src', 'http://localhost:9000/assets/' + setFieldImage(parent, fieldValue, fieldType, isPlayerOnField, fog));
 }
 
-function buildField(parent, fieldValue, fieldType, xy, isPlayerOnField) {
+function buildField(parent, fieldValue, fieldType, xy, isPlayerOnField, fog) {
     //temporal work-around
-    let src = 'http://localhost:9000/assets/' + setFieldImage(parent, fieldValue, fieldType, isPlayerOnField);
+    let src = 'http://localhost:9000/assets/' + setFieldImage(parent, fieldValue, fieldType, isPlayerOnField, fog);
     let image = $(`<img class="game-field" id="img-${xy}" src=${src}>`);
     parent.append(image);
 }
 
-function setFieldImage(parent, fieldValue, fieldType, isPlayerOnField) {
+function setFieldImage(parent, fieldValue, fieldType, isPlayerOnField, fog) {
     let myPicture = "images/fields/";
     if (fieldValue >= -20 && fieldValue <= 20) {
         if (fieldType === "Door" || !isPlayerOnField) {
-            myPicture += fieldType + "_" + fieldValue + ".png";
+            if (fog) {
+                myPicture += fieldType + "_" + "Fog" + ".png";
+            } else {
+                myPicture += fieldType + "_" + fieldValue + ".png";
+            }
         } else {
             myPicture += fieldType + "_" + fieldValue + "_P.png";
         }
@@ -376,7 +380,8 @@ function loadCustomlevel() {
 
         success: function (mapData) {
             console.log(mapData)
-        }})
+        }
+    })
 }
 
 function allowDrop(ev) {

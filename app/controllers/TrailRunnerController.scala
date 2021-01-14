@@ -5,7 +5,7 @@ import javax.inject._
 import play.api.mvc._
 import controller.controllerComponent.{ControllerInterface, DungeonChanged, Earthquake}
 import aview.TUI
-import model.levelComponent.levelBaseImpl.{Level1, Level2, Level3, Level4, Level5}
+import model.levelComponent.levelBaseImpl.{Level1, Level2, Level3, Level4, Level5, Level6}
 import play.api.libs.json.{JsObject, JsValue, Json}
 import play.twirl.api.HtmlFormat
 import play.api.libs.streams.ActorFlow
@@ -67,6 +67,9 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
     }
     else if (levelId == 5) {
       gameController.initializeGame(new Level5, false)
+    }
+    else if (levelId == 6) {
+      gameController.initializeGame(new Level6, false)
     }
     gameController.changeToGame()
     Ok(getHtml(views.html.trailrunner(this)))
@@ -150,13 +153,15 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
       "playerX" -> (gameController.player.xPos + xModifier),
       "playerField" -> Json.obj(
         "fieldvalue" -> gameController.level.dungeon(gameController.player.yPos + yModifier)(gameController.player.xPos + xModifier).value,
-        "fieldtype" -> gameController.level.dungeon(gameController.player.yPos + yModifier)(gameController.player.xPos + xModifier).fieldType
+        "fieldtype" -> gameController.level.dungeon(gameController.player.yPos + yModifier)(gameController.player.xPos + xModifier).fieldType,
+        "fog" -> gameController.level.dungeon(gameController.player.yPos + yModifier)(gameController.player.xPos + xModifier).fog
       ),
       "newPlayerY" -> gameController.player.yPos,
       "newPlayerX" -> gameController.player.xPos,
       "newPlayerField" -> Json.obj(
         "fieldvalue" -> (gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos).value),
-        "fieldtype" -> gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos).fieldType
+        "fieldtype" -> gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos).fieldType,
+        "fog" -> gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos).fog
       ),
       "isSliding" -> isSliding)
   }
