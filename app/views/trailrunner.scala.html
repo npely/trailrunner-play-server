@@ -1,181 +1,86 @@
 @(controller: controllers.TrailRunnerController)
 
-@wall = @{
-    -99
-}
-
-@ground_0 = @{
-    -1
-}
-
-@ground_0_0 = @{
-    0
-}
-
-@ground_1 = @{
-    1
-}
-
-@ground_2 = @{
-    2
-}
-
-@ground_3 = @{
-    3
-}
-
-@ground_4 = @{
-    4
-}
-
-@ground_5 = @{
-    5
-}
-
-@door_1 = @{
-    -10
-}
-
-@door_2 = @{
-    -20
-}
-
-
-@main("TrailRunner") {
-    <head>
-        <meta charset="UTF-8">
-        <title>Level Selection</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
-        <script src='@routes.Assets.versioned("javascripts/bootstrap.min.js")'></script>
-    </head>
-    <body>
-        <div class="container">
-            <div class="navbar justify-content-center">
-                <div>
-                    <img src="@routes.Assets.versioned("images/Logo.png")" id="level-logo"/>
-                    <a class="navbar-brand" id="level-name">&nbsp;@controller.gameController.levelGetName()</a>
-                </div>
-                <form method="get" action="@routes.TrailRunnerController.save()">
-                    <button id="save-button" data-toggle="tooltip" title="Save the game" type="submit">&#x1F4BE</button>
-                </form>
-                <form method="get" action="@routes.TrailRunnerController.redo()">
-                    <button id="redo-button" data-toggle="tooltip" title="Redo your undone step" type="submit">
-                        &#x21B7</button>
-                </form>
-                <form method="get" action="@routes.TrailRunnerController.undo()">
-                    <button id="undo-button" data-toggle="tooltip" title="Undo your last step" type="submit">
-                        &#x21B6</button>
-                </form>
-                <form method="get" action="@routes.TrailRunnerController.start()">
-                    <button id="back-button" data-toggle="tooltip" title="Go back to main menu" type="submit">
-                        &#x1F6AA</button>
-                </form>
-            </div>
-            @for(i <- 0 until controller.gameController.level.rows) {
-                <div class="row justify-content-center">
-                @for(j <- 0 until controller.gameController.level.columns) {
-                    <div class="col" id="no-padding">
-                        @if(controller.gameController.level.dungeon(i)(j).value == wall) {
-                            <object data="../../public/images/fields/Wall.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Wall.png")" id="game-field"/>
-                            </object>
-                        } else if(controller.gameController.level.dungeon(i)(j).value == ground_0) {
-                        @if(controller.gameController.level.dungeon(i)(j).isPlayerOnField) {
-                            <object data="../../public/images/fields/Ground_0.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_0.png")" id="game-field"/>
-                            </object>
-                        }
-                        } else if(controller.gameController.level.dungeon(i)(j).value == ground_0_0) {
-                        @if(controller.gameController.level.dungeon(i)(j).isPlayerOnField) {
-                            <object data="../../public/images/fields/Ground_0_P.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_0_P.png")" id="game-field"/>
-                            </object>
-                        } else {
-                            <object data="../../public/images/fields/Ground_0.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_0.png")" id="game-field"/>
-                            </object>
-                        }
-                        } else if(controller.gameController.level.dungeon(i)(j).value == ground_1) {
-                        @if(controller.gameController.level.dungeon(i)(j).isPlayerOnField) {
-                            <object data="../../public/images/fields/Ground_1_P.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_1_P.png")" id="game-field"/>
-                            </object>
-                        } else {
-                            <object data="../../public/images/fields/Ground_1.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_1.png")" id="game-field"/>
-                            </object>
-                        }
-                        } else if(controller.gameController.level.dungeon(i)(j).value == ground_2) {
-                        @if(controller.gameController.level.dungeon(i)(j).isPlayerOnField) {
-                            <object data="../../public/images/fields/Ground_2_P.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_2_P.png")" id="game-field"/>
-                            </object>
-                        } else {
-                            <object data="../../public/images/fields/Ground_2.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_2.png")" id="game-field"/>
-                            </object>
-                        }
-                        } else if(controller.gameController.level.dungeon(i)(j).value == ground_3) {
-                        @if(controller.gameController.level.dungeon(i)(j).isPlayerOnField) {
-                            <object data="../../public/images/fields/Ground_3_P.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_3_P.png")" id="game-field"/>
-                            </object>
-                        } else {
-                            <object data="../../public/images/fields/Ground_3.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_3.png")" id="game-field"/>
-                            </object>
-                        }
-                        } else if(controller.gameController.level.dungeon(i)(j).value == ground_4) {
-                        @if(controller.gameController.level.dungeon(i)(j).isPlayerOnField) {
-                            <object data="../../public/images/fields/Ground_4_P.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_4_P.png")" id="game-field"/>
-                            </object>
-                        } else {
-                            <object data="../../public/images/fields/Ground_4.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_4.png")" id="game-field"/>
-                            </object>
-                        }
-                        } else if(controller.gameController.level.dungeon(i)(j).value == ground_5) {
-                        @if(controller.gameController.level.dungeon(i)(j).isPlayerOnField) {
-                            <object data="../../public/images/fields/Ground_5_P.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_5_P.png")" id="game-field"/>
-                            </object>
-                        } else {
-                            <object data="../../public/images/fields/Ground_5.png" type="image/png">
-                                <img src="@routes.Assets.versioned("images/fields/Ground_5.png")" id="game-field"/>
-                            </object>
-                        }
-                        } else if(controller.gameController.level.dungeon(i)(j).value == door_1) {
-                    <object data="../../public/images/fields/Door1.png" type="image/png">
-                        <img src="@routes.Assets.versioned("images/fields/Door1.png")" id="game-field"/>
-                    </object>
-                        } else if(controller.gameController.level.dungeon(i)(j).value == door_2) {
-                    <object data="../../public/images/fields/Door21.png" type="image/png">
-                        <img src="@routes.Assets.versioned("images/fields/Door21.png")" id="game-field"/>
-                    </object>
-                        }
-
+    @main {
+        <head>
+            <meta charset="UTF-8">
+            <title>Level Selection</title>
+            <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+            <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+            <script src='@routes.Assets.versioned("javascripts/bootstrap.min.js")'></script>
+            <script src='@routes.Assets.versioned("javascripts/jquery-3.5.1.min.js")'></script>
+            <script src='@routes.Assets.versioned("javascripts/main.js")'></script>
+        </head>
+        <body>
+            <div class="container" id="game-container">
+                <div class="navbar justify-content-center">
+                    <div>
+                        <img src="@routes.Assets.versioned("images/Logo.png")" id="level-logo"/>
+                        <a class="navbar-brand" id="level-name">&nbsp;@controller.gameController.levelGetName()</a>
                     </div>
-                }
+                    <form method="get" action="@routes.TrailRunnerController.save()">
+                        <button id="save-button" data-toggle="tooltip" title="Save the game" type="submit">&#x1F4BE</button>
+                    </form>
+                    <form method="get" action="@routes.TrailRunnerController.redo()">
+                        <button id="redo-button" data-toggle="tooltip" title="Redo your undone step" type="submit">
+                            &#x21B7</button>
+                    </form>
+                    <form method="get" action="@routes.TrailRunnerController.undo()">
+                        <button id="undo-button" data-toggle="tooltip" title="Undo your last step" type="submit">
+                            &#x21B6</button>
+                    </form>
+                    <form method="get" action="@routes.TrailRunnerController.start()">
+                        <button id="back-button" data-toggle="tooltip" title="Go back to main menu" type="submit">
+                            &#x1F6AA</button>
+                    </form>
+                    <button id="hardcore-button" onclick="switchHardcoreMode()" type="submit">&#x1f47c</button>
                 </div>
-            }
-            <div id="move-button-group">
-                <form method="get" action="@routes.TrailRunnerController.moveUp()">
-                    <button id="move-button" type="submit">&#x2191</button>
-                </form>
-                <div class="btn-group" role="group">
-                    <form method="get" action="@routes.TrailRunnerController.moveLeft()">
-                        <button id="move-button" type="submit">&#x2190</button>
-                    </form>
-                    <form method="get" action="@routes.TrailRunnerController.moveDown()">
-                        <button id="move-button" type="submit">&#x2193</button>
-                    </form>
-                    <form method="get" action="@routes.TrailRunnerController.moveRight()">
-                        <button id="move-button" type="submit">&#x2192</button>
-                    </form>
+                <div id="level-map">
+                    <script>
+                            buildLevel()
+                    </script>
+                </div>
+                <div id="move-button-group">
+                    <div class="row">
+                        <button id="move-button" onclick="moveUp()" type="submit">&#x2191</button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button id="move-button" onclick="moveLeft()" type="submit">&#x2190</button>
+                        <button id="move-button" onclick="moveDown()" type="submit">&#x2193</button>
+                        <button id="move-button" onclick="moveRight()" type="submit">&#x2192</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </body>
-}
+            <script>
+                    document.addEventListener('keydown', press)
+                    function press(e){
+                        if (e.keyCode === 38 /* up */ || e.keyCode === 87 /* w */){
+                            moveUpdate('up');
+                        }
+                        if (e.keyCode === 39 /* right */ || e.keyCode === 68 /* d */){
+                            moveUpdate('right');
+                        }
+                        if (e.keyCode === 40 /* down */ || e.keyCode === 83 /* s */){
+                            moveUpdate('down');
+                        }
+                        if (e.keyCode === 37 /* left */ || e.keyCode === 65 /* a */){
+                            moveUpdate('left');
+                        }
+                        if (e.keyCode === 81 /* q */){
+                            //undo call
+                            window.location.href = "http://localhost:9000/move/undo";
+                        }
+                        if (e.keyCode === 69 /* e */){
+                            //redo call
+                            window.location.href = "http://localhost:9000/move/redo";
+                        }
+                        if (e.keyCode === 72 /* h (like home) */){
+                            //home call
+                            window.location.href = "http://localhost:9000/menu";
+                        }
+                        if (e.ctrlKey && e.keyCode === 77 /* m (like memory) */){
+                            //save call
+                        }
+                    };
+            </script>
+        </body>
+    }

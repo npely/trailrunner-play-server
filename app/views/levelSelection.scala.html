@@ -1,27 +1,39 @@
 @()
 
-@main("TrailRunner") {
-    <head>
-        <meta charset="UTF-8">
-        <title>Level Selection</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("../../public/stylesheets/main.css")">
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
-    </head>
-    <body>
-        <div id="level-selection-button-group" class="message">
-            <form method="get" action="/level/1">
-                <button id="menu-button" type="submit">Level 1</button>
-            </form>
-            <form method="get" action="level/2">
-                <button id="menu-button" type="submit">Level 2</button>
-            </form>
-            <form method="get" action="level/3">
-                <button id="menu-button" type="submit">Level 3</button>
-            </form>
-            <form method="get" action="level/4">
-                <button id="menu-button" type="submit">Level 4</button>
-            </form>
-        </div>
-    </body>
-</html>
-}
+    @main {
+        <head>
+            <meta charset="UTF-8">
+            <title>Level Selection</title>
+            <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("../../public/stylesheets/main.css")">
+            <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+            <script src='@routes.Assets.versioned("javascripts/main.js")'></script>
+            <script src='@routes.Assets.versioned("javascripts/jquery-3.5.1.min.js")'></script>
+        </head>
+        <body>
+            <div class="container">
+                <div id="level-selection-button-group" class="message">
+                    <div class="row">
+                    </div>
+                    <div class="row">
+                        <button onclick="initLevel(1)" id="menu-button" type="submit">Level 1</button>
+                    </div>
+                    <div class="row">
+                        <button onclick="initLevel(2)" id="menu-button" type="submit">Level 2</button>
+                    </div>
+                    <div class="row">
+                        <button onclick="initLevel(3)" id="menu-button" type="submit">Level 3</button>
+                    </div>
+                    <div class="row">
+                        <button onclick="initLevel(4)" id="menu-button" type="submit">Level 4</button>
+                    </div>
+                    <div class="row">
+                        <button onclick="initLevel(5)" id="menu-button-blue" type="submit">Level 5</button>
+                    </div>
+                    <div class="row">
+                        <button onclick="initLevel(6)" id="menu-button-white" type="submit">Level 6</button>
+                    </div>
+                </div>
+            </div>
+        </body>
+        </html>
+    }

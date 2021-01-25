@@ -1,14 +1,16 @@
 @()
 
-    @main("TrailRunner") {
+    @main {
         <head>
             <meta charset="UTF-8">
             <title>About</title>
             <link href=“main.css” rel=“stylesheet” type=“text/css” />
+            <script src='@routes.Assets.versioned("javascripts/main.js")'></script>
+            <script src='@routes.Assets.versioned("javascripts/jquery-3.5.1.min.js")'></script>
         </head>
         <body>
             <div class="container-fluid">
-                <div class="message">
+                <div class="message justify-content-center">
                     <div id="Game-Description">
                         <fieldset id="Rules">
                             <legend>Rules</legend>
@@ -24,14 +26,14 @@
                                 <li>The door to the dungeon only opens once every field is
                                     broken, so you need to think about every step, to not block your own way and still
                                     make your way out!</li>
+                                <li>Once you walk on a field of ice, you will slide until you reach a non-ice field,<br> bump against a Wall or die!</li>
+                                <li>If hardcore-mode is activated, you can only walk 3 times in a row in the same direction,<br> otherwise an earthquake will destroy all fields!</li>
                             </ul>
                         </fieldset>
                     </div>
                 </div>
                 <div class="row">
-                    <form method="get" action="@routes.TrailRunnerController.menu()">
-                        <input id="back-to-main" type="submit" value="Back to Main Menu">
-                    </form>
+                    <button onclick="backToMain()" id="back-to-main" type="submit">Back to Main Menu</button>>
                 </div>
             </div>
         </body>

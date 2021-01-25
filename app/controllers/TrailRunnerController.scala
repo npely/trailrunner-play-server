@@ -3,14 +3,20 @@ package controllers
 import com.google.inject.Guice
 import javax.inject._
 import play.api.mvc._
-import controller.controllerComponent.{ControllerInterface, DungeonChanged}
+import controller.controllerComponent.{ControllerInterface, DungeonChanged, Earthquake}
 import aview.TUI
-import main.TrailRunnerModule
-import model.levelComponent.levelBaseImpl.{Level1, Level2, Level3, Level4}
+import model.levelComponent.levelBaseImpl.{Level1, Level2, Level3, Level4, Level5, Level6}
+import play.api.libs.json.{JsObject, JsValue, Json}
 import play.twirl.api.HtmlFormat
+import play.api.libs.streams.ActorFlow
+import akka.actor._
+import akka.stream.Materializer
+import main.TrailRunnerModule
+
+import scala.swing.Reactor
 
 @Singleton
-class TrailRunnerController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
+class TrailRunnerController @Inject()(val controllerComponents: ControllerComponents)(implicit system: ActorSystem, mat: Materializer) extends BaseController {
   val injector = Guice.createInjector(new TrailRunnerModule)
 
   val gameController = injector.getInstance(classOf[ControllerInterface])
@@ -21,14 +27,24 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
     Ok(getHtml(views.html.about()))
   }
 
+  def sandbox() = Action {
+    Ok(getHtml(views.html.sandbox(this)))
+  }
+
   def save() = Action {
     gameController.save
     Ok(getHtml(views.html.trailrunner(this)))
   }
 
   def load() = Action {
-    gameController.load
+    gameController.load(gameController.getLevelAsJson, true)
     Ok(getHtml(views.html.trailrunner(this)))
+  }
+
+  def loadCustomGame = Action { request =>
+    val json = request.body.asJson.get
+    gameController.load(json, false)
+    Ok
   }
 
   def changeToLevelSelection() = Action {
@@ -37,89 +53,64 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
   }
 
   def changeToGame(levelId: Long) = Action {
-    if(levelId == 1) {
+    if (levelId == 1) {
       gameController.initializeGame(new Level1, false)
     }
-    else if(levelId == 2) {
+    else if (levelId == 2) {
       gameController.initializeGame(new Level2, false)
     }
-    else if(levelId == 3) {
+    else if (levelId == 3) {
       gameController.initializeGame(new Level3, false)
     }
-    else if(levelId == 4) {
+    else if (levelId == 4) {
       gameController.initializeGame(new Level4, false)
     }
-    else {
-      BadRequest(tui.toString())
+    else if (levelId == 5) {
+      gameController.initializeGame(new Level5, false)
+    }
+    else if (levelId == 6) {
+      gameController.initializeGame(new Level6, false)
     }
     gameController.changeToGame()
     Ok(getHtml(views.html.trailrunner(this)))
   }
 
   def moveUp() = Action {
-    gameController.playerMoveUp()
-    if (isGameOver() == "win") {
-      Ok(getHtml(views.html.winScreen()))
-    } else if (isGameOver() == "lose") {
-      Ok(getHtml(views.html.loseScreen()))
-    } else {
-      Ok(getHtml(views.html.trailrunner(this)))
-    }
+    val madeMove: Boolean = gameController.playerMoveUp()
+    Ok(Json.obj(
+      "madeMove" -> madeMove
+    ))
   }
 
   def moveDown() = Action {
-    gameController.playerMoveDown()
-    if (isGameOver() == "win") {
-      Ok(getHtml(views.html.winScreen()))
-    } else if (isGameOver() == "lose") {
-      Ok(getHtml(views.html.loseScreen()))
-    } else {
-      Ok(getHtml(views.html.trailrunner(this)))
-    }
+    val madeMove: Boolean = gameController.playerMoveDown()
+    Ok(Json.obj(
+      "madeMove" -> madeMove
+    ))
   }
 
   def moveLeft() = Action {
-    gameController.playerMoveLeft()
-    if (isGameOver() == "win") {
-      Ok(getHtml(views.html.winScreen()))
-    } else if (isGameOver() == "lose") {
-      Ok(getHtml(views.html.loseScreen()))
-    } else {
-      Ok(getHtml(views.html.trailrunner(this)))
-    }
+    val madeMove: Boolean = gameController.playerMoveLeft()
+    Ok(Json.obj(
+      "madeMove" -> madeMove
+    ))
   }
 
   def moveRight() = Action {
-    gameController.playerMoveRight()
-    if (isGameOver() == "win") {
-      Ok(getHtml(views.html.winScreen()))
-    } else if (isGameOver() == "lose") {
-      Ok(getHtml(views.html.loseScreen()))
-    } else {
-      Ok(getHtml(views.html.trailrunner(this)))
-    }
+    val madeMove: Boolean = gameController.playerMoveRight()
+    Ok(Json.obj(
+      "madeMove" -> madeMove
+    ))
   }
 
   def undo() = Action {
     gameController.undo
-    if (isGameOver() == "win") {
-      Ok(getHtml(views.html.winScreen()))
-    } else if (isGameOver() == "lose") {
-      Ok(getHtml(views.html.loseScreen()))
-    } else {
-      Ok(getHtml(views.html.trailrunner(this)))
-    }
+    Ok(getHtml(views.html.trailrunner(this)))
   }
 
   def redo() = Action {
     gameController.redo
-    if (isGameOver() == "win") {
-      Ok(getHtml(views.html.winScreen()))
-    } else if (isGameOver() == "lose") {
-      Ok(getHtml(views.html.loseScreen()))
-    } else {
-      Ok(getHtml(views.html.trailrunner(this)))
-    }
+    Ok(getHtml(views.html.trailrunner(this)))
   }
 
   def start() = Action {
@@ -131,19 +122,111 @@ class TrailRunnerController @Inject()(val controllerComponents: ControllerCompon
     Ok(getHtml(views.html.mainMenu()))
   }
 
+  def switchHardcoreMode() = Action {
+    gameController.setHardcoreMode(!gameController.getHardcoreMode())
+    Ok(Json.obj("hardcoreMode" -> gameController.getHardcoreMode()))
+  }
+
+  def win() = Action {
+    Ok(getHtml(views.html.winScreen()))
+  }
+
+  def lose() = Action {
+    Ok(getHtml(views.html.loseScreen()))
+  }
+
+  def getMoveJson(yModifier: Int, xModifier: Int): JsObject = {
+    var isSliding = gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos).fieldType == "Ice" &&
+      gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos).value >= 0 &&
+      gameController.level.dungeon(gameController.player.yPos - yModifier)(gameController.player.xPos - xModifier).fieldType != "Wall"
+
+    Json.obj(
+      "lose" -> gameController.levelLose(),
+      "levelFieldSum" -> gameController.level.sum(),
+      "doorX" -> gameController.level.doorX,
+      "doorY" -> gameController.level.doorY,
+      "doorField" -> Json.obj(
+        "fieldvalue" -> gameController.level.dungeon(gameController.level.doorY)(gameController.level.doorX).value,
+        "fieldtype" -> "Door"
+      ),
+      "playerY" -> (gameController.player.yPos + yModifier),
+      "playerX" -> (gameController.player.xPos + xModifier),
+      "playerField" -> Json.obj(
+        "fieldvalue" -> gameController.level.dungeon(gameController.player.yPos + yModifier)(gameController.player.xPos + xModifier).value,
+        "fieldtype" -> gameController.level.dungeon(gameController.player.yPos + yModifier)(gameController.player.xPos + xModifier).fieldType,
+        "fog" -> gameController.level.dungeon(gameController.player.yPos + yModifier)(gameController.player.xPos + xModifier).fog
+      ),
+      "newPlayerY" -> gameController.player.yPos,
+      "newPlayerX" -> gameController.player.xPos,
+      "newPlayerField" -> Json.obj(
+        "fieldvalue" -> (gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos).value),
+        "fieldtype" -> gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos).fieldType,
+        "fog" -> gameController.level.dungeon(gameController.player.yPos)(gameController.player.xPos).fog
+      ),
+      "isSliding" -> isSliding)
+  }
+
+  def getChangedFields(move: String) = Action {
+    var returnObject: JsObject = null;
+    if (move == "up") {
+      returnObject = getMoveJson(1 , 0)
+    }
+    else if (move == "down") {
+      returnObject = getMoveJson(-1 , 0)
+    }
+    else if (move == "left") {
+      returnObject = getMoveJson(0 , 1)
+    }
+    else {
+      returnObject = getMoveJson(0 , -1)
+    }
+    Ok(returnObject)
+  }
+
+  def getLevelMap() = Action {
+    Ok(gameController.getLevelAsJson)
+  }
+
+
   def getHtml(htmlFormat: HtmlFormat.Appendable): HtmlFormat.Appendable = {
-    views.html.main("TrailRunner")(htmlFormat)
+    views.html.main(htmlFormat)
   }
 
   def isGameOver(): String = {
-    if(gameController.levelWin()) {
+    if (gameController.levelWin()) {
       "win"
     }
-    else if(gameController.levelLose()) {
+    else if (gameController.levelLose()) {
       "lose"
     }
     else {
       "continue"
     }
   }
+
+  def socket = WebSocket.accept[JsValue, JsValue] { _ =>
+    ActorFlow.actorRef {
+      actorRef => Props(new TrailRunnerWebSocketActor(actorRef))
+    }
   }
+
+  class TrailRunnerWebSocketActor(out: ActorRef) extends Actor with Reactor {
+    listenTo(gameController)
+
+    reactions += {
+      case event: Earthquake =>
+        gameController.earthquake()
+        out ! buildJsObject("earthquake", gameController.getLevelAsJson)
+      case event: DungeonChanged =>
+        out ! buildJsObject("dungeon-changed", gameController.getLevelAsJson)
+    }
+
+    def buildJsObject(event: String, value: JsValue): String = {
+      Json.obj("event" -> event, "value" -> value).toString()
+    }
+
+    def receive = {
+      case "ping" => out ! Json.obj("alive" -> "pong")
+    }
+  }
+}

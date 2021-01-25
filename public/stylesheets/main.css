@@ -15,7 +15,7 @@
     font-size: 50px;
     margin: auto;
     padding-bottom: 20px;
-    width: 100%;
+    width: fit-content;
     text-align: center;
     font-family: 'Press Start P2';
     color: firebrick;
@@ -60,6 +60,108 @@
     outline: none;
 }
 
+#menu-button-white {
+    border: none;
+    background: none;
+    font-size: 50px;
+    margin: auto;
+    padding-bottom: 20px;
+    width: fit-content;
+    text-align: center;
+    font-family: 'Press Start P2';
+    color: #ffffff;
+    transform: perspective(200px) rotateX(10deg);
+    letter-spacing: .1em;
+    user-select: none;
+    text-shadow: 0 -1px 0 #000,
+    0 1px 0 #ffffff,
+    0 2px 0 #eaeaea,
+    0 3px 0 #d7d7d7,
+    0 4px 0 #c8c8c8,
+    0 5px 0 #b3b3b3,
+    0 6px 0 #a7a7a7,
+    0 7px 0 #989898,
+    0 8px 0 #8d8d8d,
+    0 9px 0 #808080,
+    0 10px 0 #6b6b6b,
+    0 11px 0 #6b6b6b,
+    0 12px 0 #626262,
+    0 13px 0 #535353,
+    0 14px 0 #454545,
+    0 15px 0 #3c3c3c;
+
+    transition: text-shadow .2s ease .2s,
+    transform .2s ease .2s,
+    letter-spacing .3s ease .3s;
+}
+
+#menu-button-white:hover {
+    transition: text-shadow .3s ease,
+    transform .1s ease,
+    letter-spacing .1s ease;
+    text-shadow: 0 0 0 #989898,
+    0 1px 0 #808080,
+    0 2px 0 #6b6b6b,
+    0 3px 3px rgba(0, 0, 0, 0.9);
+    transform: translate(0px, 15px) perspective(200px) rotateX(10deg);
+    letter-spacing: .125em;
+}
+
+#menu-button-white:focus {
+    outline: none;
+}
+
+#menu-button-blue {
+    border: none;
+    background: none;
+    font-size: 50px;
+    margin: auto;
+    padding-bottom: 20px;
+    width: fit-content;
+    text-align: center;
+    font-family: 'Press Start P2';
+    color: #c0d4ee;
+    transform: perspective(200px) rotateX(10deg);
+    letter-spacing: .1em;
+    user-select: none;
+    text-shadow: 0 -1px 0 #000,
+    0 1px 0 #c0d4ee,
+    0 2px 0 #99bce9,
+    0 3px 0 #95baea,
+    0 4px 0 #9ebee7,
+    0 5px 0 #79a5de,
+    0 6px 0 #6b9ad7,
+    0 7px 0 #6595d2,
+    0 8px 0 #4f82c4,
+    0 9px 0 #4879b8,
+    0 10px 0 #3e73b7,
+    0 11px 0 #2d70b7,
+    0 12px 0 #2873ba,
+    0 13px 0 #1a73ba,
+    0 14px 0 #1a73ba,
+    0 15px 0 #0971ba;
+
+    transition: text-shadow .2s ease .2s,
+    transform .2s ease .2s,
+    letter-spacing .3s ease .3s;
+}
+
+#menu-button-blue:hover {
+    transition: text-shadow .3s ease,
+    transform .1s ease,
+    letter-spacing .1s ease;
+    text-shadow: 0 0 0 #6595d2,
+    0 1px 0 #4f82c4,
+    0 2px 0 #4879b8,
+    0 3px 3px rgba(0, 0, 0, 0.9);
+    transform: translate(0px, 15px) perspective(200px) rotateX(10deg);
+    letter-spacing: .125em;
+}
+
+#menu-button-blue:focus {
+    outline: none;
+}
+
 /*
     end of menu-region
  */
@@ -68,6 +170,7 @@
     color: white;
     font-family: "Press Start P2";
     font-size: 1em;
+    width: fit-content;
 }
 
 #Rules {
@@ -152,6 +255,21 @@ body {
     transform: translate(0px, 1px)
 }
 
+#hardcore-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 25px;
+}
+
+#hardcore-button:hover {
+    transform: translate(0px, 1px)
+}
+
+#hardcore-button:focus {
+    outline: none;
+}
+
 #redo-button:hover {
     transform: translate(0px, 1px)
 }
@@ -168,9 +286,22 @@ body {
     margin: auto;
 }
 
-#game-field {
+.game-field {
     width: 55px;
     height: 55px;
+}
+
+#field-selector {
+    width: 550px;
+    height: 550px;
+    color: white;
+    font-family: "Press Start P2";
+    font-size: 0.5em;
+    background: rgba(44, 44, 44, 0.75)
+}
+
+.selector-row {
+    margin-bottom: 25px;
 }
 
 #win-message {
@@ -267,10 +398,9 @@ body {
 
 }
 
-#no-padding {
+.no-padding {
     padding: 0 !important;
     margin: 0 !important;
-    flex-grow: 0;
 }
 
 .row {
@@ -287,6 +417,13 @@ body {
 
 .navbar-inner {
     background: transparent;
+}
+
+.sandbox-nav {
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    background: black;
 }
 
 #trailRunner-header {
@@ -373,6 +510,10 @@ body {
         font-size: 15px;
     }
 
+    #hardcore-button {
+        font-size: 15px;
+    }
+
     #level-logo {
         width: 20px;
         height: 20px;
@@ -382,9 +523,14 @@ body {
         font-size: 15px;
     }
 
-    #game-field {
+    .game-field {
         width: 45px;
         height: 45px;
+    }
+
+    #field-selector {
+        width: 450px;
+        height: 450px;
     }
 }
 
@@ -409,9 +555,14 @@ body {
         0 8px 0 #1c0402;
     }
 
-    #game-field {
+    .game-field {
         width: 30px;
         height: 30px;
+    }
+
+    #field-selector {
+        width: 300px;
+        height: 300px;
     }
 
     #move-button {
@@ -443,6 +594,10 @@ body {
         font-size: 10px;
     }
 
+    #hardcore-button {
+        font-size: 10px;
+    }
+
     #level-logo {
         width: 15px;
         height: 15px;
@@ -452,7 +607,7 @@ body {
         font-size: 10px;
     }
 
-    #game-field {
+    .game-field {
         width: 30px;
         height: 30px;
     }
